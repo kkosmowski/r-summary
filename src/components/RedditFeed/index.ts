@@ -1,0 +1,1 @@
+export { RedditFeed } from './RedditFeed';

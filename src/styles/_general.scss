@@ -1,8 +1,14 @@
 :root {
+  --border-color: #303030;
+
+  --color-text-50: rgba(255, 255, 255, 0.92);
+  --color-text-100: rgba(255, 255, 255, 0.84);
+  --color-text-200: rgba(255, 255, 255, 0.75);
+
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.91);
+  color: var(--color-text-50);
   background-color: #1a1a1a;
 
   font-synthesis: none;
