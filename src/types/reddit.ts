@@ -24,7 +24,7 @@ export type RawRedditData = {
         thumbnail_height: number;
         media: { reddit_video: { fallback_url: string } } | null;
         post_hint?: 'hosted:video' | 'image';
-        selftext: string;
+        selftext_html: string;
         visited: boolean;
       };
     }[];
@@ -35,7 +35,7 @@ export type PostItem = {
   id: string;
   awards: unknown[];
   authorName: string;
-  createdAt: Date;
+  createdAt: number;
   title: string;
   description: string;
   score: {

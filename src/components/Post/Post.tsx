@@ -8,14 +8,15 @@ type RedditFeedProps = {
 };
 
 export const Post = ({ post }: RedditFeedProps) => {
-  console.log(post.video);
   return (
     <a href={post.link} target="_blank" rel="noopener noreferrer" className={styles.postLink}>
       <article className={styles.postContainer}>
         <div className={styles.content}>
           <PostHeader post={post} />
           <h2 className={styles.title}>{post.title}</h2>
-          {post.description && <p className={styles.description}>{post.description}</p>}
+          {post.description && (
+            <p className={styles.description} dangerouslySetInnerHTML={{ __html: post.description }} />
+          )}
         </div>
 
         {post.type !== 'text' && (

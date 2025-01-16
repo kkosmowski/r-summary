@@ -8,11 +8,23 @@
 
 .description {
   font-size: 15px;
+  white-space: wrap;
   letter-spacing: 0.02ch;
   font-weight: 300;
   line-height: 1.4;
   color: var(--color-text-100);
   margin-block-start: 2px;
+  word-break: break-word;
+
+  a:link {
+    color: var(--color-text-50);
+  }
+  a:visited {
+    color: var(--color-text-200);
+  }
+  a:hover,a:active {
+  color: var(--color-text-50);
+}
 }
 
 .postContainer {

@@ -6,12 +6,19 @@ type ScoreProps = {
   score: PostItem['score'];
 };
 
+const getScoreClassName = (ups: number) => {
+  if (ups >= 90) return styles.scoreGreat;
+  if (ups >= 70) return styles.scoreGood;
+  if (ups >= 50) return styles.scoreOk;
+  return styles.scoreBad;
+};
+
 export const Score = ({ score }: ScoreProps) => {
   return (
     <div className={styles.scoreContainer}>
       <span className={styles.score}>{score.total}</span>
       <span>
-        (<span className={score.ups >= 90 ? styles.ups : ''}>{score.ups}%</span>)
+        (<span className={`${styles.score} ${getScoreClassName(score.ups)}`}>{Math.round(score.ups)}%</span>)
       </span>
     </div>
   );

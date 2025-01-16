@@ -9,6 +9,9 @@ export const Dashboard = () => {
       <Card>
         <RedditFeed r="witcher" />
       </Card>
+      <Card>
+        <RedditFeed r="frontend" />
+      </Card>
     </section>
   );
 };

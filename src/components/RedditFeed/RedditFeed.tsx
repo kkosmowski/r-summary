@@ -18,6 +18,10 @@ export const RedditFeed = ({ r }: RedditFeedProps) => {
     return 'error...';
   }
 
+  if (!data) {
+    return `[${r}] no data...`;
+  }
+
   return (
     <div className={styles.posts}>
       <h2 className={styles.subreddit}>

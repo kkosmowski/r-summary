@@ -22,11 +22,15 @@ const formatDate = (date: Date): string => {
 export const PostHeader = ({ post }: PostHeaderProps) => {
   return (
     <header className={styles.header}>
-      <Flair flair={post.flair} />
-      <Separator />
+      {post.flair.text && (
+        <>
+          <Flair flair={post.flair} />
+          <Separator />
+        </>
+      )}
       <Score score={post.score} />
       <Separator />
-      {formatDate(post.createdAt)}
+      {formatDate(new Date(post.createdAt))}
       {/*<Separator />*/}
       {/*<a*/}
       {/*  href={`https://reddit.com/user/${post.authorName}`}*/}
