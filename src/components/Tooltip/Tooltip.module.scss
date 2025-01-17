@@ -1,0 +1,14 @@
+.wrapper {
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.title {
+  position: fixed;
+  padding: 1px 6px;
+  background-color: var(--color-dark-100);
+  color: inherit;
+  font-size: 13px;
+  width: auto;
+  max-width: 400px;
+}

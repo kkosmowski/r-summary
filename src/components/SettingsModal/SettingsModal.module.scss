@@ -1,0 +1,18 @@
+.settingsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.settingItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+
+  > p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}

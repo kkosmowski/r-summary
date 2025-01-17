@@ -1,0 +1,20 @@
+:root {
+  --border-color: #303030;
+
+  --color-light-50: #ebebeb;
+  --color-light-100: #d6d6d6;
+  --color-light-200: #c2c2c2;
+  --color-light-300: #ababab;
+
+  --color-dark-032: rgb(0, 0, 0, 0.32);
+  --color-dark-50: #1a1a1a;
+  --color-dark-100: #222;
+  --color-dark-200: #292929;
+
+  --color-primary-500: #9575CD;
+
+  --color-text-50: var(--color-light-50);
+  --color-text-100: var(--color-light-100);
+  --color-text-200: var(--color-light-200);
+  --color-text-300: var(--color-light-300);
+}

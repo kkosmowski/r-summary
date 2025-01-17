@@ -3,7 +3,6 @@ import { RawRedditData, TransformedData } from 'src/types/reddit';
 import { cacheData } from 'src/utils/cache-data';
 import { PostItem } from 'src/types/reddit';
 import { getData } from 'src/utils/caching';
-f;
 
 const selftext_html_start = 43;
 const selftext_html_end = -33;

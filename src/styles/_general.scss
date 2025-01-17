@@ -1,16 +1,9 @@
 :root {
-  --border-color: #303030;
-
-  --color-text-50: #ebebeb;
-  --color-text-100: #d6d6d6;
-  --color-text-200: #c2c2c2;
-  --color-text-300: #ababab;
-
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color: var(--color-text-50);
-  background-color: #1a1a1a;
+  background-color: var(--color-dark-50);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

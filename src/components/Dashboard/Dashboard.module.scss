@@ -2,6 +2,12 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+  gap: 16px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
   padding: 16px;
   gap: 16px;
 }

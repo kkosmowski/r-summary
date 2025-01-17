@@ -1,13 +1,12 @@
 .posts {
   display: flex;
   flex-direction: column;
-  max-width: 640px;
+  max-width: 600px;
 }
 
 .subreddit {
   font-size: 20px;
   padding: 16px 16px 0;
-  letter-spacing: 0.04ch;
 }
 
 .link {
