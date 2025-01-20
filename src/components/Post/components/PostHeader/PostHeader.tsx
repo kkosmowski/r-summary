@@ -6,6 +6,7 @@ import { Separator } from '~/components/Separator';
 
 import styles from './PostHeader.module.scss';
 import { CommentIcon } from '~/icons/CommentIcon';
+import { useSettings } from '~/contexts/SettingsContext';
 
 type PostHeaderProps = {
   post: PostItem;
@@ -20,6 +21,10 @@ const formatDate = (date: Date): string => {
 };
 
 export const PostHeader = ({ post }: PostHeaderProps) => {
+  const { getValue } = useSettings();
+  const showAuthor = getValue('setting-show-author') as boolean;
+  const showCommentsCount = getValue('setting-show-comments') as boolean;
+
   return (
     <header className={styles.header}>
       {post.flair.text && (
@@ -31,19 +36,27 @@ export const PostHeader = ({ post }: PostHeaderProps) => {
       <Score score={post.score} />
       <Separator />
       {formatDate(new Date(post.createdAt))}
-      {/*<Separator />*/}
-      {/*<a*/}
-      {/*  href={`https://reddit.com/user/${post.authorName}`}*/}
-      {/*  target="_blank"*/}
-      {/*  rel="noopener noreferrer"*/}
-      {/*  className={styles.author}*/}
-      {/*>*/}
-      {/*  {post.authorName}*/}
-      {/*</a>*/}
-      <Separator />
-      <span>
-        <CommentIcon size={12} /> {post.commentCount}
-      </span>
+      {showAuthor && (
+        <>
+          <Separator />
+          <a
+            href={`https://reddit.com/user/${post.authorName}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.author}
+          >
+            {post.authorName}
+          </a>
+        </>
+      )}
+      {showCommentsCount && (
+        <>
+          <Separator />
+          <span>
+            <CommentIcon size={12} /> {post.commentCount}
+          </span>
+        </>
+      )}
     </header>
   );
 };

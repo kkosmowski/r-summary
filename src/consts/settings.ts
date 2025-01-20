@@ -25,6 +25,15 @@ const showCommentsSetting: BooleanSetting = {
   value: true,
 };
 
+const showPreviewSetting: BooleanSetting = {
+  key: 'setting-show-preview',
+  label: 'Show preview',
+  type: 'boolean',
+  helperText: 'Select if image or video preview should be visible',
+  defaultValue: true,
+  value: true,
+};
+
 const postsPerSubredditSetting: NumberSetting = {
   key: 'setting-posts-per-subreddit',
   label: 'Posts per subreddit',
@@ -36,6 +45,16 @@ const postsPerSubredditSetting: NumberSetting = {
   max: 25,
 };
 
+const clipTitleSetting: SelectSetting = {
+  key: 'setting-clip-post-title',
+  label: 'Clip post title',
+  type: 'select',
+  helperText: 'Clip title to given length, 0 means no clipping',
+  defaultValue: 0,
+  value: 0,
+  options: [0, 40, 60, 80, 100, 140, 200],
+};
+
 const clipDescriptionSetting: SelectSetting = {
   key: 'setting-clip-post-description',
   label: 'Clip post description',
@@ -43,7 +62,7 @@ const clipDescriptionSetting: SelectSetting = {
   helperText: 'Clip description to given length, 0 means no clipping',
   defaultValue: 0,
   value: 0,
-  options: [0, 70, 100, 150, 200, 400],
+  options: [0, 120, 200, 350, 450],
 };
 
 const dataRefreshFrequencySetting: SelectSetting = {
@@ -93,16 +112,18 @@ const columnsSetting: NumberSetting = {
   defaultValue: 2,
   value: 2,
   min: 1,
-  max: 6,
+  max: 12,
 };
 
 export const SETTINGS = {
-  'setting-condensed-view': themeSetting,
-  'setting-show-author': condensedViewSetting,
-  'setting-show-comments': columnsSetting,
-  'setting-posts-per-subreddit': dataRefreshFrequencySetting,
-  'setting-clip-post-description': postsPerSubredditSetting,
-  'setting-data-refresh-frequency': clipDescriptionSetting,
-  'setting-theme': showAuthorsSetting,
-  'setting-columns': showCommentsSetting,
+  'setting-theme': themeSetting,
+  'setting-condensed-view': condensedViewSetting,
+  'setting-columns': columnsSetting,
+  'setting-data-refresh-frequency': dataRefreshFrequencySetting,
+  'setting-posts-per-subreddit': postsPerSubredditSetting,
+  'setting-clip-post-title': clipTitleSetting,
+  'setting-clip-post-description': clipDescriptionSetting,
+  'setting-show-preview': showPreviewSetting,
+  'setting-show-author': showAuthorsSetting,
+  'setting-show-comments': showCommentsSetting,
 };

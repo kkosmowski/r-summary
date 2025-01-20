@@ -1,7 +1,6 @@
 .dashboardContainer {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
+  display: grid;
+  grid-template-rows: auto;
   gap: 16px;
 }
 
