@@ -3,6 +3,8 @@ import { RawRedditData, TransformedData } from '~/types/reddit';
 import { cacheData } from '~/utils/cache-data';
 import { PostItem } from '~/types/reddit';
 import { getData } from '~/utils/caching';
+import { useSettings } from '~/contexts/SettingsContext';
+import { CACHE_TIME } from '~/consts/api.ts';
 
 const selftext_html_start = 43;
 const selftext_html_end = -33;
@@ -14,7 +16,7 @@ function htmlDecode(input: string | null) {
   return e.childNodes[0].nodeValue ?? '';
 }
 
-const prepareData = (data: RawRedditData): TransformedData => {
+const prepareData = (data: RawRedditData, refetchTimeInMin = CACHE_TIME): TransformedData => {
   const transformed = {
     subreddit: {
       name: data.data.children[0].data.subreddit.toLowerCase(),
@@ -55,12 +57,14 @@ const prepareData = (data: RawRedditData): TransformedData => {
       ),
   };
 
-  cacheData(transformed);
+  cacheData(transformed, refetchTimeInMin);
 
   return transformed;
 };
 
 export const useFetchReddit = (r: string) => {
+  const { getValue } = useSettings();
+  const refetchTimeInMin = getValue('setting-data-refresh-frequency') as number;
   const [data, setData] = useState<TransformedData | undefined>();
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -76,7 +80,7 @@ export const useFetchReddit = (r: string) => {
     const data = await response.json();
 
     setIsLoading(false);
-    setData(prepareData(data));
+    setData(prepareData(data, refetchTimeInMin));
   }, []);
 
   useEffect(() => {

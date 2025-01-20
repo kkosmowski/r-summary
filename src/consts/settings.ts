@@ -69,7 +69,8 @@ const dataRefreshFrequencySetting: SelectSetting = {
   key: 'setting-data-refresh-frequency',
   label: 'Data refresh frequency',
   type: 'select',
-  helperText: 'Data is being cached, decide how frequent it should be refreshed',
+  helperText:
+    'Data is being cached, decide how frequent it should be refreshed. New value will be applied on next refresh.',
   defaultValue: 240,
   value: 240,
   options: [
