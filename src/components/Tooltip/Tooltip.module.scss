@@ -5,10 +5,11 @@
 
 .title {
   position: fixed;
-  padding: 1px 6px;
+  padding: 5px 9px;
   background-color: var(--color-dark-100);
+  line-height: 1.25;
   color: inherit;
   font-size: 13px;
-  width: auto;
+  width: fit-content;
   max-width: 400px;
 }

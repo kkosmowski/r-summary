@@ -7,3 +7,9 @@
   line-height: 1;
   letter-spacing: 0.02ch;
 }
+
+:global(.--condensed) {
+  .badge {
+    padding: 2px 6px;
+  }
+}

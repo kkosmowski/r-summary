@@ -10,3 +10,14 @@
   padding: 16px;
   gap: 16px;
 }
+
+:global(.--condensed) {
+  .dashboardContainer {
+    gap: 8px;
+  }
+
+  .main {
+    padding: 8px;
+    gap: 4px;
+  }
+}

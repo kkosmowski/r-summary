@@ -1,10 +1,10 @@
 import { Modal, type ModalProps } from '~/components/Modal';
+import { useSettings } from '~/contexts/SettingsContext';
 
 import styles from './SettingsModal.module.scss';
 import { SettingItem } from './components/SettingItem';
-import { useSettings } from '~/contexts/SettingsContext';
 
-export const SettingsModal = ({ isOpen, onClose }: ModalProps) => {
+export const SettingsModal = ({ isOpen, onClose }: Pick<ModalProps, 'isOpen' | 'onClose'>) => {
   const { settings } = useSettings();
 
   return (

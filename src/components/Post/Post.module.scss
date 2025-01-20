@@ -54,3 +54,25 @@
   max-width: 220px;
   max-height: 160px;
 }
+
+:global(.--condensed) {
+  .title {
+    line-height: 1.25;
+  }
+
+  .description {
+    line-height: 1.2;
+    margin-block-start: 0;
+  }
+
+  .postContainer {
+    padding: 6px 12px 12px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .thumbnail {
+    max-width: 190px;
+    max-height: 130px;
+  }
+}
