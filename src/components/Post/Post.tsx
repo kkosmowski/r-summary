@@ -1,4 +1,4 @@
-import { PostItem } from 'src/types/reddit';
+import { PostItem } from '~/types/reddit';
 
 import { PostHeader } from './components/PostHeader';
 import styles from './Post.module.scss';

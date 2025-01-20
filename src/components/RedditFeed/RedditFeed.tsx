@@ -1,5 +1,5 @@
-import { useFetchReddit } from 'src/hooks/use-fetch-reddit';
-import { PostsList } from 'src/components/PostsList';
+import { useFetchReddit } from '~/hooks/use-fetch-reddit';
+import { PostsList } from '~/components/PostsList';
 
 import styles from './RedditFeed.module.scss';
 

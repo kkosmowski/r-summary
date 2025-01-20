@@ -1,5 +1,7 @@
+import type { SETTINGS } from '~/consts/settings';
+
 export type BaseSetting = {
-  key: string;
+  key: SettingKey;
   label: string;
   disabled?: boolean;
   helperText?: string;
@@ -28,4 +30,6 @@ export type NumberSetting = BaseSetting & {
 
 export type SettingType = 'select' | 'boolean' | 'number';
 export type Setting = SelectSetting | BooleanSetting | NumberSetting;
-export type AppSettings = Setting[];
+export type AppSettings = typeof SETTINGS;
+export type SettingKey = keyof AppSettings;
+export type SettingValue<> = string | number | boolean;

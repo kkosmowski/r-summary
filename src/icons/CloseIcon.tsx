@@ -1,4 +1,4 @@
-import { IconProps } from 'src/types/ui';
+import { IconProps } from '~/types/ui';
 
 export const CloseIcon = ({ size = 24 }: IconProps) => (
   <svg xmlns="http://www.w3.org/2000/svg" height={size} viewBox="0 0 24 24" width={size}>

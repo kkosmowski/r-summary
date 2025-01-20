@@ -1,6 +1,6 @@
-import { SettingsIcon } from 'src/icons/SettingsIcon';
-import { useModal } from 'src/hooks/use-modal';
-import { SettingsModal } from 'src/components/SettingsModal';
+import { SettingsIcon } from '~/icons/SettingsIcon';
+import { useModal } from '~/hooks/use-modal';
+import { SettingsModal } from '~/components/SettingsModal';
 
 import styles from './Toolbar.module.scss';
 

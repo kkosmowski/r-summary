@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import { Setting } from 'src/types/settings';
-import { SettingType } from 'src/types/settings';
+import { Setting } from '~/types/settings';
+import { SettingType } from '~/types/settings';
 
 import { BooleanSettingItem } from '../BooleanSettingItem';
 import { NumberSettingItem } from '../NumberSettingItem';

@@ -1,4 +1,4 @@
-import { PostItem } from 'src/types/reddit';
+import { PostItem } from '~/types/reddit';
 
 import styles from './Score.module.scss';
 

@@ -1,11 +1,11 @@
-import { Flair } from 'src/components/Flair';
-import { PostItem } from 'src/types/reddit';
+import { Flair } from '~/components/Flair';
+import { PostItem } from '~/types/reddit';
 
 import { Score } from '../Score';
-import { Separator } from 'src/components/Separator';
+import { Separator } from '~/components/Separator';
 
 import styles from './PostHeader.module.scss';
-import { CommentIcon } from 'src/icons/CommentIcon';
+import { CommentIcon } from '~/icons/CommentIcon';
 
 type PostHeaderProps = {
   post: PostItem;

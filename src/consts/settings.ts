@@ -1,4 +1,4 @@
-import { AppSettings, Setting, BooleanSetting, NumberSetting, SelectSetting } from 'src/types/settings';
+import { BooleanSetting, NumberSetting, SelectSetting } from '~/types/settings';
 
 const condensedViewSetting: BooleanSetting = {
   key: 'setting-condensed-view',
@@ -84,65 +84,25 @@ const themeSetting: SelectSetting = {
   ],
 };
 
-const columnsSettingKey = 'setting-columns';
 const columnsSetting: NumberSetting = {
-  key: columnsSettingKey,
+  key: 'setting-columns',
   label: 'Number of columns',
   type: 'number',
   helperText:
     'Number of columns was initially set based on your screen size, you can still choose a different value. Careful – the higher the count the bigger screen resolution you may need.',
-  defaultValue: getColumns(2),
-  value: getColumns(2),
+  defaultValue: 2,
+  value: 2,
   min: 1,
   max: 6,
 };
 
-const APP_SETTINGS: AppSettings = [
-  themeSetting,
-  condensedViewSetting,
-  columnsSetting,
-  dataRefreshFrequencySetting,
-  postsPerSubredditSetting,
-  clipDescriptionSetting,
-  showAuthorsSetting,
-  showCommentsSetting,
-];
-
-function getSetting(setting: Setting | string, fallbackToDefault: boolean) {
-  const settingKey = typeof setting === 'string' ? setting : setting.key;
-  const settingDefaultValue = fallbackToDefault ? (typeof setting === 'string' ? null : setting.defaultValue) : null;
-  const string = localStorage.getItem(settingKey);
-
-  if (!string) return settingDefaultValue;
-
-  return JSON.parse(string).value;
-}
-
-function cacheSetting(settingKey: string, value: string | number | boolean) {
-  localStorage.setItem(settingKey, JSON.stringify({ value }));
-}
-
-function getColumns(defaultValue: number): number {
-  if (!window) return defaultValue;
-
-  const cached = getSetting(columnsSettingKey, false);
-  if (cached) return cached;
-
-  const screenWidth = window.outerWidth;
-  let value = 1;
-
-  if (screenWidth > 3600) value = 6;
-  else if (screenWidth > 2400) value = 4;
-  else if (screenWidth > 1900) value = 3;
-  else if (screenWidth < 1300) value = 2;
-
-  cacheSetting(columnsSettingKey, value);
-  return value;
-}
-
-export const getAvailableSettings = () => {
-  return APP_SETTINGS.map((setting): typeof setting => ({
-    ...setting,
-    value: getSetting(setting, true),
-  }));
+export const SETTINGS = {
+  'setting-condensed-view': themeSetting,
+  'setting-show-author': condensedViewSetting,
+  'setting-show-comments': columnsSetting,
+  'setting-posts-per-subreddit': dataRefreshFrequencySetting,
+  'setting-clip-post-description': postsPerSubredditSetting,
+  'setting-data-refresh-frequency': clipDescriptionSetting,
+  'setting-theme': showAuthorsSetting,
+  'setting-columns': showCommentsSetting,
 };

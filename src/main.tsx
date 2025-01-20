@@ -1,10 +1,14 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import './styles/index.scss';
-import { App } from './components/App';
+
+import { SettingsController } from '~/contexts/SettingsContext';
+import { App } from '~/components/App';
+import '~/styles/index.scss';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <SettingsController>
+      <App />
+    </SettingsController>
   </StrictMode>,
 );

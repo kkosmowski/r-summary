@@ -1,6 +1,6 @@
-import { HelpIcon } from 'src/icons/HelpIcon';
-import { Tooltip } from 'src/components/Tooltip';
-import { SelectSetting } from 'src/types/settings';
+import { HelpIcon } from '~/icons/HelpIcon';
+import { Tooltip } from '~/components/Tooltip';
+import { SelectSetting } from '~/types/settings';
 
 import styles from '../../SettingsModal.module.scss';
 

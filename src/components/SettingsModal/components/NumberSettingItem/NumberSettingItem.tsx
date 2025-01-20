@@ -1,10 +1,25 @@
-import { HelpIcon } from 'src/icons/HelpIcon';
-import { Tooltip } from 'src/components/Tooltip';
-import { NumberSetting } from 'src/types/settings';
+import { HelpIcon } from '~/icons/HelpIcon';
+import { Tooltip } from '~/components/Tooltip';
+import { NumberSetting } from '~/types/settings';
 
 import styles from '../../SettingsModal.module.scss';
+import { useSettings } from '~/contexts/SettingsContext';
+import { ChangeEvent, useCallback, useState } from 'react';
 
 export const NumberSettingItem = ({ setting }: { setting: NumberSetting }) => {
+  const [value, setValue] = useState<number>(setting.value);
+  const { setSetting } = useSettings();
+
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const newValue = +event.target.value;
+
+      setSetting(setting.key, newValue);
+      setValue(newValue);
+    },
+    [setSetting, setValue],
+  );
+
   return (
     <div className={styles.settingItem}>
       <p>
@@ -16,7 +31,7 @@ export const NumberSettingItem = ({ setting }: { setting: NumberSetting }) => {
         )}
       </p>
 
-      <input type="number" min={setting.min} max={setting.max} value={setting.value} />
+      <input type="number" min={setting.min} max={setting.max} value={value} onChange={handleChange} />
     </div>
   );
 };

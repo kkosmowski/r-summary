@@ -1,11 +1,11 @@
-import { Modal, type ModalProps } from 'src/components/Modal';
-import { getAvailableSettings } from 'src/consts/settings';
+import { Modal, type ModalProps } from '~/components/Modal';
 
 import styles from './SettingsModal.module.scss';
 import { SettingItem } from './components/SettingItem';
+import { useSettings } from '~/contexts/SettingsContext';
 
 export const SettingsModal = ({ isOpen, onClose }: ModalProps) => {
-  const settings = getAvailableSettings();
+  const { settings } = useSettings();
 
   return (
     <Modal title="Settings" isOpen={isOpen} onClose={onClose} closeOnBackdrop={false}>

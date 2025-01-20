@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-import { RawRedditData, TransformedData } from 'src/types/reddit';
-import { cacheData } from 'src/utils/cache-data';
-import { PostItem } from 'src/types/reddit';
-import { getData } from 'src/utils/caching';
+import { RawRedditData, TransformedData } from '~/types/reddit';
+import { cacheData } from '~/utils/cache-data';
+import { PostItem } from '~/types/reddit';
+import { getData } from '~/utils/caching';
 
 const selftext_html_start = 43;
 const selftext_html_end = -33;

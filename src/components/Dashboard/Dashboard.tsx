@@ -1,6 +1,6 @@
-import { Card } from 'src/components/Card';
-import { RedditFeed } from 'src/components/RedditFeed';
-import { Toolbar } from 'src/components/Toolbar';
+import { Card } from '~/components/Card';
+import { RedditFeed } from '~/components/RedditFeed';
+import { Toolbar } from '~/components/Toolbar';
 
 import styles from './Dashboard.module.scss';
 

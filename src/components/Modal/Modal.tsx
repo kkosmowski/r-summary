@@ -1,6 +1,6 @@
 import { PropsWithChildren, ReactNode } from 'react';
 
-import { CloseIcon } from 'src/icons/CloseIcon';
+import { CloseIcon } from '~/icons/CloseIcon';
 
 import styles from './Modal.module.scss';
 
