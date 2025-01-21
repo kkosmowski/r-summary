@@ -15,8 +15,13 @@ body.--color {
   --color-dark-200: #8621f1;
   --color-dark-300: #8621f1;
 
-  --color-primary-500-focus: rgb(149, 117, 205, 0.1);
+  --color-primary-500-focus: rgb(149, 117, 205, 0.3);
+  --color-primary-500-active: rgb(149, 117, 205, 0.1);
   --color-primary-500: rgb(19, 192, 151);
+
+  --color-score-great: #0d915a;
+  --color-score-good: #a97a00;
+  --color-score-bad: #d92067;
 
   --color-fg-0: var(--color-dark-0);
   --color-fg-50: var(--color-dark-50);

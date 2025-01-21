@@ -18,6 +18,10 @@ body.--black {
   --color-primary-500-active: rgba(205, 174, 117, 0.1);
   --color-primary-500: rgba(205, 174, 117);
 
+  --color-score-great: #9dee9d;
+  --color-score-good: #f5f2a9;
+  --color-score-bad: #f39a9a;
+
   --color-fg-0: var(--color-light-0);
   --color-fg-50: var(--color-light-50);
   --color-fg-100: var(--color-light-100);
@@ -31,7 +35,6 @@ body.--black {
   --color-bg-50: var(--color-dark-50);
   --color-bg-100: var(--color-dark-100);
   --color-bg-200: var(--color-dark-200);
-
 
   color: var(--color-fg-50);
   background-color: var(--color-bg-50);

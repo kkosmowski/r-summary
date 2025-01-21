@@ -12,11 +12,16 @@ body.--light {
 
 
   --color-dark-50: #07162a;
-  --color-dark-100: #0f1926;
+  --color-dark-100: #0f1825;
   --color-dark-200: #333f50;
 
-  --color-primary-500-focus: rgb(234, 43, 94, 0.1);
+  --color-primary-500-focus: rgb(234, 43, 94, 0.35);
+  --color-primary-500-active: rgb(234, 43, 94, 0.12);
   --color-primary-500: rgb(234, 43, 94);
+
+  --color-score-great: #187e18;
+  --color-score-good: #6b6906;
+  --color-score-bad: #ad4343;
 
   --color-fg-0: var(--color-dark-0);
   --color-fg-50: var(--color-dark-50);

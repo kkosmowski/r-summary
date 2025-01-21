@@ -12,10 +12,15 @@ body.--contrast {
   --color-dark-active: #181818;
   --color-dark-50: #000;
   --color-dark-100: #242424;
+  --color-dark-200: #1f1f1f;
 
   --color-primary-500-focus: rgba(255, 255, 0, 0.4);
   --color-primary-500-active: rgba(255, 255, 0, 0.1);
   --color-primary-500: rgba(255, 255, 0);
+
+  --color-score-great: #7aff7a;
+  --color-score-good: #fff956;
+  --color-score-bad: #ff6767;
 
   --color-fg-0: var(--color-light-0);
   --color-fg-50: var(--color-light-50);
