@@ -1,7 +1,9 @@
 body.--dark {
   --border-color: #303030;
+  --border-color-2: #434343;
 
-  --color-light-0: #f6f6f6;
+  --color-light-0: #fafafa;
+  --color-light-25: #f6f6f6;
   --color-light-50: #ebebeb;
   --color-light-100: #d6d6d6;
   --color-light-200: #c2c2c2;
@@ -10,6 +12,8 @@ body.--dark {
   --color-dark-032: rgb(0, 0, 0, 0.32);
   --color-dark-focus: #282828;
   --color-dark-active: #222;
+  --color-dark-0: #1a1a1a;
+  --color-dark-25: #1a1a1a;
   --color-dark-50: #1a1a1a;
   --color-dark-100: #222;
   --color-dark-200: #262626;
@@ -23,6 +27,7 @@ body.--dark {
   --color-score-bad: #f1a7a7;
 
   --color-fg-0: var(--color-light-0);
+  --color-fg-25: var(--color-light-25);
   --color-fg-50: var(--color-light-50);
   --color-fg-100: var(--color-light-100);
   --color-fg-200: var(--color-light-200);
@@ -32,10 +37,15 @@ body.--dark {
   --color-bg-active: var(--color-dark-active);
   --color-bg-back: var(--color-dark-032);
   --color-bg-0: var(--color-dark-0);
+  --color-bg-25: var(--color-dark-25);
   --color-bg-50: var(--color-dark-50);
   --color-bg-100: var(--color-dark-100);
   --color-bg-200: var(--color-dark-200);
 
   color: var(--color-fg-50);
   background-color: var(--color-bg-50);
+
+  input[type=number]::-webkit-inner-spin-button {
+    filter: invert(0.96);
+  }
 }

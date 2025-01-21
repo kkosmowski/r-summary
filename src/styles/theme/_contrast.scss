@@ -1,7 +1,8 @@
 body.--contrast {
-  --border-color: #666;
+  --border-color: #555;
+  --border-color-2: #aaa;
 
-  --color-light-0: #fff;
+  --color-light-25: #fff;
   --color-light-50: #fff;
   --color-light-100: #fff;
   --color-light-200: #fff;
@@ -10,6 +11,8 @@ body.--contrast {
   --color-dark-032: rgb(36, 36, 36, 0.64);
   --color-dark-focus: #333;
   --color-dark-active: #181818;
+  --color-dark-0: #000;
+  --color-dark-25: #000;
   --color-dark-50: #000;
   --color-dark-100: #242424;
   --color-dark-200: #1f1f1f;
@@ -22,7 +25,7 @@ body.--contrast {
   --color-score-good: #fff956;
   --color-score-bad: #ff6767;
 
-  --color-fg-0: var(--color-light-0);
+  --color-fg-25: var(--color-light-25);
   --color-fg-50: var(--color-light-50);
   --color-fg-100: var(--color-light-100);
   --color-fg-200: var(--color-light-200);
@@ -33,6 +36,7 @@ body.--contrast {
   --color-bg-active: var(--color-dark-active);
   --color-bg-back: var(--color-dark-032);
   --color-bg-0: var(--color-dark-0);
+  --color-bg-25: var(--color-dark-25);
   --color-bg-50: var(--color-dark-50);
   --color-bg-100: var(--color-dark-100);
   --color-bg-200: var(--color-dark-200);
@@ -40,4 +44,8 @@ body.--contrast {
 
   color: var(--color-fg-50);
   background-color: var(--color-bg-50);
+
+  input[type=number]::-webkit-inner-spin-button {
+    filter: invert(1) contrast(1.15);
+  }
 }

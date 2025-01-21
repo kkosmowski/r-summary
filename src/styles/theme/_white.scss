@@ -1,10 +1,12 @@
 body.--white {
   --border-color: #f2f2f2;
+  --border-color-2: #e2e2e2;
 
   --color-light-032: rgba(0, 0, 0, 0.25);
   --color-light-focus: #efefef;
   --color-light-active: #f6f6f6;
-  --color-light-0: #f3fff7;
+  --color-light-0: #fff;
+  --color-light-25: #f3fff7;
   --color-light-50: #fff;
   --color-light-100: #f8f8f8;
   --color-light-200: #f4f4f4;
@@ -22,7 +24,7 @@ body.--white {
   --color-score-good: #6b6906;
   --color-score-bad: #ad4343;
 
-  --color-fg-0: var(--color-dark-0);
+  --color-fg-25: var(--color-dark-25);
   --color-fg-50: var(--color-dark-50);
   --color-fg-100: var(--color-dark-100);
   --color-fg-200: var(--color-dark-200);
@@ -32,10 +34,15 @@ body.--white {
   --color-bg-active: var(--color-light-active);
   --color-bg-back: var(--color-light-032);
   --color-bg-0: var(--color-light-0);
+  --color-bg-25: var(--color-light-25);
   --color-bg-50: var(--color-light-50);
   --color-bg-100: var(--color-light-100);
   --color-bg-200: var(--color-light-200);
 
   color: var(--color-fg-50);
   background-color: var(--color-bg-50);
+
+  input[type=number]::-webkit-inner-spin-button {
+    filter: brightness(2);
+  }
 }

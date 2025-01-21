@@ -1,7 +1,9 @@
 body.--black {
   --border-color: #1f1f1f;
+  --border-color-2: #2d2d2d;
 
-  --color-light-0: #e0e0e0;
+  --color-light-0: #fff;
+  --color-light-25: #e0e0e0;
   --color-light-50: #d0d0d0;
   --color-light-100: #d6d6d6;
   --color-light-200: #c2c2c2;
@@ -10,6 +12,8 @@ body.--black {
   --color-dark-032: rgb(30, 30, 30, 0.5);
   --color-dark-focus: #161616;
   --color-dark-active: #101010;
+  --color-dark-0: #000;
+  --color-dark-25: #000;
   --color-dark-50: #040404;
   --color-dark-100: #111;
   --color-dark-200: #171717;
@@ -23,6 +27,7 @@ body.--black {
   --color-score-bad: #f39a9a;
 
   --color-fg-0: var(--color-light-0);
+  --color-fg-25: var(--color-light-25);
   --color-fg-50: var(--color-light-50);
   --color-fg-100: var(--color-light-100);
   --color-fg-200: var(--color-light-200);
@@ -31,11 +36,15 @@ body.--black {
   --color-bg-focus: var(--color-dark-focus);
   --color-bg-active: var(--color-dark-active);
   --color-bg-back: var(--color-dark-032);
-  --color-bg-0: var(--color-dark-0);
+  --color-bg-25: var(--color-dark-25);
   --color-bg-50: var(--color-dark-50);
   --color-bg-100: var(--color-dark-100);
   --color-bg-200: var(--color-dark-200);
 
   color: var(--color-fg-50);
   background-color: var(--color-bg-50);
+
+  input[type=number]::-webkit-inner-spin-button {
+    filter: invert(1) contrast(2);
+  }
 }

@@ -18,11 +18,11 @@ button {
   }
 
   &:hover {
-    color: var(--color-fg-0);
+    color: var(--color-fg-25);
   }
 
   &:focus-visible {
-    color: var(--color-fg-0);
+    color: var(--color-fg-25);
     background-color: var(--color-bg-focus);
   }
 
@@ -36,7 +36,7 @@ button {
     }
 
     &:focus-visible {
-      color: var(--color-fg-0);
+      color: var(--color-fg-25);
       background-color: var(--color-primary-500-focus);
     }
 
@@ -44,4 +44,60 @@ button {
       background-color: var(--color-primary-500-active);
     }
   }
+}
+
+input, select {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  border-radius: 0;
+  border: 1px solid var(--border-color-2);
+  color: var(--color-fg-25);
+  background-color: var(--color-bg-0);
+  outline: none;
+
+  &:focus-visible {
+    border-color: var(--color-primary-500);
+  }
+
+  &[type=checkbox] {
+    appearance: none;
+    padding: 0;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--color-primary-500);
+      background-color: var(--color-primary-500-active);
+    }
+
+    &:checked {
+      border-color: var(--color-primary-500);
+      box-shadow: inset 0 0 0 3px var(--color-primary-500);
+
+      &:focus-visible {
+        box-shadow: inset 0 0 0 3px var(--color-primary-500-focus);
+      }
+    }
+  }
+
+  &[type=text], &[type=number] {
+    padding: 4px 12px;
+    font-size: 14px;
+  }
+
+  &[type=number] {
+    padding-right: 6px;
+
+    &::-webkit-inner-spin-button {
+      background-color: var(--color-bg-0);
+      opacity: 1;
+    }
+  }
+}
+
+select {
+  padding: 4px 8px;
 }
