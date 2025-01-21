@@ -6,10 +6,10 @@
 .title {
   position: fixed;
   padding: 5px 9px;
-  background-color: var(--color-dark-100);
+  color: var(--color-fg-50);
+  background-color: var(--color-bg-200);
   line-height: 1.25;
-  color: inherit;
   font-size: 13px;
   width: fit-content;
-  max-width: 400px;
+  max-width: 300px;
 }

@@ -23,25 +23,10 @@ export const Dashboard = () => {
           <RedditFeed r="metalcore" />
         </Card>
         <Card>
-          <RedditFeed r="frontend" />
-        </Card>
-        <Card>
-          <RedditFeed r="metalcore" />
-        </Card>
-        <Card>
-          <RedditFeed r="frontend" />
-        </Card>
-        <Card>
-          <RedditFeed r="metalcore" />
+          <RedditFeed r="cyberpunkgame" />
         </Card>
         <Card>
           <RedditFeed r="frankocean" />
-        </Card>
-        <Card>
-          <RedditFeed r="gakinotsukai" />
-        </Card>
-        <Card>
-          <RedditFeed r="science" />
         </Card>
         <Card>
           <RedditFeed r="gakinotsukai" />

@@ -10,18 +10,18 @@
   white-space: wrap;
   font-weight: 300;
   line-height: 1.4;
-  color: var(--color-text-100);
+  color: var(--color-fg-100);
   margin-block-start: 2px;
   word-break: break-word;
 
   a:link {
-    color: var(--color-text-50);
+    color: var(--color-fg-50);
   }
   a:visited {
-    color: var(--color-text-200);
+    color: var(--color-fg-200);
   }
   a:hover,a:active {
-  color: var(--color-text-50);
+  color: var(--color-fg-50);
 }
 }
 
@@ -30,18 +30,15 @@
   display: flex;
   justify-content: space-between;
   gap: 8px;
+  border-top: 1px solid var(--border-color);
 }
 
 .postLink {
   color: inherit;
   text-decoration: none;
 
-  &:not(:last-child) > .postContainer {
-    border-bottom: 1px solid var(--border-color);
-  }
-
   &:hover {
-    background-color: #ffffff07;
+    background-color: var(--color-bg-100);
   }
 }
 
@@ -61,12 +58,12 @@
   }
 
   .description {
-    line-height: 1.2;
+    line-height: 1.175;
     margin-block-start: 0;
   }
 
   .postContainer {
-    padding: 6px 12px 12px;
+    padding: 6px 10px 6px;
     display: flex;
     justify-content: space-between;
   }

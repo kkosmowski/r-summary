@@ -1,0 +1,39 @@
+body.--color {
+  --border-color: deepskyblue;
+
+  --color-light-032: rgba(105, 59, 159, 0.4);
+  --color-light-focus: #98acff;
+  --color-light-active: #ffefce;
+  --color-light-0: #f3fff7;
+  --color-light-50: #f3fff7;
+  --color-light-100: #ffffec;
+  --color-light-200: #ddf1b1;
+  --color-light-300: #ababab;
+
+  --color-dark-50: #ff009a;
+  --color-dark-100: #04349b;
+  --color-dark-200: #8621f1;
+  --color-dark-300: #8621f1;
+
+  --color-primary-500-focus: rgb(149, 117, 205, 0.1);
+  --color-primary-500: rgb(19, 192, 151);
+
+  --color-fg-0: var(--color-dark-0);
+  --color-fg-50: var(--color-dark-50);
+  --color-fg-100: var(--color-dark-100);
+  --color-fg-200: var(--color-dark-200);
+  --color-fg-300: var(--color-dark-300);
+
+
+  --color-bg-focus: var(--color-light-focus);
+  --color-bg-active: var(--color-light-active);
+  --color-bg-back: var(--color-light-032);
+  --color-bg-0: var(--color-light-0);
+  --color-bg-50: var(--color-light-50);
+  --color-bg-100: var(--color-light-100);
+  --color-bg-200: var(--color-light-200);
+
+
+  color: var(--color-fg-50);
+  background-color: var(--color-bg-50);
+}
