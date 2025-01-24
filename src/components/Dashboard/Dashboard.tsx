@@ -12,6 +12,7 @@ export const Dashboard = () => {
   return (
     <main className={styles.main}>
       <Toolbar />
+
       <section className={styles.dashboardContainer} style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
         <Card>
           <RedditFeed r="witcher" />

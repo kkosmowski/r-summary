@@ -1,4 +1,4 @@
-import { IconProps } from '../types/ui.ts';
+import { IconProps } from '~/types/ui';
 
 export const SettingsIcon = ({ size = 24 }: IconProps) => (
   <svg

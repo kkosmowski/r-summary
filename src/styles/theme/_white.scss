@@ -15,10 +15,16 @@ body.--white {
   --color-dark-50: #333;
   --color-dark-100: #1e1e1e;
   --color-dark-200: #444;
+  --color-dark-300: #505050;
+  --color-dark-400: #646464;
+  --color-dark-500: #7c7c7c;
 
   --color-primary-500-focus: rgb(71, 43, 234, 0.17);
   --color-primary-500-active: rgb(71, 43, 234, 0.06);
   --color-primary-500: rgb(71, 43, 234);
+
+  --color-success-fg: #36861d;
+  --color-error-fg: #d13e23;
 
   --color-score-great: #187e18;
   --color-score-good: #6b6906;
@@ -29,6 +35,8 @@ body.--white {
   --color-fg-100: var(--color-dark-100);
   --color-fg-200: var(--color-dark-200);
   --color-fg-300: var(--color-dark-300);
+  --color-fg-400: var(--color-dark-400);
+  --color-fg-500: var(--color-dark-500);
 
   --color-bg-focus: var(--color-light-focus);
   --color-bg-active: var(--color-light-active);

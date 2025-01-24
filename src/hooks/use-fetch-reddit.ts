@@ -62,10 +62,17 @@ const prepareData = (data: RawRedditData, refetchTimeInMin = CACHE_TIME): Transf
   return transformed;
 };
 
-export const useFetchReddit = (r: string) => {
+type Options = {
+  limit?: number;
+  enabled?: boolean;
+};
+
+export const useFetchReddit = (r: string, options?: Options) => {
+  const enabled = options?.enabled !== false;
   const { getValue } = useSettings();
   const refetchTimeInMin = getValue('setting-data-refresh-frequency') as number;
   const [data, setData] = useState<TransformedData | undefined>();
+  const [hasFetched, setHasFetched] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -73,14 +80,18 @@ export const useFetchReddit = (r: string) => {
     setIsLoading(true);
     setIsSuccess(false);
 
-    const response = await fetch(`https://www.reddit.com/r/${r}/hot.json?sort=hot`);
-    if (response.ok) {
-      setIsSuccess(true);
-    }
-    const data = await response.json();
+    try {
+      const response = await fetch(`https://www.reddit.com/r/${r}/hot.json?sort=hot`);
+      if (response.ok) {
+        setIsSuccess(true);
+      }
 
-    setIsLoading(false);
-    setData(prepareData(data, refetchTimeInMin));
+      const data = await response.json();
+      setData(prepareData(data, refetchTimeInMin));
+    } finally {
+      setIsLoading(false);
+      setHasFetched(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -88,7 +99,7 @@ export const useFetchReddit = (r: string) => {
 
     if (cache) {
       setData(cache);
-    } else {
+    } else if (enabled) {
       void fetchRedditData(r);
     }
   }, [r, fetchRedditData]);
@@ -97,5 +108,7 @@ export const useFetchReddit = (r: string) => {
     data,
     isSuccess,
     isLoading,
+    hasFetched,
+    refetch: fetchRedditData,
   };
 };

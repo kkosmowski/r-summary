@@ -44,12 +44,19 @@ button {
       background-color: var(--color-primary-500-active);
     }
   }
+
+  &.--error {
+    &:hover {
+      color: var(--color-error-fg);
+    }
+  }
 }
 
 input, select {
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  letter-spacing: inherit;
   margin: 0;
   border-radius: 0;
   border: 1px solid var(--border-color-2);
@@ -86,6 +93,9 @@ input, select {
   &[type=text], &[type=number] {
     padding: 4px 12px;
     font-size: 14px;
+    &::placeholder {
+      color: var(--color-fg-500);
+    }
   }
 
   &[type=number] {
