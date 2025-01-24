@@ -12,22 +12,31 @@ body.--black {
   --color-light-500: #8a8a8a;
 
   --color-dark-032: rgb(30, 30, 30, 0.5);
-  --color-dark-focus: #161616;
-  --color-dark-active: #101010;
+  --color-dark-focus: #181818;
+  --color-dark-active: #131313;
   --color-dark-0: #000;
   --color-dark-25: #000;
   --color-dark-50: #040404;
   --color-dark-100: #111;
   --color-dark-200: #171717;
 
-  --color-primary-500-focus: rgba(205, 174, 117, 0.4);
-  --color-primary-500-active: rgba(205, 174, 117, 0.1);
+  --color-primary-500-focus: rgba(205, 174, 117, 0.2);
+  --color-primary-500-active: rgba(205, 174, 117, 0.08);
   --color-primary-500: rgba(205, 174, 117);
   --color-primary-600: rgb(163, 139, 93);
   --color-primary-700: rgb(143, 121, 81);
 
-  --color-success-fg: #52b649;
-  --color-error-fg: #ca4a3f;
+  --color-success-500-focus: rgb(82, 182, 73, 0.2);
+  --color-success-500-active: rgba(82, 182, 73, 0.08);
+  --color-success-500: rgb(82, 182, 73);
+  --color-success-600: rgb(67, 148, 59);
+  --color-success-700: rgb(53, 117, 47);
+
+  --color-error-500-focus: rgb(202, 74, 63, 0.25);
+  --color-error-500-active: rgba(202, 74, 63, 0.09);
+  --color-error-500: rgb(202, 74, 63);
+  --color-error-600: rgb(173, 64, 54);
+  --color-error-700: rgb(148, 54, 46);
 
   --color-score-great: #9dee9d;
   --color-score-good: #f5f2a9;

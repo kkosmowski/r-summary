@@ -1,5 +1,7 @@
 export type IconProps = {
   size?: number;
-  color?: 'success';
+  color?: Color;
   className?: string;
 };
+
+export type Color = 'primary' | 'success' | 'error';

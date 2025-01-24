@@ -6,6 +6,7 @@ import { INPUT_DEBOUNCE } from '~/consts/common';
 import { CheckIcon } from '~/icons/CheckIcon';
 import { CloseIcon } from '~/icons/CloseIcon';
 import { AddIcon } from '~/icons/AddIcon';
+import { Button } from '~/components/Button';
 
 import styles from './AddFeedForm.module.scss';
 import { useCacheSearch } from './hooks/use-cache-search';
@@ -55,13 +56,15 @@ export const AddFeedForm = ({ onClose, onAdd }: AddFeedFormProps) => {
         <input autoFocus type="text" value={subReddit} placeholder="Enter subreddit..." onChange={handleChange} />
         {isSuccess && <CheckIcon color="success" className={styles.icon} />}
       </span>
-      <button className="--icon --error" onClick={() => onClose()}>
-        <CloseIcon />
-      </button>
 
-      <button className="--icon --primary" disabled={isLoading || !isSuccess} onClick={() => onAdd(debouncedReddit)}>
-        <AddIcon />
-      </button>
+      <Button icon={<CloseIcon />} color="error" onClick={() => onClose()} />
+
+      <Button
+        icon={<AddIcon />}
+        color="primary"
+        disabled={isLoading || !isSuccess}
+        onClick={() => onAdd(debouncedReddit)}
+      />
 
       {isInvalid && <span className={styles.errorText}>This reddit does not exist or is unavailable.</span>}
     </div>

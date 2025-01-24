@@ -3,6 +3,7 @@ import { PropsWithChildren, ReactNode } from 'react';
 import { CloseIcon } from '~/icons/CloseIcon';
 
 import styles from './Modal.module.scss';
+import { Button } from '~/components/Button';
 
 export type ModalProps = {
   title: ReactNode;
@@ -34,11 +35,7 @@ export const Modal = ({
         <header className={styles.header}>
           <h3 className={styles.title}>{title}</h3>
 
-          {closeButton && (
-            <button className={`--icon ${styles.closeButton}`} onClick={onClose}>
-              <CloseIcon />
-            </button>
-          )}
+          {closeButton && <Button icon={<CloseIcon />} className={styles.closeButton} onClick={() => onClose?.()} />}
         </header>
 
         <section className={className}>{children}</section>

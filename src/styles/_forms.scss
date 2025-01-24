@@ -20,6 +20,7 @@ button {
 
   &:hover {
     color: var(--color-fg-25);
+    background-color: var(--color-bg-active);
   }
 
   &:focus-visible {
@@ -34,15 +35,42 @@ button {
   &.--primary {
     &:hover {
       color: var(--color-primary-500);
+      background-color: var(--color-primary-500-active);
     }
-
     &:focus-visible {
       color: var(--color-fg-25);
       background-color: var(--color-primary-500-focus);
     }
-
     &:active {
       background-color: var(--color-primary-500-active);
+    }
+  }
+
+  &.--success {
+    &:hover {
+      color: var(--color-success-500);
+      background-color: var(--color-success-500-active);
+    }
+    &:focus-visible {
+      color: var(--color-fg-25);
+      background-color: var(--color-success-500-focus);
+    }
+    &:active {
+      background-color: var(--color-success-500-active);
+    }
+  }
+
+  &.--error {
+    &:hover {
+      color: var(--color-error-500);
+      background-color: var(--color-error-500-active);
+    }
+    &:focus-visible {
+      color: var(--color-fg-25);
+      background-color: var(--color-error-500-focus);
+    }
+    &:active {
+      background-color: var(--color-error-500-active);
     }
   }
 
@@ -58,7 +86,7 @@ button {
 
   &.--error {
     &:hover {
-      color: var(--color-error-fg);
+      color: var(--color-error-500);
     }
   }
 

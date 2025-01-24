@@ -28,7 +28,7 @@
 
 .errorText {
   font-size: 13px;
-  color: var(--color-error-fg);
+  color: var(--color-error-500);
 }
 
 .errorText2 {
@@ -37,7 +37,7 @@
   top: calc(100% + 32px);
   z-index: 1;
   font-size: 13px;
-  color: var(--color-success-fg);
+  color: var(--color-success-500);
 }
 
 .link {

@@ -1,9 +1,9 @@
-import { IconProps } from '~/types/ui.ts';
+import { Color } from '~/types/ui';
 
-export const getIconColor = (color: IconProps['color']) => {
+export const getIconColor = (color: Color) => {
   switch (color) {
     case 'success':
-      return 'var(--color-success-fg)';
+      return 'var(--color-success-500)';
   }
 
   return 'currentColor';

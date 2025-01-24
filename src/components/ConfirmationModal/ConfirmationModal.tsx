@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 
 import { Modal, ModalProps } from '~/components/Modal';
+import { Button } from '~/components/Button';
+import { Color } from '~/types/ui';
 
 import styles from './ConfirmationModal.module.scss';
 
@@ -9,7 +11,7 @@ export type ConfirmationModalProps = ModalProps & {
   onConfirm: VoidFunction;
   confirm?: {
     label?: string;
-    color?: 'success' | 'error';
+    color?: Color;
   };
 };
 
@@ -21,10 +23,10 @@ export const ConfirmationModal = (props: ConfirmationModalProps) => {
       <p>{message}</p>
 
       <footer className={styles.actions}>
-        <button onClick={onClose}>Cancel</button>
-        <button className={confirm.color ? `--${confirm.color}` : ''} onClick={onConfirm}>
+        <Button onClick={onClose}>Cancel</Button>
+        <Button color={confirm.color} onClick={onConfirm}>
           {confirm.label}
-        </button>
+        </Button>
       </footer>
     </Modal>
   );

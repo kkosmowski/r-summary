@@ -1,9 +1,10 @@
 import { TransformedData } from '~/types/reddit';
 import { DeleteIcon } from '~/icons/DeleteIcon';
+import { useModal } from '~/hooks/use-modal';
+import { DeleteFeedModal } from '~/components/DeleteFeedModal';
+import { Button } from '~/components/Button';
 
 import styles from './FeedHeader.module.scss';
-import { useModal } from '~/hooks/use-modal.ts';
-import { DeleteFeedModal } from '~/components/DeleteFeedModal';
 
 type FeedHeaderProps = {
   data: TransformedData;
@@ -20,9 +21,7 @@ export const FeedHeader = ({ data }: FeedHeaderProps) => {
         </a>
       </h2>
 
-      <button className={`${styles.deleteButton} --icon --error`} onClick={() => openDeleteModal()}>
-        <DeleteIcon />
-      </button>
+      <Button icon={<DeleteIcon />} className={styles.deleteButton} color="error" onClick={() => openDeleteModal()} />
 
       <DeleteFeedModal subreddit={data.subreddit} open={isDeleteModalOpen} onClose={closeDeleteModal} />
     </header>
