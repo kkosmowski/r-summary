@@ -3,9 +3,10 @@ button {
   border-radius: 0;
   border: 1px solid transparent;
   padding: 8px 16px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   font-family: inherit;
+  text-transform: uppercase;
   background-color: var(--color-bg-50);
   cursor: pointer;
   transition: border-color 0.25s;
@@ -42,6 +43,16 @@ button {
 
     &:active {
       background-color: var(--color-primary-500-active);
+    }
+  }
+
+  &.--filled {
+    color: var(--color-fg-primary-button);
+    background-color: var(--color-primary-600);
+
+    &:hover {
+      color: var(--color-fg-primary-button);
+      background-color: var(--color-primary-700);
     }
   }
 

@@ -1,0 +1,33 @@
+:global(.--condensed) {
+  .subreddit {
+    padding: 2px 12px;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+}
+
+.subreddit {
+  font-size: 20px;
+}
+
+.link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.deleteButton {
+  margin: -8px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.header:hover .deleteButton {
+  opacity: 1;
+  visibility: visible;
+}

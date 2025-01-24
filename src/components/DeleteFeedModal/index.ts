@@ -1,0 +1,1 @@
+export { DeleteFeedModal } from './DeleteFeedModal';

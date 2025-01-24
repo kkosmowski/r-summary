@@ -3,6 +3,7 @@ import { PostsList } from '~/components/PostsList';
 import { Card } from '~/components/Card';
 
 import styles from './RedditFeed.module.scss';
+import { FeedHeader } from '~/components/RedditFeed/components/FeedHeader/FeedHeader.tsx';
 
 type RedditFeedProps = {
   r: string;
@@ -26,11 +27,7 @@ export const RedditFeed = ({ r }: RedditFeedProps) => {
   return (
     <Card>
       <div className={styles.posts}>
-        <h2 className={styles.subreddit}>
-          <a href={data!.subreddit.url} className={styles.link}>
-            {data!.subreddit.prefixed}
-          </a>
-        </h2>
+        <FeedHeader data={data!} />
         <PostsList items={data!.items} />
       </div>
     </Card>

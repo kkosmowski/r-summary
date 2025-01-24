@@ -75,9 +75,9 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
 
   const add = useCallback(
     (name: string) => {
-      console.log(name);
       setSubreddits((current) => {
         current.items[name] = {};
+        current.order.push(name);
         return { ...current };
       });
     },
@@ -86,7 +86,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
 
   const remove = useCallback(
     (name: string) => {
-      if (!subreddits.hasOwnProperty(name)) {
+      if (!subreddits.items.hasOwnProperty(name)) {
         console.error(`Unknown subreddit name: "${name}".`);
         return;
       }

@@ -1,7 +1,10 @@
 - [x] Add new Feed
-- [ ] Remove Feed
+- [x] Remove Feed
+- [ ] Implement Button component
+- [ ] Refactors caching settings so it's all in a single storage item
 - [ ] Refetch one specific Feed
 - [ ] Manage Feeds – a modal that allows you to remove and add them
 - [ ] Remove one specific Feed
 - [ ] Global filters
 - [ ] Feed-specific filter
+- [ ] Column view of Post if too narrow (using container queries)

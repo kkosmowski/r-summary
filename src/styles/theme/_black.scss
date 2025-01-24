@@ -23,6 +23,8 @@ body.--black {
   --color-primary-500-focus: rgba(205, 174, 117, 0.4);
   --color-primary-500-active: rgba(205, 174, 117, 0.1);
   --color-primary-500: rgba(205, 174, 117);
+  --color-primary-600: rgb(163, 139, 93);
+  --color-primary-700: rgb(143, 121, 81);
 
   --color-success-fg: #52b649;
   --color-error-fg: #ca4a3f;
@@ -39,6 +41,7 @@ body.--black {
   --color-fg-300: var(--color-light-300);
   --color-fg-400: var(--color-light-400);
   --color-fg-500: var(--color-light-500);
+  --color-fg-primary-button: var(--color-dark-100);
 
   --color-bg-focus: var(--color-dark-focus);
   --color-bg-active: var(--color-dark-active);

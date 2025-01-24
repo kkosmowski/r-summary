@@ -20,7 +20,7 @@ export const Toolbar = () => {
         </button>
       </section>
 
-      <SettingsModal isOpen={isOpen} onClose={closeModal} />
+      <SettingsModal open={isOpen} onClose={closeModal} />
     </header>
   );
 };

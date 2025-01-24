@@ -59,12 +59,14 @@ export type PostItem = {
   type: 'video' | 'image' | 'text';
 };
 
+export type SubredditData = {
+  name: string;
+  prefixed: string;
+  url: string;
+};
+
 export type TransformedData = {
-  subreddit: {
-    name: string;
-    prefixed: string;
-    url: string;
-  };
+  subreddit: SubredditData;
   items: PostItem[];
 };
 

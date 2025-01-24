@@ -22,6 +22,8 @@ body.--color {
   --color-primary-500-focus: rgb(149, 117, 205, 0.3);
   --color-primary-500-active: rgb(149, 117, 205, 0.1);
   --color-primary-500: rgb(19, 192, 151);
+  --color-primary-600: rgb(13, 133, 105);
+  --color-primary-700: rgb(11, 115, 92);
 
   --color-success-fg: #18af70;
   --color-error-fg: #ff5d47;
@@ -37,6 +39,7 @@ body.--color {
   --color-fg-300: var(--color-dark-300);
   --color-fg-400: var(--color-dark-400);
   --color-fg-500: var(--color-dark-500);
+  --color-fg-primary-button: var(--color-light-0);
 
   --color-bg-focus: var(--color-light-focus);
   --color-bg-active: var(--color-light-active);

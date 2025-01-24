@@ -6,8 +6,11 @@ import styles from './Modal.module.scss';
 
 export type ModalProps = {
   title: ReactNode;
-  isOpen: boolean;
+  open: boolean;
+  noMinHeight?: boolean;
+  className?: string;
   onClose?: VoidFunction;
+  closeButton?: boolean;
   closeOnBackdrop?: boolean;
   hideBackdrop?: boolean;
 };
@@ -15,25 +18,30 @@ export type ModalProps = {
 export const Modal = ({
   children,
   title,
-  isOpen,
+  open,
+  noMinHeight,
+  className,
+  closeButton = true,
   closeOnBackdrop = true,
   hideBackdrop,
   onClose,
 }: PropsWithChildren<ModalProps>) => {
-  if (!isOpen) return null;
+  if (!open) return null;
 
   return (
     <div className={styles.modalContainer}>
-      <aside className={styles.modal}>
+      <aside className={`${styles.modal} ${noMinHeight && styles.noMinHeight}`}>
         <header className={styles.header}>
           <h3 className={styles.title}>{title}</h3>
 
-          <button className={`--icon ${styles.closeButton}`} onClick={onClose}>
-            <CloseIcon />
-          </button>
+          {closeButton && (
+            <button className={`--icon ${styles.closeButton}`} onClick={onClose}>
+              <CloseIcon />
+            </button>
+          )}
         </header>
 
-        <section>{children}</section>
+        <section className={className}>{children}</section>
       </aside>
 
       {!hideBackdrop && (

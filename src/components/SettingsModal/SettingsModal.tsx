@@ -4,11 +4,11 @@ import { useSettings } from '~/contexts/SettingsContext';
 import styles from './SettingsModal.module.scss';
 import { SettingItem } from './components/SettingItem';
 
-export const SettingsModal = ({ isOpen, onClose }: Pick<ModalProps, 'isOpen' | 'onClose'>) => {
+export const SettingsModal = ({ open, onClose }: Pick<ModalProps, 'open' | 'onClose'>) => {
   const { settings } = useSettings();
 
   return (
-    <Modal title="Settings" isOpen={isOpen} onClose={onClose} closeOnBackdrop={false}>
+    <Modal title="Settings" open={open} onClose={onClose} closeOnBackdrop={false}>
       <div className={styles.settingsList}>
         {settings.map((setting) => (
           <SettingItem key={setting.key} setting={setting} />
