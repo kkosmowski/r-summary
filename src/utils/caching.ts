@@ -1,15 +1,17 @@
+import { redditLsPrefix } from '~/consts/reddit.ts';
+
 export const setData = (key: string, data: any, expireIn: number) => {
   const cache = {
     data,
     expires: new Date().getTime() + expireIn,
   };
 
-  localStorage.setItem(key, JSON.stringify(cache));
+  localStorage.setItem(redditLsPrefix + key.toLowerCase(), JSON.stringify(cache));
 };
 
 export const getData = (key: string) => {
   const currentTime = new Date().getTime();
-  const string = localStorage.getItem(key.toLowerCase());
+  const string = localStorage.getItem(redditLsPrefix + key.toLowerCase());
 
   if (!string) {
     return null;
@@ -22,4 +24,8 @@ export const getData = (key: string) => {
   }
 
   return data;
+};
+
+export const clearData = (key: string) => {
+  localStorage.removeItem(redditLsPrefix + key.toLowerCase());
 };

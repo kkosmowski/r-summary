@@ -27,10 +27,6 @@
 }
 
 .errorText {
-  position: absolute;
-  left: 8px;
-  top: calc(100% + 8px);
-  z-index: 1;
   font-size: 13px;
   color: var(--color-error-fg);
 }

@@ -1,0 +1,7 @@
+- [x] Add new Feed
+- [ ] Remove Feed
+- [ ] Refetch one specific Feed
+- [ ] Manage Feeds – a modal that allows you to remove and add them
+- [ ] Remove one specific Feed
+- [ ] Global filters
+- [ ] Feed-specific filter

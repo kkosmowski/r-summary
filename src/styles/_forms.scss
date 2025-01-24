@@ -50,6 +50,11 @@ button {
       color: var(--color-error-fg);
     }
   }
+
+  &[disabled] {
+    color: var(--color-fg-500);
+    pointer-events: none;
+  }
 }
 
 input, select {

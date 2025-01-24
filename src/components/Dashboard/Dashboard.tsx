@@ -1,12 +1,13 @@
-import { Card } from '~/components/Card';
 import { RedditFeed } from '~/components/RedditFeed';
 import { Toolbar } from '~/components/Toolbar';
+import { useSettings } from '~/contexts/SettingsContext';
+import { useSubreddits } from '~/contexts/SubredditsContext';
 
 import styles from './Dashboard.module.scss';
-import { useSettings } from '~/contexts/SettingsContext';
 
 export const Dashboard = () => {
   const { getValue } = useSettings();
+  const { subreddits } = useSubreddits();
   const columns = getValue('setting-columns');
 
   return (
@@ -14,27 +15,9 @@ export const Dashboard = () => {
       <Toolbar />
 
       <section className={styles.dashboardContainer} style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
-        <Card>
-          <RedditFeed r="witcher" />
-        </Card>
-        <Card>
-          <RedditFeed r="frontend" />
-        </Card>
-        <Card>
-          <RedditFeed r="metalcore" />
-        </Card>
-        <Card>
-          <RedditFeed r="cyberpunkgame" />
-        </Card>
-        <Card>
-          <RedditFeed r="frankocean" />
-        </Card>
-        <Card>
-          <RedditFeed r="gakinotsukai" />
-        </Card>
-        <Card>
-          <RedditFeed r="science" />
-        </Card>
+        {subreddits.map((subreddit) => (
+          <RedditFeed key={subreddit} r={subreddit} />
+        ))}
       </section>
     </main>
   );

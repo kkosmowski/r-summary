@@ -1,87 +1,69 @@
-import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 
 import { useFetchReddit } from '~/hooks/use-fetch-reddit';
 import { INPUT_DEBOUNCE } from '~/consts/common';
+import { CheckIcon } from '~/icons/CheckIcon';
+import { CloseIcon } from '~/icons/CloseIcon';
+import { AddIcon } from '~/icons/AddIcon';
 
 import styles from './AddFeedForm.module.scss';
-import { HOUR } from '~/consts/time.ts';
-import { CheckIcon } from '~/icons/CheckIcon.tsx';
-import { CloseIcon } from '~/icons/CloseIcon.tsx';
-import { AddIcon } from '~/icons/AddIcon.tsx';
-
-const cache: Record<string, boolean> = {};
-
-const cacheToLS = (subreddit: string, exists: boolean) => {
-  const searchCache = JSON.parse(localStorage.getItem('search-cache') ?? 'null') ?? {};
-
-  searchCache[subreddit] = { exists };
-
-  if (!exists) {
-    // cache info that subreddit does not exists for 24 hours
-    searchCache[subreddit].recheckOn = new Date().getTime() + 24 * HOUR;
-  }
-};
+import { useCacheSearch } from './hooks/use-cache-search';
 
 type AddFeedFormProps = {
   onClose: VoidFunction;
-  onAdd: VoidFunction;
+  onAdd: (subreddit: string) => void;
 };
 
 export const AddFeedForm = ({ onClose, onAdd }: AddFeedFormProps) => {
   const [subReddit, setSubReddit] = useState('');
   const [debouncedReddit] = useDebounce(subReddit, INPUT_DEBOUNCE);
-  const isCacheSuccess = useMemo(() => cache[debouncedReddit], [debouncedReddit]);
+  const [isValidCache, isInvalidCache, cacheSearch] = useCacheSearch(debouncedReddit);
   const {
     hasFetched,
     isLoading,
     isSuccess: isFetchSuccess,
     refetch,
   } = useFetchReddit(debouncedReddit, { limit: 1, enabled: false });
-  const isSuccess = isCacheSuccess || isFetchSuccess;
+  const isInvalidFetch = debouncedReddit && hasFetched && !isLoading && !isFetchSuccess;
+  const isValidFetch = hasFetched && !isLoading && isFetchSuccess;
+
+  const isInvalid = isInvalidCache || isInvalidFetch;
+  const isSuccess = debouncedReddit && (isValidCache || isValidFetch);
 
   useEffect(() => {
-    if (isFetchSuccess) {
-      cache[debouncedReddit] = true;
-      cacheToLS(debouncedReddit, true);
-    } else if (hasFetched && !isLoading) {
-      cache[debouncedReddit] = false;
-      cacheToLS(debouncedReddit, false);
+    if (isSuccess) {
+      cacheSearch(debouncedReddit, true);
+    } else if (debouncedReddit && hasFetched && !isLoading) {
+      cacheSearch(debouncedReddit, false);
     }
-  }, [debouncedReddit, isFetchSuccess]);
+  }, [debouncedReddit, isFetchSuccess, hasFetched, isLoading]);
 
   useEffect(() => {
-    if (debouncedReddit) {
-      if (!isCacheSuccess) {
-        void refetch(debouncedReddit);
-      }
+    if (debouncedReddit && !isValidCache) {
+      void refetch(debouncedReddit);
     }
-  }, [debouncedReddit, isCacheSuccess, refetch]);
+  }, [debouncedReddit, isValidCache, refetch]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSubReddit(value);
+    setSubReddit(e.target.value);
   };
 
   return (
     <div className={styles.container}>
       <span className={`${styles.redditInput} ${isSuccess ? styles.ok : styles.notOk}`}>
         <input autoFocus type="text" value={subReddit} placeholder="Enter subreddit..." onChange={handleChange} />
-        {hasFetched && !isLoading && isSuccess && <CheckIcon color="success" className={styles.icon} />}
-        {hasFetched && !isLoading && !isSuccess && (
-          <span className={styles.errorText}>This reddit does not exist or is unavailable.</span>
-        )}
-        {hasFetched && !isLoading && !isSuccess && (
-          <span className={styles.errorText2}>This reddit does not exist or is unavailable.</span>
-        )}
+        {isSuccess && <CheckIcon color="success" className={styles.icon} />}
       </span>
       <button className="--icon --error" onClick={() => onClose()}>
         <CloseIcon />
       </button>
 
-      <button className="--icon --primary" onClick={() => onAdd()}>
+      <button className="--icon --primary" disabled={isLoading || !isSuccess} onClick={() => onAdd(debouncedReddit)}>
         <AddIcon />
       </button>
+
+      {isInvalid && <span className={styles.errorText}>This reddit does not exist or is unavailable.</span>}
     </div>
   );
 };

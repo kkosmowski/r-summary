@@ -67,3 +67,17 @@ export type TransformedData = {
   };
   items: PostItem[];
 };
+
+export type SubredditFilters = {
+  omitAuthors?: string[];
+  pickAuthors?: string[];
+  omitFlairs?: string[];
+  pickFlairs?: string[];
+  minThreshold?: number;
+  minPoints?: number;
+  minComments?: number;
+  omitType?: ('video' | 'image' | 'text')[];
+  pickType?: ('video' | 'image' | 'text')[];
+  pickKeywords?: string[];
+  omitKeywords?: string[];
+};
