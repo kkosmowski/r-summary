@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useCallback, useContext, useState } from 'react';
+import { createContext, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
 import { AppSettings, Setting, SettingKey, SettingValue } from '~/types/settings';
 import { SETTINGS } from '~/consts/settings';
 
@@ -8,26 +8,14 @@ type SettingsContextValue = {
   setSetting: (key: SettingKey, value: SettingValue) => void;
 };
 
-function getSetting(setting: Setting | SettingKey, fallbackToDefault: boolean): SettingValue | null {
-  const settingKey = typeof setting === 'string' ? setting : setting.key;
-  const settingDefaultValue = fallbackToDefault ? (typeof setting === 'string' ? null : setting.defaultValue) : null;
-  const string = localStorage.getItem(settingKey);
+const settingsLsKey = 'settings' as const;
 
-  if (!string) return settingDefaultValue;
-
-  return JSON.parse(string).value;
-}
-
-function cacheSetting(settingKey: string, value: SettingValue) {
-  localStorage.setItem(settingKey, JSON.stringify({ value }));
+function cacheSettings(settings: AppSettings) {
+  localStorage.setItem(settingsLsKey, JSON.stringify(settings));
 }
 
 function getColumns(defaultValue: number): number {
-  const columnsSettingKey: SettingKey = SETTINGS['setting-columns'].key;
   if (!window) return defaultValue;
-
-  const cached = getSetting(columnsSettingKey, false) as number | null;
-  if (cached) return cached;
 
   const screenWidth = window.outerWidth;
   let value = 1;
@@ -37,22 +25,18 @@ function getColumns(defaultValue: number): number {
   else if (screenWidth > 1900) value = 3;
   else if (screenWidth < 1300) value = 2;
 
-  cacheSetting(columnsSettingKey, value);
   return value;
 }
 
 export const getAvailableSettings = () => {
-  const settings: Record<string, Setting> = {};
+  let settings: AppSettings | null = JSON.parse(localStorage.getItem(settingsLsKey) ?? 'null');
 
-  for (const [key, setting] of Object.entries(SETTINGS)) {
-    if (key === SETTINGS['setting-columns'].key) {
-      settings[key] = { ...setting, value: getColumns(2) } as Setting;
-    } else {
-      settings[key] = { ...setting, value: getSetting(setting, true) } as Setting;
-    }
+  if (!settings) {
+    settings = SETTINGS;
+    settings['setting-columns'] = { ...settings['setting-columns'], value: getColumns(2) };
   }
 
-  return settings as AppSettings;
+  return settings;
 };
 
 const defaultSettingsContextValue = {
@@ -72,8 +56,6 @@ export const SettingsController = ({ children }: PropsWithChildren) => {
         console.error(`Unknown setting key: "${key}".`);
         return;
       }
-
-      cacheSetting(key, value);
       setSettings((current) => ({
         ...current,
         [key]: { ...current[key], value },
@@ -81,6 +63,10 @@ export const SettingsController = ({ children }: PropsWithChildren) => {
     },
     [setSettings],
   );
+
+  useEffect(() => {
+    cacheSettings(settings);
+  }, [settings]);
 
   const settingsArray = Object.values(settings);
 
