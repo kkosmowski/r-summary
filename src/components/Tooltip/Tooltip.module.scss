@@ -5,6 +5,7 @@
 
 .title {
   position: fixed;
+  z-index: 100;
   padding: 5px 9px;
   color: var(--color-fg-50);
   background-color: var(--color-bg-200);

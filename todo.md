@@ -1,6 +1,6 @@
 - [x] Add new Feed
 - [x] Remove Feed
-- [ ] Implement Button component
+- [x] Implement Button component
 - [ ] Refactors caching settings so it's all in a single storage item
 - [ ] Refetch one specific Feed
 - [ ] Manage Feeds – a modal that allows you to remove and add them

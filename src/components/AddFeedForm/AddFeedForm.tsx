@@ -10,6 +10,7 @@ import { Button } from '~/components/Button';
 
 import styles from './AddFeedForm.module.scss';
 import { useCacheSearch } from './hooks/use-cache-search';
+import { Tooltip } from '~/components/Tooltip';
 
 type AddFeedFormProps = {
   onClose: VoidFunction;
@@ -50,6 +51,8 @@ export const AddFeedForm = ({ onClose, onAdd }: AddFeedFormProps) => {
     setSubReddit(e.target.value);
   };
 
+  const addTooltip = !debouncedReddit ? '' : !isSuccess ? 'Cannot add invalid feed' : '';
+
   return (
     <div className={styles.container}>
       <span className={`${styles.redditInput} ${isSuccess ? styles.ok : styles.notOk}`}>
@@ -57,14 +60,18 @@ export const AddFeedForm = ({ onClose, onAdd }: AddFeedFormProps) => {
         {isSuccess && <CheckIcon color="success" className={styles.icon} />}
       </span>
 
-      <Button icon={<CloseIcon />} color="error" onClick={() => onClose()} />
+      <Tooltip title="Cancel">
+        <Button icon={<CloseIcon />} color="error" onClick={() => onClose()} />
+      </Tooltip>
 
-      <Button
-        icon={<AddIcon />}
-        color="primary"
-        disabled={isLoading || !isSuccess}
-        onClick={() => onAdd(debouncedReddit)}
-      />
+      <Tooltip title={addTooltip}>
+        <Button
+          icon={<AddIcon />}
+          color="primary"
+          disabled={isLoading || !isSuccess}
+          onClick={() => onAdd(debouncedReddit)}
+        />
+      </Tooltip>
 
       {isInvalid && <span className={styles.errorText}>This reddit does not exist or is unavailable.</span>}
     </div>

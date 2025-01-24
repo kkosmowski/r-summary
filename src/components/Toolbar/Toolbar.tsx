@@ -3,6 +3,7 @@ import { useModal } from '~/hooks/use-modal';
 import { SettingsModal } from '~/components/SettingsModal';
 import { AddFeed } from '~/components/AddFeed';
 import { Button } from '~/components/Button';
+import { Tooltip } from '~/components/Tooltip';
 
 import styles from './Toolbar.module.scss';
 
@@ -16,7 +17,9 @@ export const Toolbar = () => {
       </section>
 
       <section className={styles.right}>
-        <Button icon={<SettingsIcon />} color="primary" onClick={openModal} />
+        <Tooltip title="Open settings">
+          <Button icon={<SettingsIcon />} color="primary" onClick={openModal} />
+        </Tooltip>
       </section>
 
       <SettingsModal open={isOpen} onClose={closeModal} />
