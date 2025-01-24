@@ -15,12 +15,12 @@ export const RedditFeed = ({ r }: RedditFeedProps) => {
     return 'loading...';
   }
 
-  if (!data && !isSuccess) {
+  if (!data && !isLoading && !isSuccess) {
     return 'error...';
   }
 
   if (!data) {
-    return `[${r}] no data...`;
+    return `[r/${r}] no data...`;
   }
 
   return (

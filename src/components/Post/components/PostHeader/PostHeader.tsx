@@ -1,12 +1,12 @@
 import { Flair } from '~/components/Flair';
 import { PostItem } from '~/types/reddit';
-
-import { Score } from '../Score';
 import { Separator } from '~/components/Separator';
-
-import styles from './PostHeader.module.scss';
 import { CommentIcon } from '~/icons/CommentIcon';
 import { useSettings } from '~/contexts/SettingsContext';
+import { REDDIT_URL } from '~/consts/reddit';
+
+import { Score } from '../Score';
+import styles from './PostHeader.module.scss';
 
 type PostHeaderProps = {
   post: PostItem;
@@ -40,7 +40,7 @@ export const PostHeader = ({ post }: PostHeaderProps) => {
         <>
           <Separator />
           <a
-            href={`https://reddit.com/user/${post.authorName}`}
+            href={`${REDDIT_URL}/user/${post.authorName}`}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.author}

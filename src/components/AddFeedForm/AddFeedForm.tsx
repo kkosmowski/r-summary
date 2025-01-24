@@ -28,7 +28,7 @@ export const AddFeedForm = ({ onClose, onAdd }: AddFeedFormProps) => {
   const isInvalidFetch = debouncedReddit && hasFetched && !isLoading && !isFetchSuccess;
   const isValidFetch = hasFetched && !isLoading && isFetchSuccess;
 
-  const isInvalid = isInvalidCache || isInvalidFetch;
+  const isInvalid = isInvalidCache && isInvalidFetch;
   const isSuccess = debouncedReddit && (isValidCache || isValidFetch);
 
   useEffect(() => {

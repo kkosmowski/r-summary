@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
+
 import { RawRedditData, TransformedData } from '~/types/reddit';
 import { cacheData } from '~/utils/cache-data';
 import { PostItem } from '~/types/reddit';
 import { getData } from '~/utils/caching';
 import { useSettings } from '~/contexts/SettingsContext';
-import { CACHE_TIME } from '~/consts/api.ts';
+import { CACHE_TIME } from '~/consts/api';
+import { REDDIT_URL } from '~/consts/reddit';
 
 const selftext_html_start = 43;
 const selftext_html_end = -33;
@@ -21,7 +23,7 @@ const prepareData = (data: RawRedditData, refetchTimeInMin = CACHE_TIME): Transf
     subreddit: {
       name: data.data.children[0].data.subreddit.toLowerCase(),
       prefixed: data.data.children[0].data.subreddit_name_prefixed.toLowerCase(),
-      url: 'https://reddit.com' + data.data.children[0].data.subreddit_name_prefixed.toLowerCase(),
+      url: `${REDDIT_URL}/${data.data.children[0].data.subreddit_name_prefixed.toLowerCase()}`,
     },
     items: data.data.children
       .filter(({ data }) => !data.stickied)
@@ -44,7 +46,7 @@ const prepareData = (data: RawRedditData, refetchTimeInMin = CACHE_TIME): Transf
               color: data.link_flair_text_color,
               backgroundColor: data.link_flair_background_color,
             },
-            link: `https://reddit.com` + data.permalink,
+            link: REDDIT_URL + data.permalink,
             thumbnail: {
               url: data.thumbnail,
               width: data.thumbnail_width,
@@ -74,14 +76,14 @@ export const useFetchReddit = (r: string, options?: Options) => {
   const [data, setData] = useState<TransformedData | undefined>();
   const [hasFetched, setHasFetched] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchRedditData = useCallback(async (r: string) => {
     setIsLoading(true);
     setIsSuccess(false);
 
     try {
-      const response = await fetch(`https://www.reddit.com/r/${r}/hot.json?sort=hot`);
+      const response = await fetch(`${REDDIT_URL}/r/${r}/hot.json?sort=hot`);
       if (response.ok) {
         setIsSuccess(true);
       }
