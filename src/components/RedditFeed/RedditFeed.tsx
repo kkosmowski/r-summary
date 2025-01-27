@@ -2,15 +2,16 @@ import { useFetchReddit } from '~/hooks/use-fetch-reddit';
 import { PostsList } from '~/components/PostsList';
 import { Card } from '~/components/Card';
 
+import { FeedHeader } from './components/FeedHeader';
+import { LoadingOverlay } from './components/LoadingOverlay';
 import styles from './RedditFeed.module.scss';
-import { FeedHeader } from '~/components/RedditFeed/components/FeedHeader/FeedHeader.tsx';
 
 type RedditFeedProps = {
   r: string;
 };
 
 export const RedditFeed = ({ r }: RedditFeedProps) => {
-  const { isLoading, isSuccess, data } = useFetchReddit(r);
+  const { isLoading, isSuccess, data, refetch, isRefetching } = useFetchReddit(r);
 
   if (!data && isLoading) {
     return 'loading...';
@@ -27,9 +28,11 @@ export const RedditFeed = ({ r }: RedditFeedProps) => {
   return (
     <Card>
       <div className={styles.posts}>
-        <FeedHeader data={data!} />
+        <FeedHeader data={data!} onRefresh={refetch} />
         <PostsList items={data!.items} />
       </div>
+
+      {isRefetching && <LoadingOverlay />}
     </Card>
   );
 };

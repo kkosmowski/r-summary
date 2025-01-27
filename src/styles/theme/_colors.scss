@@ -3,6 +3,7 @@ body.--color {
   --border-color-2: #ffa92e;
 
   --color-light-032: rgba(105, 59, 159, 0.4);
+  --color-light-072: rgba(250, 252, 227, 0.39);
   --color-light-focus: #98acff;
   --color-light-active: #fff5de;
   --color-light-0: #f9fffc;
@@ -53,6 +54,7 @@ body.--color {
   --color-bg-focus: var(--color-light-focus);
   --color-bg-active: var(--color-light-active);
   --color-bg-back: var(--color-light-032);
+  --color-bg-overlay: var(--color-light-072);
   --color-bg-0: var(--color-light-0);
   --color-bg-25: var(--color-light-25);
   --color-bg-50: var(--color-light-50);

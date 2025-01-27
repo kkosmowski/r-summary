@@ -9,6 +9,23 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 16px;
+
+  button {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+
+  &:hover button {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .subreddit {
@@ -22,12 +39,4 @@
 
 .deleteButton {
   margin: -8px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
-}
-
-.header:hover .deleteButton {
-  opacity: 1;
-  visibility: visible;
 }

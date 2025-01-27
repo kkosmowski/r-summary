@@ -1,10 +1,13 @@
 - [x] Add new Feed
 - [x] Remove Feed
 - [x] Implement Button component
-- [ ] Refactors caching settings so it's all in a single storage item
-- [ ] Refetch one specific Feed
-- [ ] Manage Feeds – a modal that allows you to remove and add them
-- [ ] Remove one specific Feed
+- [x] Refactors caching settings so it's all in a single storage item
+- [x] Refetch one specific Feed
+- [ ] Fix black "Misc" flair on dark bg (r/gakinotsukai)
+- [ ] Manage Feeds – a modal that allows you to remove and add multiple feeds
+- [ ] Extended Feed management – change order of items
 - [ ] Global filters
 - [ ] Feed-specific filter
 - [ ] Column view of Post if too narrow (using container queries)
+- [ ] Mark new posts – decide on "new" criteria (e.g. post that was not there before refetch – but what about manual refetches?)
+- [ ] Click on flair / author opens popup to "block" (filter out) flair / author

@@ -12,6 +12,7 @@ body.--dark {
   --color-light-500: #8a8a8a;
 
   --color-dark-032: rgb(0, 0, 0, 0.32);
+  --color-dark-072: rgb(26, 26, 26, 0.58);
   --color-dark-focus: #282828;
   --color-dark-active: #242424;
   --color-dark-0: #1a1a1a;
@@ -52,9 +53,12 @@ body.--dark {
   --color-fg-500: var(--color-light-500);
   --color-fg-primary-button: var(--color-light-50);
 
+  // @todo: add bg-overlay & dark-072 to other themes
+
   --color-bg-focus: var(--color-dark-focus);
   --color-bg-active: var(--color-dark-active);
   --color-bg-back: var(--color-dark-032);
+  --color-bg-overlay: var(--color-dark-072);
   --color-bg-0: var(--color-dark-0);
   --color-bg-25: var(--color-dark-25);
   --color-bg-50: var(--color-dark-50);

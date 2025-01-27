@@ -12,6 +12,7 @@ body.--black {
   --color-light-500: #8a8a8a;
 
   --color-dark-032: rgb(30, 30, 30, 0.5);
+  --color-dark-072: rgb(4, 4, 4, 0.48);
   --color-dark-focus: #181818;
   --color-dark-active: #131313;
   --color-dark-0: #000;
@@ -55,6 +56,7 @@ body.--black {
   --color-bg-focus: var(--color-dark-focus);
   --color-bg-active: var(--color-dark-active);
   --color-bg-back: var(--color-dark-032);
+  --color-bg-overlay: var(--color-dark-072);
   --color-bg-25: var(--color-dark-25);
   --color-bg-50: var(--color-dark-50);
   --color-bg-100: var(--color-dark-100);

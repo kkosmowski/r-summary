@@ -77,9 +77,11 @@ export const useFetchReddit = (r: string, options?: Options) => {
   const [hasFetched, setHasFetched] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isRefetching, setIsRefetching] = useState(false);
 
-  const fetchRedditData = useCallback(async (r: string) => {
+  const fetchRedditData = useCallback(async (refetch?: boolean) => {
     setIsLoading(true);
+    if (refetch) setIsRefetching(true);
     setIsSuccess(false);
 
     try {
@@ -92,6 +94,7 @@ export const useFetchReddit = (r: string, options?: Options) => {
       setData(prepareData(data, refetchTimeInMin));
     } finally {
       setIsLoading(false);
+      if (refetch) setIsRefetching(false);
       setHasFetched(true);
     }
   }, []);
@@ -102,7 +105,7 @@ export const useFetchReddit = (r: string, options?: Options) => {
     if (cache) {
       setData(cache);
     } else if (enabled) {
-      void fetchRedditData(r);
+      void fetchRedditData();
     }
   }, [r, fetchRedditData]);
 
@@ -110,7 +113,8 @@ export const useFetchReddit = (r: string, options?: Options) => {
     data,
     isSuccess,
     isLoading,
+    isRefetching,
     hasFetched,
-    refetch: fetchRedditData,
+    refetch: () => fetchRedditData(true),
   };
 };

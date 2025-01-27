@@ -11,6 +11,7 @@ body.--contrast {
   --color-light-500: #aaa;
 
   --color-dark-032: rgb(36, 36, 36, 0.64);
+  --color-dark-072: rgb(0, 0, 0, 0.73);
   --color-dark-focus: #333;
   --color-dark-active: #1c1c1c;
   --color-dark-0: #000;
@@ -53,6 +54,7 @@ body.--contrast {
   --color-bg-focus: var(--color-dark-focus);
   --color-bg-active: var(--color-dark-active);
   --color-bg-back: var(--color-dark-032);
+  --color-bg-overlay: var(--color-dark-072);
   --color-bg-0: var(--color-dark-0);
   --color-bg-25: var(--color-dark-25);
   --color-bg-50: var(--color-dark-50);
