@@ -1,10 +1,10 @@
 .modalContainer {
-  width: 100vw;
-  height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,6 +13,8 @@
 .modal {
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
   width: 500px;
   min-height: 200px;
   max-height: 80vh;
@@ -21,6 +23,10 @@
 
   &.noMinHeight {
     min-height: unset;
+  }
+
+  &.wide {
+    width: clamp(700px, 50vw, 1600px);
   }
 }
 
@@ -39,6 +45,12 @@
 
 .title {
   line-height: 24px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
 }
 
 .backdrop {

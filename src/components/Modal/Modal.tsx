@@ -9,6 +9,7 @@ export type ModalProps = {
   title: ReactNode;
   open: boolean;
   noMinHeight?: boolean;
+  wide?: boolean;
   className?: string;
   onClose?: VoidFunction;
   closeButton?: boolean;
@@ -21,6 +22,7 @@ export const Modal = ({
   title,
   open,
   noMinHeight,
+  wide,
   className,
   closeButton = true,
   closeOnBackdrop = true,
@@ -31,14 +33,14 @@ export const Modal = ({
 
   return (
     <div className={styles.modalContainer}>
-      <aside className={`${styles.modal} ${noMinHeight && styles.noMinHeight}`}>
+      <aside className={`${styles.modal} ${noMinHeight && styles.noMinHeight} ${wide && styles.wide}`}>
         <header className={styles.header}>
           <h3 className={styles.title}>{title}</h3>
 
           {closeButton && <Button icon={<CloseIcon />} className={styles.closeButton} onClick={() => onClose?.()} />}
         </header>
 
-        <section className={className}>{children}</section>
+        <section className={`${styles.content} ${className ?? ''}`}>{children}</section>
       </aside>
 
       {!hideBackdrop && (

@@ -5,7 +5,7 @@
 - [x] Refetch one specific Feed
 - [x] Fix black "Misc" flair on dark bg (r/gakinotsukai)
 - [ ] Manage Feeds – a modal that allows you to remove and add multiple feeds
-- [ ] Extended Feed management – change order of items
+- [x] Extended Feed management – change order of items
 - [ ] Global filters
 - [ ] Feed-specific filter
 - [ ] Column view of Post if too narrow (using container queries)

@@ -1,7 +1,7 @@
 import { SettingsIcon } from '~/icons/SettingsIcon';
 import { useModal } from '~/hooks/use-modal';
 import { SettingsModal } from '~/components/SettingsModal';
-import { AddFeed } from '~/components/AddFeed';
+import { FeedManagement } from '~/components/FeedManagement';
 import { Button } from '~/components/Button';
 import { Tooltip } from '~/components/Tooltip';
 
@@ -13,7 +13,7 @@ export const Toolbar = () => {
   return (
     <header className={styles.toolbar}>
       <section className={styles.left}>
-        <AddFeed />
+        <FeedManagement />
       </section>
 
       <section className={styles.right}>

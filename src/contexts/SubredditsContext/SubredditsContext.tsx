@@ -14,6 +14,8 @@ type SubredditsContextValue = {
   remove: (name: string) => void;
   getFilters: (name: string) => SubredditFilters | null;
   setFilters: (name: string, value: SubredditFilters) => void;
+  move: (name: string, index: number) => void;
+  swap: (nameA: string, nameB: string) => void;
 };
 
 const subredditsLsKey = 'subreddits' as const;
@@ -35,6 +37,8 @@ const SubredditsContext = createContext<SubredditsContextValue>({
   remove: () => {},
   getFilters: () => null,
   setFilters: () => {},
+  move: () => {},
+  swap: () => {},
 });
 
 export const SubredditsController = ({ children }: PropsWithChildren) => {
@@ -101,8 +105,48 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
     [setSubreddits],
   );
 
+  const move = useCallback(
+    (subreddit: string, index: number) => {
+      setSubreddits((current) => {
+        const indexOfSubreddit = current.order.indexOf(subreddit);
+        const indexModifier = indexOfSubreddit < index ? -1 : 0;
+        const newOrder = [...current.order];
+
+        newOrder.splice(indexOfSubreddit, 1);
+        newOrder.splice(index + indexModifier, 0, subreddit);
+
+        return {
+          ...current,
+          order: newOrder,
+        };
+      });
+    },
+    [setSubreddits],
+  );
+
+  const swap = useCallback(
+    (subredditA: string, subredditB: string) => {
+      setSubreddits((current) => {
+        const indexA = current.order.indexOf(subredditA);
+        const indexB = current.order.indexOf(subredditB);
+
+        const newOrder = [...current.order];
+        newOrder[indexA] = subredditB;
+        newOrder[indexB] = subredditA;
+
+        return {
+          ...current,
+          order: newOrder,
+        };
+      });
+    },
+    [setSubreddits],
+  );
+
   return (
-    <SubredditsContext.Provider value={{ subreddits: subredditsArray, add, remove, getFilters, setFilters }}>
+    <SubredditsContext.Provider
+      value={{ subreddits: subredditsArray, add, remove, getFilters, setFilters, move, swap }}
+    >
       {children}
     </SubredditsContext.Provider>
   );

@@ -8,7 +8,7 @@ export const SettingsModal = ({ open, onClose }: Pick<ModalProps, 'open' | 'onCl
   const { settings } = useSettings();
 
   return (
-    <Modal title="Settings" open={open} onClose={onClose} closeOnBackdrop={false}>
+    <Modal title="Settings" open={open} onClose={onClose}>
       <div className={styles.settingsList}>
         {settings.map((setting) => (
           <SettingItem key={setting.key} setting={setting} />

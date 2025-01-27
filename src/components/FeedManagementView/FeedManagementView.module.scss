@@ -1,0 +1,22 @@
+.managementView {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.feeds {
+  display: grid;
+  grid-template-rows: auto;
+  gap: 8px;
+}
+
+.feedRepresentation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 180px;
+  height: 100px;
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  font-size: 14px;
+}

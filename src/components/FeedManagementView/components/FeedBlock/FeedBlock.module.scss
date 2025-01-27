@@ -1,0 +1,13 @@
+.feedBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  font-size: 14px;
+  cursor: grab;
+
+  &:hover {
+    background-color: var(--color-bg-100);
+  }
+}
