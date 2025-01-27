@@ -45,8 +45,8 @@ export type PostItem = {
   commentCount: number;
   flair: {
     text: string;
-    color: 'light' | 'dark';
-    backgroundColor: string;
+    color: 'light' | 'dark' | null;
+    backgroundColor: string | '' | null;
   };
   link: string;
   thumbnail: {

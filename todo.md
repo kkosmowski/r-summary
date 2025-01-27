@@ -3,7 +3,7 @@
 - [x] Implement Button component
 - [x] Refactors caching settings so it's all in a single storage item
 - [x] Refetch one specific Feed
-- [ ] Fix black "Misc" flair on dark bg (r/gakinotsukai)
+- [x] Fix black "Misc" flair on dark bg (r/gakinotsukai)
 - [ ] Manage Feeds – a modal that allows you to remove and add multiple feeds
 - [ ] Extended Feed management – change order of items
 - [ ] Global filters
