@@ -1,25 +1,8 @@
-.section {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.hgroup {
-  display: flex;
-  flex-direction: column;
+.representation {
+  width: 100%;
 }
 
 .feeds {
   display: grid;
   grid-template-rows: auto;
-}
-
-.description {
-  color: var(--color-fg-100);
-  font-size: 15px;
-}
-
-.warning {
-  color: var(--color-error-500);
-  font-size: 15px;
 }

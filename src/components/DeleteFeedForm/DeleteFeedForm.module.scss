@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.warningText {
+  font-size: 13px;
+  color: var(--color-error-500);
+}
+
+.errorText {
+  font-size: 13px;
+  color: var(--color-error-500);
+}

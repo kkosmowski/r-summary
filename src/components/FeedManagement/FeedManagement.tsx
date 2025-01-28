@@ -7,8 +7,8 @@ import { Tooltip } from '~/components/Tooltip';
 import { DashboardIcon } from '~/icons/DashboardIcon';
 import { useModal } from '~/hooks/use-modal';
 
-import { AddFeedForm } from './components/AddFeedForm';
 import { FeedManagementModal } from './components/FeedManagementModal';
+import { AddFeedFormWrapper } from './components/AddFeedFormWrapper';
 
 export const FeedManagement = () => {
   const { add } = useSubreddits();
@@ -35,5 +35,5 @@ export const FeedManagement = () => {
     );
   }
 
-  return <AddFeedForm onClose={() => setIsAdding(false)} onAdd={add} />;
+  return <AddFeedFormWrapper onClose={() => setIsAdding(false)} onAdd={add} />;
 };

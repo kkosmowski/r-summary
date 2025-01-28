@@ -1,0 +1,1 @@
+export { DeleteFeedForm } from './DeleteFeedForm';

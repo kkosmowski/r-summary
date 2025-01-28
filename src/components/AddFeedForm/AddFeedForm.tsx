@@ -1,37 +1,37 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 
 import { useFetchReddit } from '~/hooks/use-fetch-reddit';
 import { INPUT_DEBOUNCE } from '~/consts/common';
-import { CheckIcon } from '~/icons/CheckIcon';
-import { CloseIcon } from '~/icons/CloseIcon';
 import { AddIcon } from '~/icons/AddIcon';
 import { Button } from '~/components/Button';
-
-import styles from './AddFeedForm.module.scss';
-import { useCacheSearch } from './hooks/use-cache-search';
 import { Tooltip } from '~/components/Tooltip';
+import { RedditInput } from '~/components/RedditInput';
+
+import { useCacheSearch } from './hooks/use-cache-search';
+import styles from './AddFeedForm.module.scss';
 
 type AddFeedFormProps = {
-  onClose: VoidFunction;
+  additionalButton?: ReactNode;
   onAdd: (subreddit: string) => void;
 };
 
-export const AddFeedForm = ({ onClose, onAdd }: AddFeedFormProps) => {
-  const [subReddit, setSubReddit] = useState('');
-  const [debouncedReddit] = useDebounce(subReddit, INPUT_DEBOUNCE);
+export const AddFeedForm = ({ additionalButton, onAdd }: AddFeedFormProps) => {
+  const [subreddit, setSubreddit] = useState('');
+  const [debouncedReddit] = useDebounce(subreddit, INPUT_DEBOUNCE);
   const [isValidCache, isInvalidCache, cacheSearch] = useCacheSearch(debouncedReddit);
   const {
     hasFetched,
     isLoading,
     isSuccess: isFetchSuccess,
+    isBlocked,
     refetch,
   } = useFetchReddit(debouncedReddit, { limit: 1, enabled: false });
   const isInvalidFetch = debouncedReddit && hasFetched && !isLoading && !isFetchSuccess;
   const isValidFetch = hasFetched && !isLoading && isFetchSuccess;
 
-  const isInvalid = isInvalidCache && isInvalidFetch;
-  const isSuccess = debouncedReddit && (isValidCache || isValidFetch);
+  const isInvalid = isInvalidCache && isInvalidFetch && !isBlocked;
+  const isSuccess = !!debouncedReddit && (isValidCache || isValidFetch);
 
   useEffect(() => {
     if (isSuccess) {
@@ -43,36 +43,32 @@ export const AddFeedForm = ({ onClose, onAdd }: AddFeedFormProps) => {
 
   useEffect(() => {
     if (debouncedReddit && !isValidCache) {
-      void refetch(debouncedReddit);
+      void refetch();
     }
   }, [debouncedReddit, isValidCache, refetch]);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSubReddit(e.target.value);
-  };
-
   const addTooltip = !debouncedReddit ? '' : !isSuccess ? 'Cannot add invalid feed' : '';
+
+  const handleAdd = () => {
+    onAdd(debouncedReddit);
+    setSubreddit('');
+  };
 
   return (
     <div className={styles.container}>
-      <span className={`${styles.redditInput} ${isSuccess ? styles.ok : styles.notOk}`}>
-        <input autoFocus type="text" value={subReddit} placeholder="Enter subreddit..." onChange={handleChange} />
-        {isSuccess && <CheckIcon color="success" className={styles.icon} />}
-      </span>
+      <RedditInput value={subreddit} isSuccess={isSuccess} isError={!isSuccess} onChange={setSubreddit} />
 
-      <Tooltip title="Cancel">
-        <Button icon={<CloseIcon />} color="error" onClick={() => onClose()} />
-      </Tooltip>
+      {additionalButton}
 
       <Tooltip title={addTooltip}>
-        <Button
-          icon={<AddIcon />}
-          color="primary"
-          disabled={isLoading || !isSuccess}
-          onClick={() => onAdd(debouncedReddit)}
-        />
+        <Button icon={<AddIcon />} color="primary" disabled={isLoading || !isSuccess} onClick={handleAdd} />
       </Tooltip>
 
+      {isBlocked && (
+        <span className={styles.errorText}>
+          It seems you are temporarily blocked by reddit, please wait couple of minutes.
+        </span>
+      )}
       {isInvalid && <span className={styles.errorText}>This reddit does not exist or is unavailable.</span>}
     </div>
   );

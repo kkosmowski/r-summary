@@ -4,8 +4,9 @@
 - [x] Refactors caching settings so it's all in a single storage item
 - [x] Refetch one specific Feed
 - [x] Fix black "Misc" flair on dark bg (r/gakinotsukai)
-- [ ] Manage Feeds – a modal that allows you to remove and add multiple feeds
+- [x] Manage Feeds – a modal that allows you to remove and add multiple feeds
 - [x] Extended Feed management – change order of items
+- [ ] Add warning color
 - [ ] Global filters
 - [ ] Feed-specific filter
 - [ ] Column view of Post if too narrow (using container queries)

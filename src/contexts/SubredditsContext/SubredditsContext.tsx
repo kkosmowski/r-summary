@@ -1,7 +1,7 @@
 import { createContext, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
 
 import { SubredditFilters } from '~/types/reddit';
-import { clearData } from '~/utils/caching';
+import { clearAllData, clearData } from '~/utils/caching';
 
 type SubredditsObject = {
   order: string[];
@@ -12,6 +12,7 @@ type SubredditsContextValue = {
   subreddits: string[];
   add: (name: string) => void;
   remove: (name: string) => void;
+  removeAll: VoidFunction;
   getFilters: (name: string) => SubredditFilters | null;
   setFilters: (name: string, value: SubredditFilters) => void;
   move: (name: string, index: number) => void;
@@ -35,6 +36,7 @@ const SubredditsContext = createContext<SubredditsContextValue>({
   subreddits: [],
   add: () => {},
   remove: () => {},
+  removeAll: () => {},
   getFilters: () => null,
   setFilters: () => {},
   move: () => {},
@@ -105,6 +107,11 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
     [setSubreddits],
   );
 
+  const removeAll = useCallback(() => {
+    clearAllData(subreddits.order);
+    setSubreddits({ items: {}, order: [] });
+  }, [setSubreddits]);
+
   const move = useCallback(
     (subreddit: string, index: number) => {
       setSubreddits((current) => {
@@ -145,7 +152,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
 
   return (
     <SubredditsContext.Provider
-      value={{ subreddits: subredditsArray, add, remove, getFilters, setFilters, move, swap }}
+      value={{ subreddits: subredditsArray, add, remove, removeAll, getFilters, setFilters, move, swap }}
     >
       {children}
     </SubredditsContext.Provider>

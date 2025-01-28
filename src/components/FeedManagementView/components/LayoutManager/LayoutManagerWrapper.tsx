@@ -3,6 +3,8 @@ import { DndProvider } from 'react-dnd';
 import { useEffect, useRef, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 
+import viewStyles from '~/components/FeedManagementView/FeedManagementView.module.scss';
+
 import { LayoutManager } from './LayoutManager';
 import styles from './LayoutManager.module.scss';
 
@@ -21,14 +23,14 @@ export const LayoutManagerWrapper = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className={styles.section}>
+    <section ref={sectionRef} className={viewStyles.section}>
       <hgroup className={styles.hgroup}>
         <h4>Layout</h4>
 
-        <span className={styles.description}>Drag-n-drop your feeds to change the order.</span>
+        <span className={viewStyles.description}>Drag-n-drop your feeds to change the order.</span>
 
         {debouncedWarningVisible && (
-          <span className={styles.warning}>Too many columns – dragging may not work properly.</span>
+          <span className={viewStyles.warning}>Too many columns – dragging may not work properly.</span>
         )}
       </hgroup>
 

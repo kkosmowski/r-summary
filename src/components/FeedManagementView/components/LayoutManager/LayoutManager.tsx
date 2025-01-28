@@ -51,7 +51,7 @@ export const LayoutManager = () => {
   };
 
   return (
-    <div ref={representation}>
+    <div ref={representation} className={styles.representation}>
       <div ref={drop} style={{ ...style, gap: FEED_REPRESENTATION_GAP + 'px' }} className={styles.feeds}>
         {subreddits.map((subreddit) => (
           <FeedBlock key={subreddit} subreddit={subreddit} onDrop={handleBlockDrop} />

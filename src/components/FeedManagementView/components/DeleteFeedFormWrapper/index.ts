@@ -1,0 +1,1 @@
+export { DeleteFeedFormWrapper } from './DeleteFeedFormWrapper';

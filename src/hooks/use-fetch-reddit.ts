@@ -77,27 +77,40 @@ export const useFetchReddit = (r: string, options?: Options) => {
   const [hasFetched, setHasFetched] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isBlocked, setIsBlocked] = useState(false);
   const [isRefetching, setIsRefetching] = useState(false);
 
-  const fetchRedditData = useCallback(async (refetch?: boolean) => {
-    setIsLoading(true);
-    if (refetch) setIsRefetching(true);
-    setIsSuccess(false);
+  const fetchRedditData = useCallback(
+    async (refetch?: boolean) => {
+      setIsLoading(true);
+      if (refetch) setIsRefetching(true);
+      setIsSuccess(false);
+      setIsBlocked(false);
 
-    try {
-      const response = await fetch(`${REDDIT_URL}/r/${r}/hot.json?sort=hot`);
-      if (response.ok) {
-        setIsSuccess(true);
+      try {
+        const response = await fetch(`${REDDIT_URL}/r/${r}/hot.json?sort=hot`);
+        if (response.ok) {
+          setIsSuccess(true);
+        }
+        console.log(response, response.status);
+        if (response.status === 429) {
+          setIsBlocked(true);
+        }
+
+        const data = await response.json();
+        setData(prepareData(data, refetchTimeInMin));
+      } finally {
+        setIsLoading(false);
+        if (refetch) setIsRefetching(false);
+        setHasFetched(true);
       }
+    },
+    [r],
+  );
 
-      const data = await response.json();
-      setData(prepareData(data, refetchTimeInMin));
-    } finally {
-      setIsLoading(false);
-      if (refetch) setIsRefetching(false);
-      setHasFetched(true);
-    }
-  }, []);
+  const refetch = useCallback(() => {
+    void fetchRedditData(true);
+  }, [r, fetchRedditData]);
 
   useEffect(() => {
     const cache = getData(r);
@@ -113,8 +126,9 @@ export const useFetchReddit = (r: string, options?: Options) => {
     data,
     isSuccess,
     isLoading,
+    isBlocked,
     isRefetching,
     hasFetched,
-    refetch: () => fetchRedditData(true),
+    refetch,
   };
 };

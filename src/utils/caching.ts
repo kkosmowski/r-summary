@@ -29,3 +29,9 @@ export const getData = (key: string) => {
 export const clearData = (key: string) => {
   localStorage.removeItem(redditLsPrefix + key.toLowerCase());
 };
+
+export const clearAllData = (keys: string[]) => {
+  for (const key of keys) {
+    clearData(key);
+  }
+};
