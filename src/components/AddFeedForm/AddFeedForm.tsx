@@ -65,11 +65,11 @@ export const AddFeedForm = ({ additionalButton, onAdd }: AddFeedFormProps) => {
       </Tooltip>
 
       {isBlocked && (
-        <span className={styles.errorText}>
+        <span className={`${styles.text} error`}>
           It seems you are temporarily blocked by reddit, please wait couple of minutes.
         </span>
       )}
-      {isInvalid && <span className={styles.errorText}>This reddit does not exist or is unavailable.</span>}
+      {isInvalid && <span className={`${styles.text} error`}>This reddit does not exist or is unavailable.</span>}
     </div>
   );
 };

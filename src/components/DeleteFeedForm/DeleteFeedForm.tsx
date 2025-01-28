@@ -38,13 +38,15 @@ export const DeleteFeedForm = ({ additionalButton, deleteAll, onDelete }: Delete
 
       {additionalButton}
 
-      {isDeleteAll && <span className={styles.warningText}>Warning: You are about to delete all of your feeds.</span>}
+      {isDeleteAll && (
+        <span className={`${styles.text} warning`}>Warning: You are about to delete all of your feeds.</span>
+      )}
 
       <Tooltip title={addTooltip}>
         <Button icon={<DeleteIcon />} color="error" disabled={isInvalid || !debouncedReddit} onClick={handleDelete} />
       </Tooltip>
 
-      {isInvalid && <span className={styles.errorText}>This subreddit is not in your feeds.</span>}
+      {isInvalid && <span className={`${styles.text} error`}>This subreddit is not in your feeds.</span>}
     </div>
   );
 };

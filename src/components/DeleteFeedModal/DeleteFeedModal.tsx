@@ -11,7 +11,12 @@ export const DeleteFeedModal = ({ subreddit, open, onClose }: DeleteFeedModalPro
   const { remove } = useSubreddits();
 
   const title = 'Delete feed?';
-  const message = `Please confirm whether you wish to remove "${subreddit.prefixed}" feed. This operation cannot be reverted.`;
+  const message = (
+    <>
+      Please confirm whether you wish to remove "{subreddit.prefixed}" feed.{' '}
+      <span className="warning">This operation cannot be reverted</span>.
+    </>
+  );
   const confirm: ConfirmationModalProps['confirm'] = {
     label: 'Delete',
     color: 'error',

@@ -38,3 +38,15 @@ h6,
 p {
   margin: 0;
 }
+
+.success {
+  color: var(--color-success-500);
+}
+
+.warning {
+  color: var(--color-warning-500);
+}
+
+.error {
+  color: var(--color-error-500);
+}

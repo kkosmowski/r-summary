@@ -1,5 +1,5 @@
 body.--white {
-  --border-color: #f2f2f2;
+  --border-color: #eeeeee;
   --border-color-2: #e2e2e2;
 
   --color-light-032: rgba(0, 0, 0, 0.25);
@@ -37,6 +37,8 @@ body.--white {
   --color-error-500: rgb(209, 62, 35);
   --color-error-600: rgb(232, 68, 39);
   --color-error-700: rgb(255, 75, 43);
+
+  --color-warning-500: rgb(171, 93, 0);
 
   --color-score-great: #187e18;
   --color-score-good: #6b6906;

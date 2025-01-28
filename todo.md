@@ -6,7 +6,7 @@
 - [x] Fix black "Misc" flair on dark bg (r/gakinotsukai)
 - [x] Manage Feeds – a modal that allows you to remove and add multiple feeds
 - [x] Extended Feed management – change order of items
-- [ ] Add warning color
+- [x] Add warning color
 - [ ] Global filters
 - [ ] Feed-specific filter
 - [ ] Column view of Post if too narrow (using container queries)

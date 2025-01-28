@@ -23,7 +23,7 @@ export const DeleteFeedFormWrapper = () => {
 
       <span className={viewStyles.description}>
         Enter name of the feed and confirm deletion with button.{' '}
-        <span className={viewStyles.warning}>This operation cannot be reverted.</span> Type "
+        <span className="warning">This operation cannot be reverted.</span> Type "
         <em style={{ userSelect: 'all' }}>{deleteAll}</em>" to remove all feeds at once.
       </span>
 
