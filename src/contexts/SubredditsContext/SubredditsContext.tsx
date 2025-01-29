@@ -1,15 +1,34 @@
-import { createContext, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
+import {
+  createContext,
+  Dispatch,
+  PropsWithChildren,
+  SetStateAction,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 import { FeedFilters, GlobalFilters } from '~/types/reddit';
 import { clearAllData, clearData } from '~/utils/caching';
 
 import { SubredditsFilterOptions, SubredditsObject } from './SubredditsContext.types';
-import { cacheSubreddits, getDefaultFilters, getSubreddits } from './SubredditsContext.utils';
+import {
+  cacheSubreddits,
+  getSavedGlobalFilters,
+  getSubreddits,
+  cacheFilterOptions,
+  getCachedFilterOptions,
+  countActiveFilters,
+} from './SubredditsContext.utils';
 
 type SubredditsContextValue = {
   subreddits: string[];
   globalFilters: GlobalFilters | null;
+  setGlobalFilters: Dispatch<SetStateAction<GlobalFilters | null>>;
   filterOptions: SubredditsFilterOptions;
+  addFilterOption: (key: keyof SubredditsFilterOptions, value: string) => void;
+  activeFilters: number;
   add: (name: string) => void;
   remove: (name: string) => void;
   removeAll: VoidFunction;
@@ -19,10 +38,16 @@ type SubredditsContextValue = {
   swap: (nameA: string, nameB: string) => void;
 };
 
+const defaultFilters: GlobalFilters = { pickType: [], omitType: [], pickKeywords: [], omitKeywords: [] };
+const defaultFilterOptions: SubredditsFilterOptions = { types: ['video', 'image', 'text'], keywords: [] };
+
 const SubredditsContext = createContext<SubredditsContextValue>({
   subreddits: [],
   globalFilters: null,
-  filterOptions: { types: ['video', 'image', 'text'] },
+  setGlobalFilters: () => {},
+  filterOptions: defaultFilterOptions,
+  activeFilters: 0,
+  addFilterOption: () => {},
   add: () => {},
   remove: () => {},
   removeAll: () => {},
@@ -34,13 +59,33 @@ const SubredditsContext = createContext<SubredditsContextValue>({
 
 export const SubredditsController = ({ children }: PropsWithChildren) => {
   const [subreddits, setSubreddits] = useState<SubredditsObject>(getSubreddits());
-  const [globalFilters, setGlobalFilters] = useState<GlobalFilters | null>(null);
-
-  const filterOptions: SubredditsFilterOptions = { types: ['video', 'image', 'text'] };
+  const [globalFilters, setGlobalFilters] = useState<GlobalFilters | null>(defaultFilters);
+  const [filterOptions, setFilterOptions] = useState<SubredditsFilterOptions>(defaultFilterOptions);
+  const [activeFilters, setActiveFilters] = useState(0);
 
   useEffect(() => {
-    setGlobalFilters(getDefaultFilters());
+    setGlobalFilters(getSavedGlobalFilters());
+    setFilterOptions(getCachedFilterOptions() ?? defaultFilterOptions);
   }, []);
+
+  useEffect(() => {
+    setActiveFilters(countActiveFilters(globalFilters, defaultFilters));
+  }, [globalFilters]);
+
+  const addFilterOption = useCallback(
+    (key: keyof SubredditsFilterOptions, value: string) => {
+      setFilterOptions((current) => {
+        const newOptions = {
+          ...current,
+          [key]: [...current[key], value].sort(),
+        };
+
+        cacheFilterOptions(newOptions);
+        return newOptions;
+      });
+    },
+    [setFilterOptions],
+  );
 
   const getFilters = useCallback(
     (name: string) => {
@@ -158,7 +203,10 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
         move,
         swap,
         filterOptions,
+        addFilterOption,
         globalFilters,
+        setGlobalFilters,
+        activeFilters,
       }}
     >
       {children}

@@ -7,6 +7,7 @@ const POPUP_GAP = 8;
 
 export type PopupProps = PropsWithChildren & {
   anchor: HTMLElement | null;
+  open: boolean;
   onClose?: VoidFunction;
 };
 
@@ -16,8 +17,8 @@ const getPositionStyle = (anchor: HTMLElement) => {
   return { left, top: top + height + POPUP_GAP };
 };
 
-export const Popup = ({ anchor, children, onClose }: PopupProps) => {
-  if (!anchor) return null;
+export const Popup = ({ open, anchor, children, onClose }: PopupProps) => {
+  if (!anchor || !open) return null;
 
   const positionStyle = getPositionStyle(anchor);
 

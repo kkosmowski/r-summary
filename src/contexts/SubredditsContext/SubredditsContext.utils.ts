@@ -1,9 +1,12 @@
+import isEqual from 'lodash.isequal';
+
 import { GlobalFilters } from '~/types/reddit';
 
-import { SubredditsObject } from './SubredditsContext.types';
+import { SubredditsFilterOptions, SubredditsObject } from './SubredditsContext.types';
 
 const subredditsLsKey = 'subreddits' as const;
-const filtersLsKey = 'filters' as const;
+const filterOptionsLsKey = 'filters-options' as const;
+const defaultFiltersLsKey = 'filters-default' as const;
 
 export const cacheSubreddits = (subreddits: SubredditsObject) => {
   localStorage.setItem(subredditsLsKey, JSON.stringify(subreddits));
@@ -16,9 +19,28 @@ export const getSubreddits = () => {
   return data as SubredditsObject;
 };
 
-export const getDefaultFilters = () => {
-  const data = JSON.parse(localStorage.getItem(filtersLsKey) ?? 'null');
-  if (!data) return { omitType: [], pickType: [], omitKeywords: [], pickKeywords: [] };
+export const getSavedGlobalFilters = () => {
+  return JSON.parse(localStorage.getItem(defaultFiltersLsKey) ?? 'null') as GlobalFilters | null;
+};
 
-  return data as GlobalFilters;
+export const getCachedFilterOptions = () => {
+  return JSON.parse(localStorage.getItem(filterOptionsLsKey) ?? 'null');
+};
+
+export const cacheFilterOptions = (options: SubredditsFilterOptions) => {
+  localStorage.setItem(filterOptionsLsKey, JSON.stringify(options));
+};
+
+export const countActiveFilters = (filters: GlobalFilters | null, defaultFilters: GlobalFilters | null) => {
+  let count = 0;
+
+  for (const filterKey in filters) {
+    const key = filterKey as keyof typeof filters;
+
+    if (!isEqual(filters?.[key], defaultFilters?.[key])) {
+      count += 1;
+    }
+  }
+
+  return count;
 };

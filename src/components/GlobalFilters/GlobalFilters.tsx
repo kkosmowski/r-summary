@@ -1,29 +1,35 @@
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useRef, useState } from 'react';
+import { Badge } from '~/components/Badge';
 
 import { Button } from '~/components/Button';
+import { useGlobalFilters } from '~/components/GlobalFilters/hooks/use-global-filters';
 import { Tooltip } from '~/components/Tooltip';
 import { FiltersIcon } from '~/icons/FiltersIcon';
 
 import { GlobalFiltersPopup } from './components/GlobalFiltersPopup';
 
 export const GlobalFilters = () => {
-  const [anchor, setAnchor] = useState<HTMLElement | null>(null);
+  const anchor = useRef<HTMLButtonElement | null>(null);
+  const [open, setOpen] = useState(false);
+  const { activeFilters } = useGlobalFilters();
 
-  const handleToggleFilters = (e: MouseEvent<HTMLElement>) => {
-    setAnchor((anchor) => (anchor ? null : (e.target as HTMLElement)));
+  const handleToggleFilters = () => {
+    setOpen(true);
   };
 
   const closeFilters = () => {
-    setAnchor(null);
+    setOpen(false);
   };
 
   return (
     <>
       <Tooltip title="Global filters">
-        <Button icon={<FiltersIcon />} active={!!anchor} color="primary" onClick={handleToggleFilters} />
+        <Badge label={activeFilters}>
+          <Button ref={anchor} icon={<FiltersIcon />} active={open} color="primary" onClick={handleToggleFilters} />
+        </Badge>
       </Tooltip>
 
-      <GlobalFiltersPopup anchor={anchor} onClose={closeFilters} />
+      <GlobalFiltersPopup anchor={anchor.current} open={open} onClose={closeFilters} />
     </>
   );
 };

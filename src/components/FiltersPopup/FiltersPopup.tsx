@@ -1,20 +1,23 @@
 import { Button } from '~/components/Button';
 import { Popup, PopupProps } from '~/components/Popup';
 import { FiltersClearIcon } from '~/icons/FiltersClearIcon';
-import { SaveIcon } from '~/icons/SaveIcon';
 
 import styles from './FiltersPopup.module.scss';
 
-export const FiltersPopup = ({ anchor, children, onClose }: PopupProps) => {
+type FiltersPopupProps = PopupProps & {
+  onClear: VoidFunction;
+  clearDisabled?: boolean;
+};
+
+export const FiltersPopup = ({ onClear, clearDisabled, children, ...rest }: FiltersPopupProps) => {
   return (
-    <Popup anchor={anchor} onClose={onClose}>
+    <Popup {...rest}>
       <section className={styles.filters}>{children}</section>
 
       <footer className={styles.buttons}>
-        <Button color="primary" withIcon={<SaveIcon />}>
-          Save
+        <Button withIcon={<FiltersClearIcon />} disabled={clearDisabled} onClick={onClear}>
+          Clear
         </Button>
-        <Button withIcon={<FiltersClearIcon />}>Clear</Button>
       </footer>
     </Popup>
   );

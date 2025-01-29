@@ -1,20 +1,18 @@
 import { KeywordFilters } from '~/components/Filters/KeywordFilters';
 import { FiltersPopup } from '~/components/FiltersPopup';
 import { PopupProps } from '~/components/Popup';
-import { useSubreddits } from '~/contexts/SubredditsContext';
+import { useGlobalFilters } from '~/components/GlobalFilters/hooks/use-global-filters';
 import { TypeFilters } from '~/components/Filters/TypeFilters';
 
-type GlobalFiltersPopupProps = Pick<PopupProps, 'anchor' | 'onClose'>;
+type GlobalFiltersPopupProps = Pick<PopupProps, 'anchor' | 'open' | 'onClose'>;
 
 export const GlobalFiltersPopup = (props: GlobalFiltersPopupProps) => {
-  const { globalFilters, filterOptions } = useSubreddits();
-
-  const { pickType, omitType, pickKeywords, omitKeywords } = globalFilters ?? {};
+  const { setFilters, activeFilters } = useGlobalFilters();
 
   return (
-    <FiltersPopup {...props}>
-      <TypeFilters options={filterOptions.types} pickValue={pickType} omitValue={omitType} />
-      <KeywordFilters options={[]} pickValue={pickKeywords} omitValue={omitKeywords} />
+    <FiltersPopup {...props} clearDisabled={!activeFilters} onClear={() => setFilters(null)}>
+      <TypeFilters />
+      <KeywordFilters />
     </FiltersPopup>
   );
 };

@@ -1,27 +1,37 @@
-import { useState } from 'react';
+import { useCallback } from 'react';
+import { useGlobalFilters } from '~/components/GlobalFilters/hooks/use-global-filters';
 
 import { PickOmitInputs } from '../PickOmitInputs';
 
-type TypeFiltersProps = {
-  options: string[];
-  pickValue?: string[];
-  omitValue?: string[];
-};
+export const KeywordFilters = () => {
+  // todo: decouple KeywordFilters from global filters
+  const { filters, setFilters, options, addOption } = useGlobalFilters();
 
-export const KeywordFilters = ({ options, pickValue, omitValue }: TypeFiltersProps) => {
-  const [pick, setPick] = useState<string[]>(pickValue ?? []);
-  const [omit, setOmit] = useState<string[]>(omitValue ?? []);
+  const setPickKeywords = useCallback(
+    (newValue: string[]) => setFilters((current) => ({ ...current, pickKeywords: newValue })),
+    [setFilters],
+  );
+
+  const setOmitKeywords = useCallback(
+    (newValue: string[]) => setFilters((current) => ({ ...current, omitKeywords: newValue })),
+    [setFilters],
+  );
+
+  const handleCreateOption = (newOption: string) => {
+    addOption('keywords', newOption);
+  };
 
   return (
     <PickOmitInputs
-      options={options}
       creatable
-      pickValue={pick}
-      omitValue={omit}
+      options={options.keywords}
+      pickValue={filters?.pickKeywords}
+      omitValue={filters?.omitKeywords}
       pickPlaceholder="Only keywords"
       omitPlaceholder="Avoid keywords"
-      onPickChange={setPick}
-      onOmitChange={setOmit}
+      onPickChange={setPickKeywords}
+      onOmitChange={setOmitKeywords}
+      onCreate={handleCreateOption}
     />
   );
 };

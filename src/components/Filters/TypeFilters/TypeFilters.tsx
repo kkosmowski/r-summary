@@ -1,26 +1,33 @@
-import { useState } from 'react';
+import { useCallback } from 'react';
+import { useGlobalFilters } from '~/components/GlobalFilters/hooks/use-global-filters';
+import { PostItem } from '~/types/reddit';
 
 import { PickOmitInputs } from '../PickOmitInputs';
 
-type TypeFiltersProps = {
-  options: string[];
-  pickValue?: string[];
-  omitValue?: string[];
-};
+export const TypeFilters = () => {
+  // todo: decouple TypeFilters from global filters
+  const { filters, setFilters, options } = useGlobalFilters();
 
-export const TypeFilters = ({ options, pickValue, omitValue }: TypeFiltersProps) => {
-  const [pick, setPick] = useState<string[]>(pickValue ?? []);
-  const [omit, setOmit] = useState<string[]>(omitValue ?? []);
+  const setPickType = useCallback(
+    (newValue: string[]) => setFilters((current) => ({ ...current, pickType: newValue as PostItem['type'][] })),
+    [setFilters],
+  );
+
+  const setOmitType = useCallback(
+    (newValue: string[]) => setFilters((current) => ({ ...current, omitType: newValue as PostItem['type'][] })),
+    [setFilters],
+  );
 
   return (
     <PickOmitInputs
-      options={options}
-      pickValue={pick}
-      omitValue={omit}
+      options={options.types}
+      pickValue={filters?.pickType}
+      omitValue={filters?.omitType}
       pickPlaceholder="Only types"
       omitPlaceholder="Avoid types"
-      onPickChange={setPick}
-      onOmitChange={setOmit}
+      onPickChange={setPickType}
+      onOmitChange={setOmitType}
+      makeOptionsUppercase
     />
   );
 };

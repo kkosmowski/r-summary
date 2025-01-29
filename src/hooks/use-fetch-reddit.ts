@@ -7,16 +7,10 @@ import { getData } from '~/utils/caching';
 import { useSettings } from '~/contexts/SettingsContext';
 import { CACHE_TIME } from '~/consts/api';
 import { REDDIT_URL } from '~/consts/reddit';
+import { htmlDecode } from '~/utils/html-decode';
 
 const selftext_html_start = 43;
 const selftext_html_end = -33;
-
-function htmlDecode(input: string | null) {
-  if (!input) return '';
-  const e = document.createElement('div');
-  e.innerHTML = input;
-  return e.childNodes[0].nodeValue ?? '';
-}
 
 const prepareData = (data: RawRedditData, refetchTimeInMin = CACHE_TIME): TransformedData => {
   const transformed = {
@@ -60,7 +54,6 @@ const prepareData = (data: RawRedditData, refetchTimeInMin = CACHE_TIME): Transf
   };
 
   cacheData(transformed, refetchTimeInMin);
-
   return transformed;
 };
 

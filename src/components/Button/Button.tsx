@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { ButtonHTMLAttributes, forwardRef, ReactNode } from 'react';
 
 import { Color } from '~/types/ui';
 
@@ -24,13 +24,13 @@ const getClassName = ({ className, color, icon, withIcon, variant, active }: But
   return result;
 };
 
-export const Button = (props: ButtonProps) => {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const { icon, children, active, withIcon, ...rest } = props;
   const className = getClassName(props);
 
   return (
-    <button {...rest} className={className}>
+    <button ref={ref} {...rest} className={className}>
       {withIcon} {icon ?? children}
     </button>
   );
-};
+});

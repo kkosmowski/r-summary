@@ -1,7 +1,10 @@
+import { useCallback } from 'react';
+
 import { Post } from '~/components/Post';
 import { PostItem } from '~/types/reddit';
 import { useSettings } from '~/contexts/SettingsContext';
-import { useCallback } from 'react';
+
+import styles from './PostsList.module.scss';
 
 type RedditFeedProps = {
   items: PostItem[];
@@ -37,6 +40,10 @@ export const PostsList = ({ items }: RedditFeedProps) => {
   );
 
   const itemsToRender = postsPerSubreddit ? items.slice(0, postsPerSubreddit) : items;
+
+  if (itemsToRender.length === 0) {
+    return <span className={styles.noItems}>No items. Consider modifying filters.</span>;
+  }
 
   return (
     <>

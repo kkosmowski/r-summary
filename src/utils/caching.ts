@@ -1,4 +1,6 @@
 import { redditLsPrefix } from '~/consts/reddit.ts';
+import { TransformedData } from '~/types/reddit';
+import { htmlDecode } from '~/utils/html-decode';
 
 export const setData = (key: string, data: any, expireIn: number) => {
   const cache = {
@@ -9,7 +11,7 @@ export const setData = (key: string, data: any, expireIn: number) => {
   localStorage.setItem(redditLsPrefix + key.toLowerCase(), JSON.stringify(cache));
 };
 
-export const getData = (key: string) => {
+export const getData = (key: string): TransformedData | null => {
   const currentTime = new Date().getTime();
   const string = localStorage.getItem(redditLsPrefix + key.toLowerCase());
 
@@ -17,13 +19,19 @@ export const getData = (key: string) => {
     return null;
   }
 
-  const { data, expires } = JSON.parse(string);
+  const { data, expires }: { data: TransformedData; expires: number } = JSON.parse(string);
 
   if (currentTime > new Date(expires).getTime()) {
     return null;
   }
-
-  return data;
+  return {
+    subreddit: data.subreddit,
+    items: data.items.map((post) => ({
+      ...post,
+      title: htmlDecode(post.title),
+      description: htmlDecode(post.description),
+    })),
+  };
 };
 
 export const clearData = (key: string) => {

@@ -1,6 +1,7 @@
 import { useFetchReddit } from '~/hooks/use-fetch-reddit';
 import { PostsList } from '~/components/PostsList';
 import { Card } from '~/components/Card';
+import { useFilterData } from '~/hooks/use-filter-data';
 
 import { FeedHeader } from './components/FeedHeader';
 import { LoadingOverlay } from './components/LoadingOverlay';
@@ -12,6 +13,7 @@ type RedditFeedProps = {
 
 export const RedditFeed = ({ r }: RedditFeedProps) => {
   const { isLoading, isSuccess, data, refetch, isRefetching } = useFetchReddit(r);
+  const filteredItems = useFilterData(data);
 
   if (!data && isLoading) {
     return 'loading...';
@@ -29,7 +31,7 @@ export const RedditFeed = ({ r }: RedditFeedProps) => {
     <Card>
       <div className={styles.posts}>
         <FeedHeader data={data!} onRefresh={refetch} />
-        <PostsList items={data!.items} />
+        <PostsList items={filteredItems!} />
       </div>
 
       {isRefetching && <LoadingOverlay />}

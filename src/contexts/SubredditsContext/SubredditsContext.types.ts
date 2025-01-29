@@ -7,4 +7,5 @@ export type SubredditsObject = {
 
 export type SubredditsFilterOptions = {
   types: PostItem['type'][];
+  keywords: string[];
 };
