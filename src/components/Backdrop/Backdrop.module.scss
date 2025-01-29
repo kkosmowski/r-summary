@@ -1,0 +1,16 @@
+.backdrop {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  cursor: pointer;
+
+  &:not(.transparent) {
+    background-color: var(--color-bg-back);
+  }
+
+  &.disabled {
+    pointer-events: none;
+  }
+}

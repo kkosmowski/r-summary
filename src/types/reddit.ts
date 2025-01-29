@@ -70,7 +70,14 @@ export type TransformedData = {
   items: PostItem[];
 };
 
-export type SubredditFilters = {
+export type GlobalFilters = {
+  omitType?: PostItem['type'][];
+  pickType?: PostItem['type'][];
+  pickKeywords?: string[];
+  omitKeywords?: string[];
+};
+
+export type FeedFilters = {
   omitAuthors?: string[];
   pickAuthors?: string[];
   omitFlairs?: string[];
@@ -78,8 +85,8 @@ export type SubredditFilters = {
   minThreshold?: number;
   minPoints?: number;
   minComments?: number;
-  omitType?: ('video' | 'image' | 'text')[];
-  pickType?: ('video' | 'image' | 'text')[];
+  omitType?: PostItem['type'][];
+  pickType?: PostItem['type'][];
   pickKeywords?: string[];
   omitKeywords?: string[];
 };

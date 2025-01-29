@@ -1,39 +1,28 @@
 import { createContext, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
 
-import { SubredditFilters } from '~/types/reddit';
+import { FeedFilters, GlobalFilters } from '~/types/reddit';
 import { clearAllData, clearData } from '~/utils/caching';
 
-type SubredditsObject = {
-  order: string[];
-  items: Record<string, SubredditFilters>;
-};
+import { SubredditsFilterOptions, SubredditsObject } from './SubredditsContext.types';
+import { cacheSubreddits, getDefaultFilters, getSubreddits } from './SubredditsContext.utils';
 
 type SubredditsContextValue = {
   subreddits: string[];
+  globalFilters: GlobalFilters | null;
+  filterOptions: SubredditsFilterOptions;
   add: (name: string) => void;
   remove: (name: string) => void;
   removeAll: VoidFunction;
-  getFilters: (name: string) => SubredditFilters | null;
-  setFilters: (name: string, value: SubredditFilters) => void;
+  getFilters: (name: string) => FeedFilters | null;
+  setFilters: (name: string, value: FeedFilters) => void;
   move: (name: string, index: number) => void;
   swap: (nameA: string, nameB: string) => void;
 };
 
-const subredditsLsKey = 'subreddits' as const;
-
-function cacheSubreddits(subreddits: SubredditsObject) {
-  localStorage.setItem(subredditsLsKey, JSON.stringify(subreddits));
-}
-
-export const getSubreddits = () => {
-  const data = JSON.parse(localStorage.getItem(subredditsLsKey) ?? 'null');
-  if (!data) return { order: [], items: {} };
-
-  return data as SubredditsObject;
-};
-
 const SubredditsContext = createContext<SubredditsContextValue>({
   subreddits: [],
+  globalFilters: null,
+  filterOptions: { types: ['video', 'image', 'text'] },
   add: () => {},
   remove: () => {},
   removeAll: () => {},
@@ -45,6 +34,13 @@ const SubredditsContext = createContext<SubredditsContextValue>({
 
 export const SubredditsController = ({ children }: PropsWithChildren) => {
   const [subreddits, setSubreddits] = useState<SubredditsObject>(getSubreddits());
+  const [globalFilters, setGlobalFilters] = useState<GlobalFilters | null>(null);
+
+  const filterOptions: SubredditsFilterOptions = { types: ['video', 'image', 'text'] };
+
+  useEffect(() => {
+    setGlobalFilters(getDefaultFilters());
+  }, []);
 
   const getFilters = useCallback(
     (name: string) => {
@@ -59,7 +55,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
   );
 
   const setFilters = useCallback(
-    (name: string, value: SubredditFilters) => {
+    (name: string, value: FeedFilters) => {
       if (!subreddits.items.hasOwnProperty(name)) {
         console.error(`Unknown subreddit name: "${name}".`);
         return;
@@ -152,7 +148,18 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
 
   return (
     <SubredditsContext.Provider
-      value={{ subreddits: subredditsArray, add, remove, removeAll, getFilters, setFilters, move, swap }}
+      value={{
+        subreddits: subredditsArray,
+        add,
+        remove,
+        removeAll,
+        getFilters,
+        setFilters,
+        move,
+        swap,
+        filterOptions,
+        globalFilters,
+      }}
     >
       {children}
     </SubredditsContext.Provider>

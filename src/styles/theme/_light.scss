@@ -1,6 +1,7 @@
 body.--light {
-  --border-color: #dadada;
-  --border-color-2: #cacaca;
+  --color-border: #dadada;
+  --color-border-2: #cacaca;
+  --color-border-2-hover: #ababab;
 
   --color-light-032: rgba(59, 49, 52, 0.4);
   --color-light-072: rgb(245, 245, 245, 0.45);
@@ -9,9 +10,9 @@ body.--light {
   --color-light-0: #fff;
   --color-light-25: #fbfbfb;
   --color-light-50: #f9f9f9;
-  --color-light-100: #fff;
+  --color-light-100: #fefefe;
   --color-light-200: #e8e8e8;
-  --color-light-300: #ababab;
+  --color-light-300: #efefef;
 
   --color-dark-50: #07162a;
   --color-dark-100: #0f1825;
@@ -62,6 +63,8 @@ body.--light {
   --color-bg-50: var(--color-light-50);
   --color-bg-100: var(--color-light-100);
   --color-bg-200: var(--color-light-200);
+  --color-bg-300: var(--color-light-300);
+  --color-bg-input: transparent;
 
   color: var(--color-fg-50);
   background-color: var(--color-bg-50);

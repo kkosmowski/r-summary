@@ -92,7 +92,7 @@ export const useFetchReddit = (r: string, options?: Options) => {
         if (response.ok) {
           setIsSuccess(true);
         }
-        console.log(response, response.status);
+
         if (response.status === 429) {
           setIsBlocked(true);
         }

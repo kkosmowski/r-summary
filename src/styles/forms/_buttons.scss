@@ -1,0 +1,103 @@
+button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 0;
+  border: 1px solid transparent;
+  padding: 8px 16px;
+  font-size: 14px;
+  letter-spacing: 0.04ch;
+  font-weight: 500;
+  font-family: inherit;
+  text-transform: uppercase;
+  background-color: var(--color-bg-50);
+  cursor: pointer;
+  transition: border-color 0.25s;
+  outline: none;
+  color: inherit;
+
+  &.--with-icon > svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &.--icon {
+    padding: 6px;
+    border: 0;
+  }
+
+  &:hover {
+    color: var(--color-fg-25);
+    background-color: var(--color-bg-active);
+  }
+
+  &:focus-visible {
+    color: var(--color-fg-25);
+    background-color: var(--color-bg-focus);
+  }
+
+  &:active {
+    background-color: var(--color-bg-active);
+  }
+
+  &.--primary {
+    &:hover,
+    &.--active {
+      color: var(--color-primary-500);
+    }
+    &:focus-visible {
+      color: var(--color-fg-25);
+      background-color: var(--color-primary-500-focus);
+    }
+    &:hover,
+    &:active {
+      background-color: var(--color-primary-500-active);
+    }
+  }
+
+  &.--success {
+    &:hover,
+    &.--active {
+      color: var(--color-success-500);
+    }
+    &:focus-visible {
+      color: var(--color-fg-25);
+      background-color: var(--color-success-500-focus);
+    }
+    &:hover,
+    &:active {
+      background-color: var(--color-success-500-active);
+    }
+  }
+
+  &.--error {
+    &:hover,
+    &.--active {
+      color: var(--color-error-500);
+    }
+    &:focus-visible {
+      color: var(--color-fg-25);
+      background-color: var(--color-error-500-focus);
+    }
+    &:hover,
+    &:active {
+      background-color: var(--color-error-500-active);
+    }
+  }
+
+  &.--filled {
+    color: var(--color-fg-primary-button);
+    background-color: var(--color-primary-600);
+
+    &:hover,
+    &.--active {
+      color: var(--color-fg-primary-button);
+      background-color: var(--color-primary-700);
+    }
+  }
+
+  &[disabled] {
+    color: var(--color-fg-500);
+    pointer-events: none;
+  }
+}

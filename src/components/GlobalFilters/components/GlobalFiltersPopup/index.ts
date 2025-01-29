@@ -1,0 +1,1 @@
+export { GlobalFiltersPopup } from './GlobalFiltersPopup';

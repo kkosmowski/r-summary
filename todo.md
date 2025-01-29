@@ -8,6 +8,7 @@
 - [x] Extended Feed management – change order of items
 - [x] Add warning color
 - [ ] Global filters
+- [ ] Fix a tooltip bug where sometimes position is slightly off
 - [ ] Feed-specific filter
 - [ ] Column view of Post if too narrow (using container queries)
 - [ ] Mark new posts – decide on "new" criteria (e.g. post that was not there before refetch – but what about manual refetches?)

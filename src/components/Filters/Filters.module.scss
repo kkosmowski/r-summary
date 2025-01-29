@@ -1,0 +1,9 @@
+.filtersRow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filterInput {
+  min-width: 240px;
+}

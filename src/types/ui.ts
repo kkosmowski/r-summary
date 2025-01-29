@@ -5,3 +5,8 @@ export type IconProps = {
 };
 
 export type Color = 'primary' | 'success' | 'error';
+
+export type Option = {
+  label: string;
+  value: string;
+};

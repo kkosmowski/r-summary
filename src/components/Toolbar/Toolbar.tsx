@@ -1,3 +1,4 @@
+import { GlobalFilters } from '~/components/GlobalFilters';
 import { SettingsIcon } from '~/icons/SettingsIcon';
 import { useModal } from '~/hooks/use-modal';
 import { SettingsModal } from '~/components/SettingsModal';
@@ -14,11 +15,12 @@ export const Toolbar = () => {
     <header className={styles.toolbar}>
       <section className={styles.left}>
         <FeedManagement />
+        <GlobalFilters />
       </section>
 
       <section className={styles.right}>
         <Tooltip title="Open settings">
-          <Button icon={<SettingsIcon />} color="primary" onClick={openModal} />
+          <Button icon={<SettingsIcon />} active={isOpen} color="primary" onClick={openModal} />
         </Tooltip>
       </section>
 

@@ -1,4 +1,5 @@
 import { PropsWithChildren, ReactNode } from 'react';
+import { Backdrop } from '~/components/Backdrop';
 
 import { CloseIcon } from '~/icons/CloseIcon';
 
@@ -43,12 +44,7 @@ export const Modal = ({
         <section className={`${styles.content} ${className ?? ''}`}>{children}</section>
       </aside>
 
-      {!hideBackdrop && (
-        <div
-          className={`${styles.backdrop} ${!closeOnBackdrop ? styles.disabled : ''}`}
-          onClick={() => (closeOnBackdrop ? onClose?.() : undefined)}
-        />
-      )}
+      <Backdrop hide={hideBackdrop} closeOnBackdrop={closeOnBackdrop} onClose={onClose} />
     </div>
   );
 };

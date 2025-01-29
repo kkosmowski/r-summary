@@ -11,20 +11,11 @@ export const AddIcon = ({ size = 24, color, className }: IconProps) => (
     color={getIconColor(color)}
   >
     <g>
-      <rect fill="none" height="24" width="24" />
-    </g>
-    <g>
-      <g />
-      <g>
-        <path
-          d="M17,19.22H5V7h7V5H5C3.9,5,3,5.9,3,7v12c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2v-7h-2V19.22z"
-          fill="currentColor"
-        />
-        <path d="M19,2h-2v3h-3c0.01,0.01,0,2,0,2h3v2.99c0.01,0.01,2,0,2,0V7h3V5h-3V2z" fill="currentColor" />
-        <rect height="2" width="8" x="7" y="9" fill="currentColor" />
-        <polygon points="7,12 7,14 15,14 15,12 12,12" fill="currentColor" />
-        <rect height="2" width="8" x="7" y="15" fill="currentColor" />
-      </g>
+      <path d="M17 19.22H5V7h7V5H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-7h-2z" fill="currentColor" />
+      <path
+        d="M19 2h-2v3h-3c.01.01 0 2 0 2h3v2.99c.01.01 2 0 2 0V7h3V5h-3zM7 9h8v2H7zm0 3v2h8v-2h-3zm0 3h8v2H7z"
+        fill="currentColor"
+      />
     </g>
   </svg>
 );

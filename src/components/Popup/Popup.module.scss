@@ -1,0 +1,28 @@
+.popupContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+}
+
+.popup {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 240px;
+  width: min-content;
+  max-width: 500px;
+  background-color: var(--color-bg-100);
+  padding: 16px;
+
+  &.noMinHeight {
+    min-height: unset;
+  }
+
+  &.wide {
+    width: clamp(700px, 50vw, 1600px);
+  }
+}

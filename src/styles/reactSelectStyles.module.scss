@@ -1,0 +1,97 @@
+.rsInput {
+  min-height: 36px;
+  font-size: 14px;
+  cursor: pointer;
+
+  > div { // select & menu
+    border-radius: 0;
+    transition: none;
+    outline: none;
+    box-shadow: none;
+  }
+
+  > :global(.css-13cymwt-control),
+  > :global(.css-t3ipsp-control){ // select
+    background-color: var(--color-bg-input);
+    cursor: inherit;
+    border: 1px solid var(--color-border-2);
+
+    &:hover {
+      border-color: var(--color-border-2-hover);
+    }
+
+    &:focus,
+    &:focus-within,
+    &:focus-visible,
+    &:active {
+      border-color: var(--color-primary-500);
+    }
+
+    > div { // color of placeholder & chevron
+      color: var(--color-fg-500);
+      > div {
+        color: inherit;
+      }
+    }
+
+    > div:first-of-type { // placeholder
+      padding: 4px 12px;
+
+      > :global(.css-19bb58m) {
+        padding: 0;
+        margin: 0;
+      }
+
+      > :global(.css-1p3m7a8-multiValue) {
+        background-color: var(--color-bg-300);
+
+        > div {
+          color: var(--color-fg-50);
+        }
+
+        > div[role="button"] {
+          cursor: pointer;
+
+          &:hover {
+            color: var(--color-error-500);
+            background-color: var(--color-error-500-active);
+          }
+        }
+      }
+    }
+
+    > div:last-of-type {
+      > span {
+        background-color: var(--color-border-2);
+      }
+    }
+
+    :global(.css-1xc3v61-indicatorContainer),
+    :global(.css-15lsz6c-indicatorContainer) {
+      cursor: pointer;
+
+      &:hover {
+        color: var(--color-fg-50);
+      }
+    }
+  }
+
+  > :global(.css-1nmdiq5-menu) { // menu
+    background-color: var(--color-bg-50);
+    border: 1px solid var(--color-border);
+  }
+
+  :global(.css-d7l1ni-option) {
+    cursor: pointer;
+    background-color: var(--color-bg-100);
+  }
+
+  :global(.css-d7l1ni-option),
+  :global(.css-10wo9uf-option) {
+    &:active {
+      background-color: var(--color-bg-200);
+    }
+  }
+}
+
+

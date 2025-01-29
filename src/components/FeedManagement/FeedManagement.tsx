@@ -27,7 +27,12 @@ export const FeedManagement = () => {
         </Tooltip>
 
         <Tooltip title="Manage feeds">
-          <Button icon={<DashboardIcon />} color="primary" onClick={openManagementModal} />
+          <Button
+            icon={<DashboardIcon />}
+            active={isManagementModalOpen}
+            color="primary"
+            onClick={openManagementModal}
+          />
         </Tooltip>
 
         <FeedManagementModal open={isManagementModalOpen} onClose={closeManagementModal} />

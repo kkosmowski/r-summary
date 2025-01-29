@@ -1,15 +1,16 @@
 body.--white {
-  --border-color: #eeeeee;
-  --border-color-2: #e2e2e2;
+  --color-border: #eeeeee;
+  --color-border-2: #dfdfdf;
+  --color-border-2-hover: #cacaca;
 
   --color-light-032: rgba(0, 0, 0, 0.25);
   --color-light-072: rgb(255, 255, 255, 0.39);
   --color-light-focus: #efefef;
-  --color-light-active: #f6f6f6;
+  --color-light-active: #f0f0f0;
   --color-light-0: #fff;
-  --color-light-25: #f3fff7;
+  --color-light-25: #fdfdfd;
   --color-light-50: #fff;
-  --color-light-100: #f8f8f8;
+  --color-light-100: #fbfbfb;
   --color-light-200: #f4f4f4;
   --color-light-300: #ababab;
 
@@ -18,7 +19,7 @@ body.--white {
   --color-dark-200: #444;
   --color-dark-300: #505050;
   --color-dark-400: #646464;
-  --color-dark-500: #7c7c7c;
+  --color-dark-500: #6e6e6e;
 
   --color-primary-500-focus: rgb(71, 43, 234, 0.14);
   --color-primary-500-active: rgb(71, 43, 234, 0.06);
@@ -62,6 +63,7 @@ body.--white {
   --color-bg-50: var(--color-light-50);
   --color-bg-100: var(--color-light-100);
   --color-bg-200: var(--color-light-200);
+  --color-bg-input: var(--color-bg-25);
 
   color: var(--color-fg-50);
   background-color: var(--color-bg-50);
