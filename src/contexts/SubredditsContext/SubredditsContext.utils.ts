@@ -19,8 +19,12 @@ export const getSubreddits = () => {
   return data as SubredditsObject;
 };
 
-export const getSavedGlobalFilters = () => {
+export const getDefaultGlobalFilters = () => {
   return JSON.parse(localStorage.getItem(defaultFiltersLsKey) ?? 'null') as GlobalFilters | null;
+};
+
+export const cacheDefaultFilters = (filters: GlobalFilters) => {
+  localStorage.setItem(defaultFiltersLsKey, JSON.stringify(filters));
 };
 
 export const getCachedFilterOptions = () => {

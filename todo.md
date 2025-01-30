@@ -8,7 +8,7 @@
 - [x] Extended Feed management – change order of items
 - [x] Add warning color
 - [x] Global filters
-- [ ] Save global filters as default and auto load them
+- [x] Save global filters as default and auto load them
 - [ ] Fix a tooltip bug where sometimes position is slightly off
 - [ ] Feed-specific filter
 - [ ] Column view of Post if too narrow (using container queries)

@@ -1,12 +1,16 @@
 .wrapper {
-  display: inline-flex;
+  display: inherit;
+  flex-direction: inherit;
+  justify-content: inherit;
+  align-items: inherit;
+  width: inherit;
   cursor: pointer;
 }
 
 .title {
   position: fixed;
   z-index: 100;
-  padding: 5px 9px;
+  padding: 6px 10px;
   color: var(--color-fg-50);
   background-color: var(--color-bg-200);
   line-height: 1.25;

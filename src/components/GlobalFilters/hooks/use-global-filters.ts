@@ -1,7 +1,8 @@
 import { useSubreddits } from '~/contexts/SubredditsContext';
 
 export const useGlobalFilters = () => {
-  const { globalFilters, filterOptions, activeFilters, setGlobalFilters, addFilterOption } = useSubreddits();
+  const { globalFilters, filterOptions, activeFilters, setGlobalFilters, addFilterOption, saveDefaultFilters } =
+    useSubreddits();
 
   return {
     filters: globalFilters,
@@ -9,5 +10,6 @@ export const useGlobalFilters = () => {
     options: filterOptions,
     addOption: addFilterOption,
     activeFilters,
+    saveDefaultFilters,
   };
 };
