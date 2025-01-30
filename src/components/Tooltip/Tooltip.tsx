@@ -1,7 +1,7 @@
-import { PropsWithChildren, ReactNode, useState, MouseEvent, useRef } from 'react';
+import { PropsWithChildren, ReactNode, useState, useRef } from 'react';
 
+import { getPosition } from './Tooltip.utils';
 import styles from './Tooltip.module.scss';
-import { getPosition } from '~/components/Tooltip/Tooltip.utils.ts';
 
 export type TooltipProps = PropsWithChildren<{
   title: ReactNode;
@@ -12,23 +12,23 @@ export type TooltipPosition = { left: number; top: number };
 
 export const Tooltip = ({ title, placement, children }: TooltipProps) => {
   const [position, setPosition] = useState<TooltipPosition | undefined>(undefined);
+  const wrapperRef = useRef<HTMLSpanElement | null>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
 
-  const showTooltip = (e: MouseEvent) => {
-    const rect = (e.target as HTMLElement).getBoundingClientRect();
+  const showTooltip = () => {
+    const rect = wrapperRef.current?.getBoundingClientRect();
+    const tooltipRect = tooltipRef.current?.getBoundingClientRect();
 
-    if (tooltipRef.current) {
-      const tooltipRect = tooltipRef.current.getBoundingClientRect();
+    if (!rect || !tooltipRect) return;
 
-      setPosition(getPosition(rect, placement, tooltipRect));
-    }
+    setPosition(getPosition(rect, placement, tooltipRect));
   };
 
   const hideTooltip = () => setPosition(undefined);
 
   return (
     <>
-      <span onMouseEnter={showTooltip} onMouseLeave={hideTooltip} className={styles.wrapper}>
+      <span ref={wrapperRef} onMouseEnter={showTooltip} onMouseLeave={hideTooltip} className={styles.wrapper}>
         {children}
       </span>
 
