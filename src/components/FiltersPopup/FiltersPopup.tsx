@@ -8,7 +8,7 @@ import styles from './FiltersPopup.module.scss';
 
 type FiltersPopupProps = PopupProps & {
   clearDisabled?: boolean;
-  onSave: VoidFunction;
+  onSave?: VoidFunction;
   onClear: VoidFunction;
 };
 
@@ -18,11 +18,13 @@ export const FiltersPopup = ({ onClear, onSave, clearDisabled, children, ...rest
       <section className={styles.filters}>{children}</section>
 
       <footer className={styles.buttons}>
-        <Tooltip title="Save your filters so that they are applied whenever you browse">
-          <Button color="primary" withIcon={<SaveIcon />} onClick={onSave}>
-            Save as default
-          </Button>
-        </Tooltip>
+        {onSave && (
+          <Tooltip title="Save your filters so that they are applied whenever you browse">
+            <Button color="primary" withIcon={<SaveIcon />} onClick={onSave}>
+              Save as default
+            </Button>
+          </Tooltip>
+        )}
 
         <Button withIcon={<FiltersClearIcon />} disabled={clearDisabled} onClick={onClear}>
           Clear filters

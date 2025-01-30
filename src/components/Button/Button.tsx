@@ -12,7 +12,7 @@ type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'> & {
   active?: boolean;
 };
 
-const getClassName = ({ className, color, icon, withIcon, variant, active }: ButtonProps) => {
+const getClassName = ({ className, color, icon, withIcon, variant = 'regular', active }: ButtonProps) => {
   let result = className ?? '';
 
   if (icon) result += ` --icon`;
@@ -21,7 +21,7 @@ const getClassName = ({ className, color, icon, withIcon, variant, active }: But
   if (variant !== 'regular') result += ` --${variant}`;
   if (active) result += ` --active`;
 
-  return result;
+  return result.trim();
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {

@@ -1,20 +1,18 @@
 import { useCallback } from 'react';
-import { useGlobalFilters } from '~/components/GlobalFilters/hooks/use-global-filters';
+
 import { PostItem } from '~/types/reddit';
+import { FiltersProps } from '~/types/filters';
 
 import { PickOmitInputs } from '../PickOmitInputs';
 
-export const TypeFilters = () => {
-  // todo: decouple TypeFilters from global filters
-  const { filters, setFilters, options } = useGlobalFilters();
-
+export const TypeFilters = ({ filters, options, setFilters }: FiltersProps) => {
   const setPickType = useCallback(
-    (newValue: string[]) => setFilters((current) => ({ ...current, pickType: newValue as PostItem['type'][] })),
+    (newValue: string[]) => setFilters({ ...filters, pickType: newValue as PostItem['type'][] }),
     [setFilters],
   );
 
   const setOmitType = useCallback(
-    (newValue: string[]) => setFilters((current) => ({ ...current, omitType: newValue as PostItem['type'][] })),
+    (newValue: string[]) => setFilters({ ...filters, omitType: newValue as PostItem['type'][] }),
     [setFilters],
   );
 

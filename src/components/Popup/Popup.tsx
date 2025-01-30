@@ -24,7 +24,7 @@ export const Popup = ({ open, anchor, children, onClose }: PopupProps) => {
 
   return (
     <div className={styles.popupContainer}>
-      <aside className={styles.popup} style={positionStyle}>
+      <aside className={`${styles.popup} popup`} style={positionStyle}>
         {children}
       </aside>
       <Backdrop transparent onClose={onClose} />

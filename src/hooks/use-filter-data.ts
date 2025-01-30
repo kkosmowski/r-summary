@@ -1,25 +1,17 @@
 import { useSubreddits } from '~/contexts/SubredditsContext';
+import { validateWithFeedFilters, validateWithGlobalFilters } from '~/hooks/use-filter-data.utils';
 import { TransformedData } from '~/types/reddit';
-import { isAnyItemInStrings } from '~/utils/is-any-item-in-strings';
 
 export const useFilterData = (data: TransformedData | undefined): TransformedData['items'] | undefined => {
-  const { globalFilters } = useSubreddits();
+  const { getFilters, globalFilters } = useSubreddits();
 
   if (!data) return undefined;
 
+  const feedFilters = getFilters(data.subreddit.name);
+
   return data.items.filter((postItem) => {
-    if (globalFilters?.pickType?.length) {
-      if (!globalFilters.pickType.includes(postItem.type)) return false;
-    }
-    if (globalFilters?.omitType?.length) {
-      if (globalFilters.omitType.includes(postItem.type)) return false;
-    }
-    if (globalFilters?.pickKeywords?.length) {
-      if (!isAnyItemInStrings(globalFilters.pickKeywords, [postItem.title, postItem.description])) return false;
-    }
-    if (globalFilters?.omitKeywords?.length) {
-      if (isAnyItemInStrings(globalFilters.omitKeywords, [postItem.title, postItem.description])) return false;
-    }
+    if (!validateWithGlobalFilters(globalFilters, postItem)) return false;
+    if (!validateWithFeedFilters(feedFilters, postItem)) return false;
 
     return true;
   });

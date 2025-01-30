@@ -1,3 +1,4 @@
+import { FeedFilters } from '~/components/FeedFilters';
 import { TransformedData } from '~/types/reddit';
 import { DeleteIcon } from '~/icons/DeleteIcon';
 import { useModal } from '~/hooks/use-modal';
@@ -27,7 +28,10 @@ export const FeedHeader = ({ data, onRefresh }: FeedHeaderProps) => {
         <Button icon={<RefreshIcon />} color="primary" onClick={onRefresh} />
       </div>
 
-      <Button icon={<DeleteIcon />} className={styles.deleteButton} color="error" onClick={() => openDeleteModal()} />
+      <div className={styles.right}>
+        <FeedFilters subreddit={data.subreddit} />
+        <Button icon={<DeleteIcon />} className={styles.deleteButton} color="error" onClick={() => openDeleteModal()} />
+      </div>
 
       <DeleteFeedModal subreddit={data.subreddit} open={isDeleteModalOpen} onClose={closeDeleteModal} />
     </header>

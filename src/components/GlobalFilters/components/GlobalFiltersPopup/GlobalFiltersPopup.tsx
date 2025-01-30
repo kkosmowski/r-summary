@@ -7,17 +7,14 @@ import { TypeFilters } from '~/components/Filters/TypeFilters';
 type GlobalFiltersPopupProps = Pick<PopupProps, 'anchor' | 'open' | 'onClose'>;
 
 export const GlobalFiltersPopup = (props: GlobalFiltersPopupProps) => {
-  const { setFilters, activeFilters, saveDefaultFilters } = useGlobalFilters();
+  const { filters, setFilters, options, activeFilters, saveDefaultFilters } = useGlobalFilters();
+
+  if (!filters) return;
 
   return (
-    <FiltersPopup
-      {...props}
-      clearDisabled={!activeFilters}
-      onClear={() => setFilters(null)}
-      onSave={saveDefaultFilters}
-    >
-      <TypeFilters />
-      <KeywordFilters />
+    <FiltersPopup {...props} clearDisabled={!activeFilters} onClear={() => setFilters({})} onSave={saveDefaultFilters}>
+      <TypeFilters filters={filters} options={options} setFilters={setFilters} />
+      <KeywordFilters filters={filters} options={options} setFilters={setFilters} />
     </FiltersPopup>
   );
 };

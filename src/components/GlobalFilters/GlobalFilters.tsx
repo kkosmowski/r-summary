@@ -1,12 +1,12 @@
-import { MouseEvent, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Badge } from '~/components/Badge';
 
 import { Button } from '~/components/Button';
-import { useGlobalFilters } from '~/components/GlobalFilters/hooks/use-global-filters';
 import { Tooltip } from '~/components/Tooltip';
 import { FiltersIcon } from '~/icons/FiltersIcon';
 
 import { GlobalFiltersPopup } from './components/GlobalFiltersPopup';
+import { useGlobalFilters } from './hooks/use-global-filters';
 
 export const GlobalFilters = () => {
   const anchor = useRef<HTMLButtonElement | null>(null);

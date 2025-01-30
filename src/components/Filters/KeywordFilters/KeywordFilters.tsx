@@ -1,24 +1,22 @@
 import { useCallback } from 'react';
-import { useGlobalFilters } from '~/components/GlobalFilters/hooks/use-global-filters';
+
+import { FiltersProps } from '~/types/filters';
 
 import { PickOmitInputs } from '../PickOmitInputs';
 
-export const KeywordFilters = () => {
-  // todo: decouple KeywordFilters from global filters
-  const { filters, setFilters, options, addOption } = useGlobalFilters();
-
+export const KeywordFilters = ({ filters, options, setFilters, addOption }: FiltersProps) => {
   const setPickKeywords = useCallback(
-    (newValue: string[]) => setFilters((current) => ({ ...current, pickKeywords: newValue })),
+    (newValue: string[]) => setFilters({ ...filters, pickKeywords: newValue }),
     [setFilters],
   );
 
   const setOmitKeywords = useCallback(
-    (newValue: string[]) => setFilters((current) => ({ ...current, omitKeywords: newValue })),
+    (newValue: string[]) => setFilters({ ...filters, omitKeywords: newValue }),
     [setFilters],
   );
 
   const handleCreateOption = (newOption: string) => {
-    addOption('keywords', newOption);
+    addOption?.('keywords', newOption);
   };
 
   return (

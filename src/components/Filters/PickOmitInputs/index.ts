@@ -1,1 +1,1 @@
-export { PickOmitInputs } from 'src/components/Filters/PickOmitInputs/PickOmitInputs';
+export { PickOmitInputs } from './PickOmitInputs';
