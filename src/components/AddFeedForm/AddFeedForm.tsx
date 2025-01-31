@@ -13,10 +13,13 @@ import styles from './AddFeedForm.module.scss';
 
 type AddFeedFormProps = {
   additionalButton?: ReactNode;
+  inputId?: string;
+  label?: string;
+  labelledBy?: string;
   onAdd: (subreddit: string) => void;
 };
 
-export const AddFeedForm = ({ additionalButton, onAdd }: AddFeedFormProps) => {
+export const AddFeedForm = ({ additionalButton, inputId, label, labelledBy, onAdd }: AddFeedFormProps) => {
   const [subreddit, setSubreddit] = useState('');
   const [debouncedReddit] = useDebounce(subreddit, INPUT_DEBOUNCE);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -68,6 +71,9 @@ export const AddFeedForm = ({ additionalButton, onAdd }: AddFeedFormProps) => {
   return (
     <div className={styles.container}>
       <RedditInput
+        id={inputId}
+        label={label}
+        labelledBy={labelledBy}
         ref={inputRef}
         autoFocus
         value={subreddit}

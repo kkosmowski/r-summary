@@ -18,11 +18,12 @@ export const TypeFilters = ({ filters, options, setFilters }: PickOmitFilterProp
 
   return (
     <PickOmitInputs
+      id="types"
       options={options.types}
       pickValue={filters?.pickType}
       omitValue={filters?.omitType}
-      pickPlaceholder="Only types"
-      omitPlaceholder="Avoid types"
+      pickLabel="Only types"
+      omitLabel="Avoid types"
       onPickChange={setPickType}
       onOmitChange={setOmitType}
       makeOptionsUppercase

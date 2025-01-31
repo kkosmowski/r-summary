@@ -13,10 +13,11 @@ import styles from './DeleteFeedForm.module.scss';
 type DeleteFeedFormProps = {
   deleteAll: string;
   additionalButton?: ReactNode;
+  labelledBy?: string;
   onDelete: (subreddit: string) => void;
 };
 
-export const DeleteFeedForm = ({ additionalButton, deleteAll, onDelete }: DeleteFeedFormProps) => {
+export const DeleteFeedForm = ({ additionalButton, deleteAll, labelledBy, onDelete }: DeleteFeedFormProps) => {
   const { subreddits } = useSubreddits();
   const [subreddit, setSubreddit] = useState('');
   const [debouncedReddit] = useDebounce(subreddit, INPUT_DEBOUNCE);
@@ -34,7 +35,13 @@ export const DeleteFeedForm = ({ additionalButton, deleteAll, onDelete }: Delete
 
   return (
     <div className={styles.container}>
-      <RedditInput value={subreddit} isSuccess={isValidName} isError={isInvalid} onChange={setSubreddit} />
+      <RedditInput
+        labelledBy={labelledBy}
+        value={subreddit}
+        isSuccess={isValidName}
+        isError={isInvalid}
+        onChange={setSubreddit}
+      />
 
       {additionalButton}
 

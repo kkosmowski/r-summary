@@ -1,12 +1,25 @@
+import { ReactNode } from 'react';
 import { GroupBase } from 'react-select';
 import RSSelect, { Props as SelectProps } from 'react-select';
 
 import styles from '~/styles/reactSelectStyles.module.scss';
 
-export const Select = <O, IsMulti extends boolean, G extends GroupBase<O>>(props: SelectProps<O, IsMulti, G>) => {
-  const { className, ...rest } = props;
+type Props<O, IsMulti extends boolean, G extends GroupBase<O>> = SelectProps<O, IsMulti, G> & {
+  label: ReactNode;
+};
+
+export const Select = <O, IsMulti extends boolean, G extends GroupBase<O>>(props: Props<O, IsMulti, G>) => {
+  const { className, id, label, ...rest } = props;
 
   const joinedClassName = [className, styles.rsInput].join(' ');
 
-  return <RSSelect className={joinedClassName} {...rest} />;
+  return (
+    <div className={styles.inputWrapper}>
+      <label htmlFor={id} className="overlay-label">
+        {label}
+      </label>
+
+      <RSSelect inputId={id} className={joinedClassName} {...rest} />
+    </div>
+  );
 };

@@ -25,4 +25,8 @@
   &.wide {
     width: clamp(700px, 50vw, 1600px);
   }
+
+  :global(.overlay-label) {
+    background-color: var(--color-bg-100);
+  }
 }

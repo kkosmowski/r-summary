@@ -4,12 +4,13 @@ import viewStyles from '~/components/FeedManagementView/FeedManagementView.modul
 
 export const AddFeedFormWrapper = () => {
   const { add } = useSubreddits();
+  const headingId = 'add-feed-management-title';
 
   return (
     <section className={viewStyles.section}>
-      <h4>Add new feed</h4>
+      <h4 id={headingId}>Add new feed</h4>
 
-      <AddFeedForm onAdd={add} />
+      <AddFeedForm labelledBy={headingId} onAdd={add} />
     </section>
   );
 };

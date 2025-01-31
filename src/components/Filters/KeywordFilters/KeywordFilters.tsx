@@ -22,11 +22,12 @@ export const KeywordFilters = ({ filters, options, setFilters, addOption }: Pick
   return (
     <PickOmitInputs
       creatable
+      id="keywords"
       options={options.keywords}
       pickValue={filters?.pickKeywords}
       omitValue={filters?.omitKeywords}
-      pickPlaceholder="Only keywords"
-      omitPlaceholder="Avoid keywords"
+      pickLabel="Only keywords"
+      omitLabel="Avoid keywords"
       onPickChange={setPickKeywords}
       onOmitChange={setOmitKeywords}
       onCreate={handleCreateOption}

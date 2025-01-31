@@ -6,6 +6,7 @@ const deleteAll = 'delete all please';
 
 export const DeleteFeedFormWrapper = () => {
   const { remove, removeAll } = useSubreddits();
+  const headingId = 'delete-feed-management-title';
 
   const handleRemove = (value: string) => {
     if (value === deleteAll) {
@@ -18,7 +19,7 @@ export const DeleteFeedFormWrapper = () => {
   return (
     <section className={viewStyles.section}>
       <hgroup>
-        <h4>Delete existing feed</h4>
+        <h4 id={headingId}>Delete existing feed</h4>
       </hgroup>
 
       <span className={viewStyles.description}>
@@ -27,7 +28,7 @@ export const DeleteFeedFormWrapper = () => {
         <em style={{ userSelect: 'all' }}>{deleteAll}</em>" to remove all feeds at once.
       </span>
 
-      <DeleteFeedForm deleteAll={deleteAll} onDelete={handleRemove} />
+      <DeleteFeedForm deleteAll={deleteAll} labelledBy={headingId} onDelete={handleRemove} />
     </section>
   );
 };

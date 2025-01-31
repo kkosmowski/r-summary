@@ -24,7 +24,7 @@ export const SelectSettingItem = ({ setting }: { setting: SelectSetting }) => {
   return (
     <div className={styles.settingItem}>
       <p>
-        <span>{setting.label}</span>
+        <label htmlFor={setting.key}>{setting.label}</label>
         {setting.helperText && (
           <Tooltip title={setting.helperText}>
             <HelpIcon size={16} />
@@ -32,7 +32,7 @@ export const SelectSettingItem = ({ setting }: { setting: SelectSetting }) => {
         )}
       </p>
 
-      <select value={value} onChange={handleChange}>
+      <select id={setting.key} value={value} onChange={handleChange}>
         {setting.options.map((option) => {
           const optValue = typeof option === 'object' ? option.value : option;
           const optLabel = typeof option === 'object' ? option.label : option;

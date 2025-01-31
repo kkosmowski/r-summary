@@ -1,3 +1,10 @@
+.inputWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-top: 14px; // font-size of overlay label
+}
+
 .rsInput {
   min-height: 36px;
   font-size: 14px;
@@ -77,6 +84,7 @@
   }
 
   > :global(.css-1nmdiq5-menu) { // menu
+    z-index: 10;
     background-color: var(--color-bg-50);
     border: 1px solid var(--color-border);
   }

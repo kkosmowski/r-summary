@@ -22,11 +22,12 @@ export const FlairFilters = ({ filters, options, setFilters, addOption }: PickOm
   return (
     <PickOmitInputs
       creatable
+      id="flairs"
       options={options.flairs}
       pickValue={filters?.pickFlairs}
       omitValue={filters?.omitFlairs}
-      pickPlaceholder="Only flairs"
-      omitPlaceholder="Avoid flair"
+      pickLabel="Only flairs"
+      omitLabel="Avoid flairs"
       onPickChange={setPickFlairs}
       onOmitChange={setOmitFlairs}
       onCreate={handleCreateOption}

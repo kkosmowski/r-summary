@@ -23,7 +23,7 @@ export const NumberSettingItem = ({ setting }: { setting: NumberSetting }) => {
   return (
     <div className={styles.settingItem}>
       <p>
-        <span>{setting.label}</span>
+        <label htmlFor={setting.key}>{setting.label}</label>
         {setting.helperText && (
           <Tooltip title={setting.helperText}>
             <HelpIcon size={16} />
@@ -31,7 +31,7 @@ export const NumberSettingItem = ({ setting }: { setting: NumberSetting }) => {
         )}
       </p>
 
-      <input type="number" min={setting.min} max={setting.max} value={value} onChange={handleChange} />
+      <input id={setting.key} type="number" min={setting.min} max={setting.max} value={value} onChange={handleChange} />
     </div>
   );
 };

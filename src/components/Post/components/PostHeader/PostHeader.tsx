@@ -39,14 +39,17 @@ export const PostHeader = ({ post }: PostHeaderProps) => {
       {showAuthor && (
         <>
           <Separator />
-          <a
+          <span
+            // done to avoid <a> in <a>
+            role="link"
+            // @ts-expect-error TypeScript is not aware of props change when using role
             href={`${REDDIT_URL}/user/${post.authorName}`}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.author}
           >
             {post.authorName}
-          </a>
+          </span>
         </>
       )}
       {showCommentsCount && (

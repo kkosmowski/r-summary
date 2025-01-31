@@ -10,7 +10,8 @@
 - [x] Global filters
 - [x] Save global filters as default and auto load them
 - [x] Fix a tooltip bug where sometimes position is slightly off
-- [ ] Feed-specific filter
+- [x] Feed-specific filter
+- [x] Labels for inputs
 - [ ] Column view of Post if too narrow (using container queries)
 - [ ] Mark new posts – decide on "new" criteria (e.g. post that was not there before refetch – but what about manual refetches?)
 - [ ] Click on flair / author opens popup to "block" (filter out) flair / author

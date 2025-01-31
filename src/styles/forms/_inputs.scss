@@ -62,3 +62,23 @@ input, select {
 select {
   padding: 4px 8px;
 }
+
+label {
+  color: var(--color-fg-100);
+  font-size: 14px;
+
+  &.overlay-label {
+    position: absolute;
+    font-size: 13px;
+    color: var(--color-fg-200);
+    display: inline-block;
+    padding-inline: 4px;
+    align-self: flex-start;
+    top: 0;
+    line-height: 1;
+    left: 4px;
+    transform: translateY(-60%);
+    background-color: var(--color-bg-50);
+    z-index: 1;
+  }
+}

@@ -23,7 +23,7 @@ export const BooleanSettingItem = ({ setting }: { setting: BooleanSetting }) => 
   return (
     <div className={styles.settingItem}>
       <p>
-        <span>{setting.label}</span>
+        <label htmlFor={setting.key}>{setting.label}</label>
         {setting.helperText && (
           <Tooltip title={setting.helperText}>
             <HelpIcon size={16} />
@@ -31,7 +31,7 @@ export const BooleanSettingItem = ({ setting }: { setting: BooleanSetting }) => 
         )}
       </p>
 
-      <input type="checkbox" name={setting.key} checked={value} onChange={handleChange} />
+      <input id={setting.key} type="checkbox" name={setting.key} checked={value} onChange={handleChange} />
     </div>
   );
 };

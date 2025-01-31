@@ -16,6 +16,7 @@ export const AddFeedFormWrapper = ({ onClose, onAdd }: AddFeedFormToolbarWrapper
           <Button icon={<CloseIcon />} color="error" onClick={() => onClose()} />
         </Tooltip>
       }
+      inputId="add-feed-toolbar"
       onAdd={onAdd}
     />
   );

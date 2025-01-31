@@ -22,11 +22,12 @@ export const AuthorFilters = ({ filters, options, setFilters, addOption }: PickO
   return (
     <PickOmitInputs
       creatable
+      id="authors"
       options={options.authors}
       pickValue={filters?.pickAuthors}
       omitValue={filters?.omitAuthors}
-      pickPlaceholder="Only authors"
-      omitPlaceholder="Avoid authors"
+      pickLabel="Only authors"
+      omitLabel="Avoid authors"
       onPickChange={setPickAuthors}
       onOmitChange={setOmitAuthors}
       onCreate={handleCreateOption}

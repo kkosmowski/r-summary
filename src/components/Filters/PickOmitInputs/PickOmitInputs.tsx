@@ -8,8 +8,11 @@ import styles from '../Filters.module.scss';
 
 type BaseTypeFiltersProps = {
   options: string[];
+  id?: string;
   pickValue?: string[];
   omitValue?: string[];
+  pickLabel?: string;
+  omitLabel?: string;
   pickPlaceholder?: string;
   omitPlaceholder?: string;
   onPickChange: (value: string[]) => void;
@@ -26,9 +29,12 @@ type TypeFiltersProps = BaseTypeFiltersProps &
 export const PickOmitInputs = (props: TypeFiltersProps) => {
   const {
     creatable,
+    id,
     options,
     pickValue = [],
     omitValue = [],
+    pickLabel,
+    omitLabel,
     pickPlaceholder,
     omitPlaceholder,
     onPickChange,
@@ -49,11 +55,15 @@ export const PickOmitInputs = (props: TypeFiltersProps) => {
 
   const Input = creatable ? CreatableSelect : Select;
 
+  console.log(id);
+
   return (
     <article className={styles.pickOmitRow}>
       <Input
         isMulti
+        id={id ? `pick-${id}` : undefined}
         options={pickOptions}
+        label={pickLabel}
         placeholder={pickPlaceholder}
         value={pickValue.map(mapFn)}
         onChange={(newValue) => onPickChange(newValue.map(({ value }) => value))}
@@ -65,7 +75,9 @@ export const PickOmitInputs = (props: TypeFiltersProps) => {
       />
       <Input
         isMulti
+        id={id ? `omit-${id}` : undefined}
         options={omitOptions}
+        label={omitLabel}
         placeholder={omitPlaceholder}
         value={omitValue.map(mapFn)}
         onChange={(newValue) => onOmitChange(newValue.map(({ value }) => value))}
