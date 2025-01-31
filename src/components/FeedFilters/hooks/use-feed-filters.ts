@@ -17,7 +17,7 @@ export const useFeedFilters = (subredditName: string) => {
   );
 
   const clearFilters = useCallback(() => {
-    setFeedFilters(subredditName, {});
+    setFeedFilters(subredditName, defaultFeedFilters);
   }, [subredditName]);
 
   return {

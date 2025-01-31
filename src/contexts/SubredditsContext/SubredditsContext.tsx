@@ -1,5 +1,5 @@
 import { createContext, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
-import { defaultFilterOptions, defaultGlobalFilters } from '~/consts/filters';
+import { defaultFeedFilters, defaultFilterOptions, defaultGlobalFilters } from '~/consts/filters';
 
 import { FeedFilters, GlobalFilters } from '~/types/reddit';
 import { FilterOptions } from '~/types/filters';
@@ -26,7 +26,7 @@ type SubredditsContextValue = {
   add: (name: string) => void;
   remove: (name: string) => void;
   removeAll: VoidFunction;
-  getFilters: (name: string) => FeedFilters;
+  getFilters: (name: string) => FeedFilters | null;
   setFilters: (name: string, value: FeedFilters) => void;
   move: (name: string, index: number) => void;
   swap: (nameA: string, nameB: string) => void;
@@ -35,7 +35,7 @@ type SubredditsContextValue = {
 
 const SubredditsContext = createContext<SubredditsContextValue>({
   subreddits: [],
-  globalFilters: {},
+  globalFilters: defaultGlobalFilters,
   setGlobalFilters: () => {},
   filterOptions: defaultFilterOptions,
   activeFilters: 0,
@@ -43,7 +43,7 @@ const SubredditsContext = createContext<SubredditsContextValue>({
   add: () => {},
   remove: () => {},
   removeAll: () => {},
-  getFilters: () => ({}),
+  getFilters: () => defaultFeedFilters,
   setFilters: () => {},
   move: () => {},
   swap: () => {},
@@ -92,7 +92,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
     (name: string) => {
       if (!subreddits.items.hasOwnProperty(name)) {
         console.error(`Unknown subreddit name: "${name}".`);
-        return {};
+        return null;
       }
 
       return subreddits.items[name];
@@ -121,7 +121,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
   const add = useCallback(
     (name: string) => {
       setSubreddits((current) => {
-        current.items[name] = {};
+        current.items[name] = defaultFeedFilters;
         current.order.push(name);
         return { ...current };
       });

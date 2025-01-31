@@ -1,0 +1,1 @@
+export { MinThresholdFilter } from './MinThresholdFilter';

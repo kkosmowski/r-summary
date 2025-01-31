@@ -1,0 +1,1 @@
+export { MinCommentsFilter } from './MinCommentsFilter';

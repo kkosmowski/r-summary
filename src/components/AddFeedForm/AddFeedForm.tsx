@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 
 import { useFetchReddit } from '~/hooks/use-fetch-reddit';
@@ -19,6 +19,7 @@ type AddFeedFormProps = {
 export const AddFeedForm = ({ additionalButton, onAdd }: AddFeedFormProps) => {
   const [subreddit, setSubreddit] = useState('');
   const [debouncedReddit] = useDebounce(subreddit, INPUT_DEBOUNCE);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [isValidCache, isInvalidCache, cacheSearch] = useCacheSearch(debouncedReddit);
   const {
     hasFetched,
@@ -49,14 +50,32 @@ export const AddFeedForm = ({ additionalButton, onAdd }: AddFeedFormProps) => {
 
   const addTooltip = !debouncedReddit ? '' : !isSuccess ? 'Cannot add invalid feed' : '';
 
+  const focusInput = () => {
+    inputRef.current?.focus();
+  };
+
+  const handleEnter = () => {
+    if (!debouncedReddit || isLoading || !isSuccess) return;
+    handleAdd();
+  };
+
   const handleAdd = () => {
     onAdd(debouncedReddit);
     setSubreddit('');
+    focusInput();
   };
 
   return (
     <div className={styles.container}>
-      <RedditInput value={subreddit} isSuccess={isSuccess} isError={!isSuccess} onChange={setSubreddit} />
+      <RedditInput
+        ref={inputRef}
+        autoFocus
+        value={subreddit}
+        isSuccess={isSuccess}
+        isError={!isSuccess}
+        onChange={setSubreddit}
+        onEnter={handleEnter}
+      />
 
       {additionalButton}
 

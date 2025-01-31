@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 
-import { FiltersProps } from '~/types/filters';
+import { PickOmitFilterProps } from '~/types/filters';
 
 import { PickOmitInputs } from '../PickOmitInputs';
 
-export const AuthorFilters = ({ filters, options, setFilters, addOption }: FiltersProps) => {
+export const AuthorFilters = ({ filters, options, setFilters, addOption }: PickOmitFilterProps) => {
   const setPickAuthors = useCallback(
     (newValue: string[]) => setFilters({ ...filters, pickAuthors: newValue }),
     [setFilters],

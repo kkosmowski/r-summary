@@ -15,12 +15,13 @@ export const countActiveFilters = (filters: GlobalFilters | null, defaultFilters
 
   for (const filterKey in filters) {
     const key = filterKey as keyof typeof filters;
+
     if (isObject(filters?.[key]) && isObject(defaultFilters?.[key])) {
       if (!isEqual(filters[key], defaultFilters[key])) {
         count += 1;
       }
     } else if (isDefined(filters?.[key]) && isDefined(defaultFilters?.[key])) {
-      if (filters[key] === defaultFilters[key]) {
+      if (filters[key] !== defaultFilters[key]) {
         count += 1;
       }
     }

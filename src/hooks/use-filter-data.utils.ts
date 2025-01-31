@@ -54,5 +54,11 @@ export const validateWithFeedFilters = (filters: FeedFilters, post: PostItem) =>
     if (isAnyItemInStrings(filters.omitKeywords, [post.title, post.description])) return false;
   }
 
+  if (filters.minThreshold > 0 && post.score.ups < filters.minThreshold) return false;
+
+  if (filters.minPoints > 0 && post.score.total < filters.minPoints) return false;
+
+  if (filters.minComments > 0 && post.commentCount < filters.minComments) return false;
+
   return true;
 };

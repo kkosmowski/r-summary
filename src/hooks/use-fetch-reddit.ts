@@ -31,7 +31,7 @@ const prepareData = (data: RawRedditData, refetchTimeInMin = CACHE_TIME): Transf
             title: htmlDecode(data.title),
             description: htmlDecode(data.selftext_html?.slice(selftext_html_start, selftext_html_end)),
             score: {
-              ups: data.upvote_ratio * 100,
+              ups: Math.round(data.upvote_ratio * 100),
               total: data.score,
             },
             commentCount: data.num_comments,

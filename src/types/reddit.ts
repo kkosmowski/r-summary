@@ -71,22 +71,22 @@ export type TransformedData = {
 };
 
 export type GlobalFilters = {
-  omitType?: PostItem['type'][];
-  pickType?: PostItem['type'][];
+  omitType: PostItem['type'][];
+  pickType: PostItem['type'][];
   pickKeywords?: string[];
   omitKeywords?: string[];
 };
 
 export type FeedFilters = {
-  omitAuthors?: string[];
-  pickAuthors?: string[];
-  omitFlairs?: string[];
-  pickFlairs?: string[];
-  minThreshold?: number;
-  minPoints?: number;
-  minComments?: number;
-  omitType?: PostItem['type'][];
-  pickType?: PostItem['type'][];
-  pickKeywords?: string[];
-  omitKeywords?: string[];
+  omitAuthors: string[];
+  pickAuthors: string[];
+  omitFlairs: string[];
+  pickFlairs: string[];
+  minThreshold: number;
+  minPoints: number;
+  minComments: number;
+  omitType: PostItem['type'][];
+  pickType: PostItem['type'][];
+  pickKeywords: string[];
+  omitKeywords: string[];
 };

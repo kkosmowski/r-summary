@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 
-import { FiltersProps } from '~/types/filters';
+import { PickOmitFilterProps } from '~/types/filters';
 
 import { PickOmitInputs } from '../PickOmitInputs';
 
-export const FlairFilters = ({ filters, options, setFilters, addOption }: FiltersProps) => {
+export const FlairFilters = ({ filters, options, setFilters, addOption }: PickOmitFilterProps) => {
   const setPickFlairs = useCallback(
     (newValue: string[]) => setFilters({ ...filters, pickFlairs: newValue }),
     [setFilters],

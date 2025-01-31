@@ -18,7 +18,7 @@ export const Score = ({ score }: ScoreProps) => {
     <div className={styles.scoreContainer}>
       <span className={styles.score}>{score.total}</span>
       <span>
-        (<span className={`${styles.score} ${getScoreClassName(score.ups)}`}>{Math.round(score.ups)}%</span>)
+        (<span className={`${styles.score} ${getScoreClassName(score.ups)}`}>{score.ups}%</span>)
       </span>
     </div>
   );

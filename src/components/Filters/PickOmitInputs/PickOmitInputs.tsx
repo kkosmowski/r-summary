@@ -50,7 +50,7 @@ export const PickOmitInputs = (props: TypeFiltersProps) => {
   const Input = creatable ? CreatableSelect : Select;
 
   return (
-    <article className={styles.filtersRow}>
+    <article className={styles.pickOmitRow}>
       <Input
         isMulti
         options={pickOptions}
@@ -61,7 +61,7 @@ export const PickOmitInputs = (props: TypeFiltersProps) => {
           onCreate?.(value, 'pick');
           onPickChange([...pickValue, value]);
         }}
-        className={styles.filterInput}
+        className={styles.pickOmitInput}
       />
       <Input
         isMulti
@@ -73,7 +73,7 @@ export const PickOmitInputs = (props: TypeFiltersProps) => {
           onCreate?.(value, 'omit');
           onOmitChange([...omitValue, value]);
         }}
-        className={styles.filterInput}
+        className={styles.pickOmitInput}
       />
     </article>
   );

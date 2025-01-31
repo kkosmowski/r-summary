@@ -1,0 +1,1 @@
+export { MinPointsFilter } from './MinPointsFilter';

@@ -7,9 +7,12 @@ export type FilterOptions = {
   flairs: string[];
 };
 
-export type FiltersProps<T extends FeedFilters = FeedFilters> = {
+export type NumberFilterProps<T extends FeedFilters = FeedFilters> = {
   filters: T;
-  options: FilterOptions;
   setFilters: (filters: T) => void;
+};
+
+export type PickOmitFilterProps = NumberFilterProps & {
+  options: FilterOptions;
   addOption?: (key: keyof FilterOptions, option: string) => void;
 };

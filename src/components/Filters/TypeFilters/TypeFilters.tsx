@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
 
 import { PostItem } from '~/types/reddit';
-import { FiltersProps } from '~/types/filters';
+import { PickOmitFilterProps } from '~/types/filters';
 
 import { PickOmitInputs } from '../PickOmitInputs';
 
-export const TypeFilters = ({ filters, options, setFilters }: FiltersProps) => {
+export const TypeFilters = ({ filters, options, setFilters }: PickOmitFilterProps) => {
   const setPickType = useCallback(
     (newValue: string[]) => setFilters({ ...filters, pickType: newValue as PostItem['type'][] }),
     [setFilters],
