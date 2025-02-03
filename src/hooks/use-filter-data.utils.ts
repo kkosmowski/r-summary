@@ -1,7 +1,8 @@
-import { FeedFilters, GlobalFilters, PostItem } from '~/types/reddit';
+import { Filters } from '~/types/filters';
+import { PostItem } from '~/types/reddit';
 import { isAnyItemInStrings } from '~/utils/is-any-item-in-strings';
 
-export const validateWithGlobalFilters = (filters: GlobalFilters, post: PostItem) => {
+export const validateWithGlobalFilters = (filters: Filters, post: PostItem) => {
   if (filters.pickType?.length) {
     if (!filters.pickType.includes(post.type)) return false;
   }
@@ -21,7 +22,7 @@ export const validateWithGlobalFilters = (filters: GlobalFilters, post: PostItem
   return true;
 };
 
-export const validateWithFeedFilters = (filters: FeedFilters, post: PostItem) => {
+export const validateWithFeedFilters = (filters: Filters, post: PostItem) => {
   if (filters.pickAuthors?.length) {
     if (!filters.pickAuthors.includes(post.authorName)) return false;
   }
@@ -54,11 +55,11 @@ export const validateWithFeedFilters = (filters: FeedFilters, post: PostItem) =>
     if (isAnyItemInStrings(filters.omitKeywords, [post.title, post.description])) return false;
   }
 
-  if (filters.minThreshold > 0 && post.score.ups < filters.minThreshold) return false;
+  if (filters.minThreshold && post.score.ups < filters.minThreshold) return false;
 
-  if (filters.minPoints > 0 && post.score.total < filters.minPoints) return false;
+  if (filters.minPoints && post.score.total < filters.minPoints) return false;
 
-  if (filters.minComments > 0 && post.commentCount < filters.minComments) return false;
+  if (filters.minComments && post.commentCount < filters.minComments) return false;
 
   return true;
 };

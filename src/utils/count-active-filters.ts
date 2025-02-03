@@ -1,6 +1,6 @@
 import isEqual from 'lodash.isequal';
 
-import { GlobalFilters } from '~/types/reddit';
+import { Filters } from '~/types/filters';
 
 const isObject = (item: unknown): item is Object => {
   return typeof item === 'object' && item !== null;
@@ -10,7 +10,7 @@ const isDefined = <T>(item: T | null | undefined): item is T => {
   return item !== null && item !== undefined;
 };
 
-export const countActiveFilters = (filters: GlobalFilters | null, defaultFilters: GlobalFilters | null) => {
+export const countActiveFilters = (filters: Filters | null, defaultFilters: Filters | null) => {
   let count = 0;
 
   for (const filterKey in filters) {

@@ -1,8 +1,8 @@
 import { useCallback, useMemo } from 'react';
 import { defaultFeedFilters } from '~/consts/filters';
 import { useSubreddits } from '~/contexts/SubredditsContext';
+import { Filters } from '~/types/filters';
 import { countActiveFilters } from '~/utils/count-active-filters';
-import { FeedFilters } from '~/types/reddit';
 
 export const useFeedFilters = (subredditName: string) => {
   const { getFilters, filterOptions, setFilters: setFeedFilters, addFilterOption } = useSubreddits();
@@ -10,7 +10,7 @@ export const useFeedFilters = (subredditName: string) => {
   const activeFilters = useMemo(() => countActiveFilters(filters, defaultFeedFilters), [filters]);
 
   const setFilters = useCallback(
-    (newFilters: FeedFilters) => {
+    (newFilters: Filters) => {
       setFeedFilters(subredditName, newFilters);
     },
     [filters, subredditName],

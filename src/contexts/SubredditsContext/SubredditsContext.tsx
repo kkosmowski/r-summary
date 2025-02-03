@@ -1,8 +1,7 @@
 import { createContext, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
 import { defaultFeedFilters, defaultFilterOptions, defaultGlobalFilters } from '~/consts/filters';
 
-import { FeedFilters, GlobalFilters } from '~/types/reddit';
-import { FilterOptions } from '~/types/filters';
+import { Filters, FilterOptions } from '~/types/filters';
 import { clearAllData, clearData } from '~/utils/caching';
 import { countActiveFilters } from '~/utils/count-active-filters';
 
@@ -18,16 +17,16 @@ import {
 
 type SubredditsContextValue = {
   subreddits: string[];
-  globalFilters: GlobalFilters;
-  setGlobalFilters: (filters: GlobalFilters) => void;
+  globalFilters: Filters;
+  setGlobalFilters: (filters: Filters) => void;
   filterOptions: FilterOptions;
   addFilterOption: (key: keyof FilterOptions, value: string) => void;
   activeFilters: number;
   add: (name: string) => void;
   remove: (name: string) => void;
   removeAll: VoidFunction;
-  getFilters: (name: string) => FeedFilters | null;
-  setFilters: (name: string, value: FeedFilters) => void;
+  getFilters: (name: string) => Filters;
+  setFilters: (name: string, value: Filters) => void;
   move: (name: string, index: number) => void;
   swap: (nameA: string, nameB: string) => void;
   saveDefaultFilters: VoidFunction;
@@ -52,7 +51,7 @@ const SubredditsContext = createContext<SubredditsContextValue>({
 
 export const SubredditsController = ({ children }: PropsWithChildren) => {
   const [subreddits, setSubreddits] = useState<SubredditsObject>(getSubreddits());
-  const [globalFilters, setGlobalFilters] = useState<GlobalFilters>(defaultGlobalFilters);
+  const [globalFilters, setGlobalFilters] = useState<Filters>(defaultGlobalFilters);
   const [filterOptions, setFilterOptions] = useState<FilterOptions>(defaultFilterOptions);
   const [activeFilters, setActiveFilters] = useState(0);
 
@@ -92,7 +91,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
     (name: string) => {
       if (!subreddits.items.hasOwnProperty(name)) {
         console.error(`Unknown subreddit name: "${name}".`);
-        return null;
+        return defaultFeedFilters;
       }
 
       return subreddits.items[name];
@@ -101,7 +100,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
   );
 
   const setFilters = useCallback(
-    (name: string, value: FeedFilters) => {
+    (name: string, value: Filters) => {
       if (!subreddits.items.hasOwnProperty(name)) {
         console.error(`Unknown subreddit name: "${name}".`);
         return;

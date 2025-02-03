@@ -1,6 +1,6 @@
-import { FeedFilters } from '~/types/reddit';
+import { Filters } from '~/types/filters';
 
 export type SubredditsObject = {
   order: string[];
-  items: Record<string, FeedFilters>;
+  items: Record<string, Filters>;
 };

@@ -1,7 +1,6 @@
-import { FilterOptions } from '~/types/filters';
-import { FeedFilters, GlobalFilters } from '~/types/reddit';
+import { Filters, FilterOptions } from '~/types/filters';
 
-export const defaultGlobalFilters: GlobalFilters = {
+export const defaultGlobalFilters: Filters = {
   pickType: [],
   omitType: [],
   pickKeywords: [],
@@ -15,7 +14,7 @@ export const defaultFilterOptions: FilterOptions = {
   keywords: [],
 };
 
-export const defaultFeedFilters: FeedFilters = {
+export const defaultFeedFilters: Filters = {
   omitAuthors: [],
   pickAuthors: [],
   omitFlairs: [],

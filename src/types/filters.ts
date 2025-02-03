@@ -1,4 +1,18 @@
-import { FeedFilters, PostItem } from '~/types/reddit';
+import { PostItem } from '~/types/reddit';
+
+export type Filters = {
+  omitAuthors?: string[];
+  pickAuthors?: string[];
+  omitFlairs?: string[];
+  pickFlairs?: string[];
+  minThreshold?: number;
+  minPoints?: number;
+  minComments?: number;
+  omitType?: PostItem['type'][];
+  pickType?: PostItem['type'][];
+  pickKeywords?: string[];
+  omitKeywords?: string[];
+};
 
 export type FilterOptions = {
   types: PostItem['type'][];
@@ -7,7 +21,7 @@ export type FilterOptions = {
   flairs: string[];
 };
 
-export type NumberFilterProps<T extends FeedFilters = FeedFilters> = {
+export type NumberFilterProps<T extends Filters = Filters> = {
   filters: T;
   setFilters: (filters: T) => void;
 };

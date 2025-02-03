@@ -1,5 +1,4 @@
-import { FilterOptions } from '~/types/filters';
-import { GlobalFilters } from '~/types/reddit';
+import { Filters, FilterOptions } from '~/types/filters';
 
 import { SubredditsObject } from './SubredditsContext.types';
 
@@ -19,10 +18,10 @@ export const getSubreddits = () => {
 };
 
 export const getDefaultGlobalFilters = () => {
-  return JSON.parse(localStorage.getItem(defaultFiltersLsKey) ?? '{}') as GlobalFilters;
+  return JSON.parse(localStorage.getItem(defaultFiltersLsKey) ?? '{}') as Filters;
 };
 
-export const cacheDefaultFilters = (filters: GlobalFilters) => {
+export const cacheDefaultFilters = (filters: Filters) => {
   localStorage.setItem(defaultFiltersLsKey, JSON.stringify(filters));
 };
 
