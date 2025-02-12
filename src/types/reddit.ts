@@ -33,6 +33,7 @@ export type RawRedditData = {
 
 export type PostItem = {
   id: string;
+  isNew: boolean;
   awards: unknown[];
   authorName: string;
   createdAt: number;

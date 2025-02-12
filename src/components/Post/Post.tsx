@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import debounce from 'lodash.debounce';
+import { NewPostMarker } from '~/components/NewPostMarker';
 import { getHeightOfElementWithDirection } from '~/components/Post/Post.utils';
 import { useSettings } from '~/contexts/SettingsContext';
 
@@ -51,6 +52,7 @@ export const Post = ({ post }: RedditFeedProps) => {
       onResize={changeContentDirectionIfNecessary}
     >
       <article ref={containerRef} className={`${styles.postContainer} postContainer`}>
+        {post.isNew && <NewPostMarker />}
         <div ref={contentRef} className={styles.content}>
           <PostHeader post={post} />
 

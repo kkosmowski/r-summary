@@ -14,6 +14,7 @@
 - [x] Labels for inputs
 - [x] Column view of Post if too narrow
 - [x] Handle empty app 
-- [ ] Mark new posts – decide on "new" criteria (e.g. post that was not there before refetch – but what about manual refetches?)
+- [x] Mark new posts – "new" post is the one that was not present before refetch
+- [ ] Mark posts as read (read new post should no longer be new) 
 - [ ] Click on flair / author opens popup to "block" (filter out) flair / author
 - [ ] Allow merging multiple subreddits into single Feed

@@ -1,0 +1,1 @@
+export { NewPostMarker } from './NewPostMarker';

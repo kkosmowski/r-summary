@@ -12,7 +12,11 @@ import { htmlDecode } from '~/utils/html-decode';
 const selftext_html_start = 43;
 const selftext_html_end = -33;
 
-const prepareData = (data: RawRedditData, refetchTimeInMin = CACHE_TIME): TransformedData => {
+const prepareData = (
+  data: RawRedditData,
+  refetchTimeInMin = CACHE_TIME,
+  oldData?: TransformedData | undefined,
+): TransformedData => {
   const transformed = {
     subreddit: {
       name: data.data.children[0].data.subreddit.toLowerCase(),
@@ -25,6 +29,7 @@ const prepareData = (data: RawRedditData, refetchTimeInMin = CACHE_TIME): Transf
         ({ data }) =>
           ({
             id: data.id,
+            isNew: !oldData?.items.some((post) => post.id === data.id),
             awards: data.all_awardings,
             authorName: data.author,
             createdAt: data.created * 1000,
@@ -90,8 +95,8 @@ export const useFetchReddit = (r: string, options?: Options) => {
           setIsBlocked(true);
         }
 
-        const data = await response.json();
-        setData(prepareData(data, refetchTimeInMin));
+        const newData = await response.json();
+        setData((current) => prepareData(newData, refetchTimeInMin, current));
       } finally {
         setIsLoading(false);
         if (refetch) setIsRefetching(false);
