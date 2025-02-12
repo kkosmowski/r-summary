@@ -55,8 +55,6 @@ export const PickOmitInputs = (props: TypeFiltersProps) => {
 
   const Input = creatable ? CreatableSelect : Select;
 
-  console.log(id);
-
   return (
     <article className={styles.pickOmitRow}>
       <Input

@@ -11,9 +11,10 @@ import { useFeedFilters } from './hooks/use-feed-filters';
 
 type FeedFiltersProps = {
   subreddit: SubredditData;
+  onClose?: VoidFunction;
 };
 
-export const FeedFilters = ({ subreddit }: FeedFiltersProps) => {
+export const FeedFilters = ({ subreddit, onClose }: FeedFiltersProps) => {
   const anchor = useRef<HTMLButtonElement | null>(null);
   const [open, setOpen] = useState(false);
   const { activeFilters } = useFeedFilters(subreddit.name);
@@ -24,6 +25,7 @@ export const FeedFilters = ({ subreddit }: FeedFiltersProps) => {
 
   const closeFilters = () => {
     setOpen(false);
+    onClose?.();
   };
 
   return (

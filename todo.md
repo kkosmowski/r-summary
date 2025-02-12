@@ -13,6 +13,7 @@
 - [x] Feed-specific filter
 - [x] Labels for inputs
 - [x] Column view of Post if too narrow
+- [x] Handle empty app 
 - [ ] Mark new posts – decide on "new" criteria (e.g. post that was not there before refetch – but what about manual refetches?)
 - [ ] Click on flair / author opens popup to "block" (filter out) flair / author
 - [ ] Allow merging multiple subreddits into single Feed

@@ -17,15 +17,15 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
     return null;
   }
 
-  const isSpoiler = post.thumbnail.url === 'spoiler';
+  const isSpoiler = post.thumbnail?.url === 'spoiler';
 
   return (
     <div className={styles.thumbnail}>
       {post.type === 'image' && !isSpoiler && !hide && (
         <img
-          src={post.thumbnail.url}
-          width={post.thumbnail.width}
-          height={post.thumbnail.height}
+          src={post.thumbnail?.url}
+          width={post.thumbnail?.width}
+          height={post.thumbnail?.height}
           alt={post.title}
           onError={() => setHide(true)}
         />

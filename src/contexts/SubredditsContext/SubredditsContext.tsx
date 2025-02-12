@@ -1,5 +1,7 @@
 import { createContext, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
 import { defaultFeedFilters, defaultFilterOptions, defaultGlobalFilters } from '~/consts/filters';
+import { exampleSubreddit } from '~/consts/mock';
+import { useIntro } from '~/contexts/IntroContext';
 
 import { Filters, FilterOptions } from '~/types/filters';
 import { clearAllData, clearData } from '~/utils/caching';
@@ -50,6 +52,7 @@ const SubredditsContext = createContext<SubredditsContextValue>({
 });
 
 export const SubredditsController = ({ children }: PropsWithChildren) => {
+  const { finishAll } = useIntro();
   const [subreddits, setSubreddits] = useState<SubredditsObject>(getSubreddits());
   const [globalFilters, setGlobalFilters] = useState<Filters>(defaultGlobalFilters);
   const [filterOptions, setFilterOptions] = useState<FilterOptions>(defaultFilterOptions);
@@ -66,7 +69,11 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     cacheSubreddits(subreddits);
-  }, [subreddits]);
+
+    if (subreddits.order.length > 0) {
+      finishAll();
+    }
+  }, [subreddits, finishAll]);
 
   const saveDefaultFilters = useCallback(() => {
     cacheDefaultFilters(globalFilters ?? defaultGlobalFilters);
@@ -90,7 +97,9 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
   const getFilters = useCallback(
     (name: string) => {
       if (!subreddits.items.hasOwnProperty(name)) {
-        console.error(`Unknown subreddit name: "${name}".`);
+        if (name !== exampleSubreddit.subreddit.name) {
+          console.error(`Unknown subreddit name: "${name}".`);
+        }
         return defaultFeedFilters;
       }
 

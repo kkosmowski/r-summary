@@ -89,13 +89,22 @@ button {
   }
 
   &.--filled {
-    color: var(--color-fg-primary-button);
-    background-color: var(--color-primary-600);
+    background-color: var(--color-bg-200);
 
     &:hover,
     &.--active {
+      background-color: var(--color-bg-300);
+    }
+
+    &.--primary {
       color: var(--color-fg-primary-button);
-      background-color: var(--color-primary-700);
+      background-color: var(--color-primary-600);
+
+      &:hover,
+      &.--active {
+        color: var(--color-fg-primary-button);
+        background-color: var(--color-primary-700);
+      }
     }
   }
 

@@ -49,12 +49,14 @@ export type PostItem = {
     backgroundColor: string | '' | null;
   };
   link: string;
-  thumbnail: {
-    url: string;
-    width: number;
-    height: number;
-  };
-  video: string | undefined;
+  thumbnail:
+    | {
+        url: string;
+        width: number;
+        height: number;
+      }
+    | undefined;
+  video?: string | undefined;
   visited: boolean;
   type: 'video' | 'image' | 'text';
 };

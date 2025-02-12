@@ -1,0 +1,128 @@
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.title {
+  font-size: 20px;
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate {
+  opacity: 0;
+  animation: show 0.2s ease-in-out 1 forwards;
+}
+
+.hint {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-fg-200);
+  font-size: 15px;
+
+  &.column {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.addFeed {
+  position: absolute;
+  left: 22px;
+  top: 60px;
+}
+
+.rotateLeft {
+  transform: rotate(-90deg);
+}
+
+.rotateLeftAndFlipX {
+  transform: rotate(-90deg) scaleX(-1);
+}
+
+.flipY {
+  transform: scaleY(-1);
+}
+
+.manageFeed {
+  position: absolute;
+  left: 60px;
+  top: 60px;
+  animation-delay: 1s;
+
+  > svg {
+    position: relative;
+    top: -4px;
+  }
+}
+
+.globalFilters {
+  position: absolute;
+  left: 128px;
+  top: 22px;
+  animation-delay: 3s;
+}
+
+.settings {
+  position: absolute;
+  right: 22px;
+  animation-delay: 5.5s;
+
+  &.column {
+    align-items: flex-end;
+  }
+}
+
+.feedMock {
+  position: absolute;
+  top: 220px;
+  left: 16px;
+  width: 320px;
+  animation-delay: 8s;
+}
+
+.feedFilters {
+  position: absolute;
+  z-index: 1;
+  left: 256px;
+  top: 188px;
+  animation-delay: 9s;
+
+  > svg {
+    position: relative;
+    top: 4px;
+  }
+}
+
+.refetch {
+  position: absolute;
+  z-index: 1;
+  left: 144px;
+  top: 160px;
+  animation-delay: 12s;
+
+  &.column {
+    flex-direction: column-reverse;
+  }
+
+  > svg {
+    position: relative;
+    top: 4px;
+  }
+}
+
+.skip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

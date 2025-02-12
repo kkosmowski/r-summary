@@ -1,3 +1,4 @@
+import { EmptyState } from '~/components/EmptyState/EmptyState';
 import { RedditFeed } from '~/components/RedditFeed';
 import { Toolbar } from '~/components/Toolbar';
 import { useSettings } from '~/contexts/SettingsContext';
@@ -16,11 +17,15 @@ export const Dashboard = () => {
     <main className={styles.main}>
       <Toolbar />
 
-      <section className={styles.dashboardContainer} style={style}>
-        {subreddits.map((subreddit) => (
-          <RedditFeed key={subreddit} r={subreddit} />
-        ))}
-      </section>
+      {subreddits.length ? (
+        <section className={styles.dashboardContainer} style={style}>
+          {subreddits.map((subreddit) => (
+            <RedditFeed key={subreddit} r={subreddit} />
+          ))}
+        </section>
+      ) : (
+        <EmptyState />
+      )}
     </main>
   );
 };

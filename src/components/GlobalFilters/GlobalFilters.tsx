@@ -3,6 +3,7 @@ import { Badge } from '~/components/Badge';
 
 import { Button } from '~/components/Button';
 import { Tooltip } from '~/components/Tooltip';
+import { useIntro } from '~/contexts/IntroContext';
 import { FiltersIcon } from '~/icons/FiltersIcon';
 
 import { GlobalFiltersPopup } from './components/GlobalFiltersPopup';
@@ -12,9 +13,11 @@ export const GlobalFilters = () => {
   const anchor = useRef<HTMLButtonElement | null>(null);
   const [open, setOpen] = useState(false);
   const { activeFilters } = useGlobalFilters();
+  const { mark } = useIntro();
 
   const handleToggleFilters = () => {
     setOpen(true);
+    mark('global-filters');
   };
 
   const closeFilters = () => {
