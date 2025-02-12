@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import debounce from 'lodash.debounce';
-import { NewPostMarker } from '~/components/NewPostMarker';
+import { PostMarkers } from 'src/components/PostMarkers';
 import { getHeightOfElementWithDirection } from '~/components/Post/Post.utils';
 import { useSettings } from '~/contexts/SettingsContext';
 
@@ -10,11 +10,12 @@ import { PostHeader } from './components/PostHeader';
 import { PostPreview } from './components/PostPreview';
 import styles from './Post.module.scss';
 
-type RedditFeedProps = {
+type PostProps = {
   post: PostItem;
+  onRead: (postId: PostItem['id']) => void;
 };
 
-export const Post = ({ post }: RedditFeedProps) => {
+export const Post = ({ post, onRead }: PostProps) => {
   const containerRef = useRef<HTMLElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const { getValue } = useSettings();
@@ -43,6 +44,12 @@ export const Post = ({ post }: RedditFeedProps) => {
     };
   }, []);
 
+  const handleClick = () => {
+    onRead(post.id);
+  };
+
+  const className = [styles.postContainer, 'postContainer', post.isRead ? styles.read : null].join(' ').trimEnd();
+
   return (
     <a
       href={post.link}
@@ -51,8 +58,8 @@ export const Post = ({ post }: RedditFeedProps) => {
       className={styles.postLink}
       onResize={changeContentDirectionIfNecessary}
     >
-      <article ref={containerRef} className={`${styles.postContainer} postContainer`}>
-        {post.isNew && <NewPostMarker />}
+      <article ref={containerRef} className={className} onClick={handleClick}>
+        <PostMarkers isRead={post.isRead} isNew={post.isNew} />
         <div ref={contentRef} className={styles.content}>
           <PostHeader post={post} />
 

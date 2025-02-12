@@ -1,19 +1,13 @@
-import { useFetchReddit } from '~/hooks/use-fetch-reddit';
+import { useRedditFeed } from '~/contexts/RedditFeedContext';
 import { PostsList } from '~/components/PostsList';
 import { Card } from '~/components/Card';
-import { useFilterData } from '~/hooks/use-filter-data';
 
 import { FeedHeader } from './components/FeedHeader';
 import { LoadingOverlay } from './components/LoadingOverlay';
 import styles from './RedditFeed.module.scss';
 
-type RedditFeedProps = {
-  r: string;
-};
-
-export const RedditFeed = ({ r }: RedditFeedProps) => {
-  const { isLoading, isSuccess, data, refetch, isRefetching } = useFetchReddit(r);
-  const filteredItems = useFilterData(data);
+export const RedditFeed = () => {
+  const { isLoading, isSuccess, data, r, filteredItems, refetch, isRefetching } = useRedditFeed();
 
   if (!data && isLoading) {
     return 'loading...';

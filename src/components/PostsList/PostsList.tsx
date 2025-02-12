@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
 import { Post } from '~/components/Post';
+import { useRedditFeed } from '~/contexts/RedditFeedContext';
 import { PostItem } from '~/types/reddit';
 import { useSettings } from '~/contexts/SettingsContext';
 
@@ -17,6 +18,7 @@ const clipItem = (item: string, length?: number | null) => {
 
 export const PostsList = ({ items }: RedditFeedProps) => {
   const { getValue } = useSettings();
+  const { readPost } = useRedditFeed();
   const postsPerSubreddit = getValue('setting-posts-per-subreddit') as number | null;
   const maxTitleLength = getValue('setting-clip-post-title') as number | null;
   const maxDescriptionLength = getValue('setting-clip-post-description') as number | null;
@@ -45,12 +47,17 @@ export const PostsList = ({ items }: RedditFeedProps) => {
     return <span className={styles.noItems}>No items. Consider modifying filters.</span>;
   }
 
+  const handleRead = (postId: PostItem['id']) => {
+    readPost(postId);
+  };
+
   return (
     <>
       {itemsToRender.map((post) => (
         <Post
           key={post.id}
           post={clip(post, { descriptionLength: maxDescriptionLength, titleLength: maxTitleLength })}
+          onRead={handleRead}
         />
       ))}
     </>

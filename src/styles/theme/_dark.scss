@@ -7,7 +7,7 @@ body.--dark {
   --color-light-25: #f6f6f6;
   --color-light-50: #ebebeb;
   --color-light-100: #d6d6d6;
-  --color-light-200: #c2c2c2;
+  --color-light-200: #c7c7c7;
   --color-light-300: #ababab;
   --color-light-400: #949494;
   --color-light-500: #8a8a8a;
@@ -22,6 +22,7 @@ body.--dark {
   --color-dark-100: #222;
   --color-dark-200: #282828;
   --color-dark-300: #343434;
+  --color-dark-400: #595959;
 
   --color-primary-500-focus: rgb(149, 117, 205, 0.2);
   --color-primary-500-active: rgba(149, 117, 205, 0.11);
@@ -55,7 +56,7 @@ body.--dark {
   --color-fg-300: var(--color-light-300);
   --color-fg-400: var(--color-light-400);
   --color-fg-500: var(--color-light-500);
-  --color-fg-primary-button: var(--color-light-50);
+  --color-fg-on-primary-bg: var(--color-light-50);
 
   // @todo: add bg-overlay & dark-072 to other themes
 
@@ -69,6 +70,7 @@ body.--dark {
   --color-bg-100: var(--color-dark-100);
   --color-bg-200: var(--color-dark-200);
   --color-bg-300: var(--color-dark-300);
+  --color-bg-400: var(--color-dark-400);
   --color-bg-input: transparent;
 
   color: var(--color-fg-50);

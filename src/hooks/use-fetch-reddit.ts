@@ -30,6 +30,7 @@ const prepareData = (
           ({
             id: data.id,
             isNew: !oldData?.items.some((post) => post.id === data.id),
+            isRead: !!oldData?.items.filter((post) => post.id === data.id)?.[0].isRead,
             awards: data.all_awardings,
             authorName: data.author,
             createdAt: data.created * 1000,

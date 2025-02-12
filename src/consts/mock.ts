@@ -5,6 +5,7 @@ export const exampleSubreddit: TransformedData = {
     {
       id: '1234',
       isNew: false,
+      isRead: false,
       awards: [],
       authorName: 'example_author1',
       createdAt: new Date().getTime(),
@@ -28,6 +29,7 @@ export const exampleSubreddit: TransformedData = {
     {
       id: '1235',
       isNew: false,
+      isRead: false,
       awards: [],
       authorName: 'example_author2',
       createdAt: new Date().getTime(),

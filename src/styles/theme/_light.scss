@@ -11,12 +11,13 @@ body.--light {
   --color-light-25: #fbfbfb;
   --color-light-50: #f9f9f9;
   --color-light-100: #fefefe;
-  --color-light-200: #e8e8e8;
+  --color-light-200: #efefef;
   --color-light-300: #efefef;
+  --color-light-400: #bfbfbf;
 
   --color-dark-50: #07162a;
   --color-dark-100: #0f1825;
-  --color-dark-200: #333f50;
+  --color-dark-200: #3d4759;
   --color-dark-300: #434c5b;
   --color-dark-400: #586069;
   --color-dark-500: #777a83;
@@ -52,7 +53,7 @@ body.--light {
   --color-fg-300: var(--color-dark-300);
   --color-fg-400: var(--color-dark-400);
   --color-fg-500: var(--color-dark-500);
-  --color-fg-primary-button: var(--color-light-100);
+  --color-fg-on-primary-bg: var(--color-light-100);
 
   --color-bg-focus: var(--color-light-focus);
   --color-bg-active: var(--color-light-active);
@@ -64,6 +65,7 @@ body.--light {
   --color-bg-100: var(--color-light-100);
   --color-bg-200: var(--color-light-200);
   --color-bg-300: var(--color-light-300);
+  --color-bg-400: var(--color-light-400);
   --color-bg-input: transparent;
 
   color: var(--color-fg-50);

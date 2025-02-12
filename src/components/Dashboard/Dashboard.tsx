@@ -1,6 +1,7 @@
 import { EmptyState } from '~/components/EmptyState/EmptyState';
 import { RedditFeed } from '~/components/RedditFeed';
 import { Toolbar } from '~/components/Toolbar';
+import { RedditFeedController } from '~/contexts/RedditFeedContext';
 import { useSettings } from '~/contexts/SettingsContext';
 import { useSubreddits } from '~/contexts/SubredditsContext';
 import { getColumnsStyles } from '~/utils/get-columns-styles';
@@ -20,7 +21,9 @@ export const Dashboard = () => {
       {subreddits.length ? (
         <section className={styles.dashboardContainer} style={style}>
           {subreddits.map((subreddit) => (
-            <RedditFeed key={subreddit} r={subreddit} />
+            <RedditFeedController key={subreddit} r={subreddit}>
+              <RedditFeed />
+            </RedditFeedController>
           ))}
         </section>
       ) : (

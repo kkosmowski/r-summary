@@ -11,8 +11,7 @@ export const setData = (key: string, data: any, expireIn: number) => {
   localStorage.setItem(redditLsPrefix + key.toLowerCase(), JSON.stringify(cache));
 };
 
-export const getData = (key: string): TransformedData | null => {
-  const currentTime = new Date().getTime();
+const getDataFromLocalStorage = (key: string) => {
   const string = localStorage.getItem(redditLsPrefix + key.toLowerCase());
 
   if (!string) {
@@ -20,6 +19,25 @@ export const getData = (key: string): TransformedData | null => {
   }
 
   const { data, expires }: { data: TransformedData; expires: number } = JSON.parse(string);
+  return { data, expires };
+};
+
+export const updateData = (data: TransformedData) => {
+  const result = getDataFromLocalStorage(data.subreddit.name);
+
+  if (!result) return null;
+  const { expires } = result;
+
+  const cache = { data, expires };
+  localStorage.setItem(redditLsPrefix + data.subreddit.name.toLowerCase(), JSON.stringify(cache));
+};
+
+export const getData = (key: string): TransformedData | null => {
+  const currentTime = new Date().getTime();
+  const result = getDataFromLocalStorage(key);
+
+  if (!result) return null;
+  const { data, expires } = result;
 
   if (currentTime > new Date(expires).getTime()) {
     return null;

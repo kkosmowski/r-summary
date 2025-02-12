@@ -13,6 +13,7 @@ body.--color {
   --color-light-100: #ffffec;
   --color-light-200: #ddf1b1;
   --color-light-300: #efefcd;
+  --color-light-400: #85da59;
 
   --color-dark-50: #ff009a;
   --color-dark-100: #04349b;
@@ -52,7 +53,7 @@ body.--color {
   --color-fg-300: var(--color-dark-300);
   --color-fg-400: var(--color-dark-400);
   --color-fg-500: var(--color-dark-500);
-  --color-fg-primary-button: var(--color-light-0);
+  --color-fg-on-primary-bg: var(--color-light-0);
 
   --color-bg-focus: var(--color-light-focus);
   --color-bg-active: var(--color-light-active);
@@ -64,6 +65,7 @@ body.--color {
   --color-bg-100: var(--color-light-100);
   --color-bg-200: var(--color-light-200);
   --color-bg-300: var(--color-light-300);
+  --color-bg-400: var(--color-light-400);
   --color-bg-input: transparent;
 
   color: var(--color-fg-50);

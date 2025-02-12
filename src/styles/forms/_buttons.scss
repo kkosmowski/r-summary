@@ -97,12 +97,12 @@ button {
     }
 
     &.--primary {
-      color: var(--color-fg-primary-button);
+      color: var(--color-fg-on-primary-bg);
       background-color: var(--color-primary-600);
 
       &:hover,
       &.--active {
-        color: var(--color-fg-primary-button);
+        color: var(--color-fg-on-primary-bg);
         background-color: var(--color-primary-700);
       }
     }

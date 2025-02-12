@@ -15,6 +15,6 @@
 - [x] Column view of Post if too narrow
 - [x] Handle empty app 
 - [x] Mark new posts – "new" post is the one that was not present before refetch
-- [ ] Mark posts as read (read new post should no longer be new) 
+- [x] Mark posts as read (read new post should no longer be new) 
 - [ ] Click on flair / author opens popup to "block" (filter out) flair / author
 - [ ] Allow merging multiple subreddits into single Feed
