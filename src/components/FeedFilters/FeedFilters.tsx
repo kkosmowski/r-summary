@@ -28,6 +28,8 @@ export const FeedFilters = ({ subreddit, onClose }: FeedFiltersProps) => {
     onClose?.();
   };
 
+  console.log(subreddit.name, activeFilters);
+
   return (
     <>
       <Tooltip title="Filters">

@@ -2,11 +2,11 @@ import { Button } from '~/components/Button';
 import { SettingsModal } from '~/components/SettingsModal';
 import { Tooltip } from '~/components/Tooltip';
 import { useIntro } from '~/contexts/IntroContext';
-import { useModal } from '~/hooks/use-modal';
+import { useToggle } from '~/hooks/use-toggle';
 import { SettingsIcon } from '~/icons/SettingsIcon';
 
 export const Settings = () => {
-  const { openModal, closeModal, isOpen } = useModal();
+  const { open: openModal, close: closeModal, isOpen } = useToggle();
   const { mark } = useIntro();
 
   const handleOpenSettings = () => {

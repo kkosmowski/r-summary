@@ -1,46 +1,31 @@
+import { MouseEvent, useRef } from 'react';
+import { useToggle } from '~/hooks/use-toggle';
 import { PostItem } from '~/types/reddit';
+import { PickOmitPopup } from 'src/components/PickOmitPopup';
 
+import { getColors } from './Flair.utils';
 import styles from './Flair.module.scss';
-import { hexToHsl } from '~/utils/hex-to-hsl';
-
-const getTextColorBasedOnBg = (bgColor: string): '#000' | '#fff' => {
-  bgColor = bgColor.replace('#', '');
-  const [_, __, l] = hexToHsl(bgColor);
-
-  // this is very naïve, improve as you go
-  if (l < 50) return '#fff';
-  return '#000';
-};
-
-const getColors = (color: 'light' | 'dark' | null, bgColor: string | null) => {
-  if (!bgColor) {
-    return {
-      textColor: 'var(--color-fg-50)',
-      backgroundColor: 'var(--color-bg-200)',
-    };
-  }
-
-  if (!color) {
-    return {
-      textColor: getTextColorBasedOnBg(bgColor),
-      backgroundColor: bgColor,
-    };
-  }
-
-  return {
-    textColor: color === 'dark' ? '#000' : '#fff',
-    backgroundColor: bgColor,
-  };
-};
 
 export const Flair = ({ flair }: Pick<PostItem, 'flair'>) => {
   const { text, color, backgroundColor: bgColor } = flair;
+  const flairRef = useRef<HTMLDivElement | null>(null);
+  const { isOpen: isPopupOpen, open: openPopup, close: closePopup } = useToggle();
 
   const { textColor, backgroundColor } = getColors(color, bgColor);
 
+  const handleClick = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    openPopup();
+  };
+
   return (
-    <div className={styles.badge} style={{ color: textColor, backgroundColor }}>
-      {text}
-    </div>
+    <>
+      <div ref={flairRef} className={styles.badge} style={{ color: textColor, backgroundColor }} onClick={handleClick}>
+        {text}
+      </div>
+
+      <PickOmitPopup anchor={flairRef.current} open={isPopupOpen} type="flair" text={flair.text} onClose={closePopup} />
+    </>
   );
 };

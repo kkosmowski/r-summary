@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { MouseEventHandler, PropsWithChildren } from 'react';
 import { Backdrop } from '~/components/Backdrop';
 
 import styles from './Popup.module.scss';
@@ -9,6 +9,7 @@ export type PopupProps = PropsWithChildren & {
   anchor: HTMLElement | null;
   open: boolean;
   onClose?: VoidFunction;
+  onClick?: MouseEventHandler;
 };
 
 const getPositionStyle = (anchor: HTMLElement) => {
@@ -17,13 +18,13 @@ const getPositionStyle = (anchor: HTMLElement) => {
   return { left, top: top + height + POPUP_GAP };
 };
 
-export const Popup = ({ open, anchor, children, onClose }: PopupProps) => {
+export const Popup = ({ open, anchor, children, onClick, onClose }: PopupProps) => {
   if (!anchor || !open) return null;
 
   const positionStyle = getPositionStyle(anchor);
 
   return (
-    <div className={styles.popupContainer}>
+    <div className={styles.popupContainer} onClick={onClick}>
       <aside className={`${styles.popup} popup`} style={positionStyle}>
         {children}
       </aside>

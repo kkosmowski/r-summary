@@ -1,7 +1,7 @@
 import { FeedFilters } from '~/components/FeedFilters';
 import { TransformedData } from '~/types/reddit';
 import { DeleteIcon } from '~/icons/DeleteIcon';
-import { useModal } from '~/hooks/use-modal';
+import { useToggle } from '~/hooks/use-toggle';
 import { DeleteFeedModal } from '~/components/DeleteFeedModal';
 import { Button } from '~/components/Button';
 import { RefreshIcon } from '~/icons/RefreshIcon';
@@ -14,7 +14,7 @@ type FeedHeaderProps = {
 };
 
 export const FeedHeader = ({ data, onRefresh }: FeedHeaderProps) => {
-  const { openModal: openDeleteModal, closeModal: closeDeleteModal, isOpen: isDeleteModalOpen } = useModal();
+  const { open: openDeleteModal, close: closeDeleteModal, isOpen: isDeleteModalOpen } = useToggle();
 
   return (
     <header className={styles.header}>

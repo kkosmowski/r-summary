@@ -1,9 +1,11 @@
+import { MouseEvent, useRef } from 'react';
 import { Flair } from '~/components/Flair';
+import { PickOmitPopup } from '~/components/PickOmitPopup';
+import { useToggle } from '~/hooks/use-toggle';
 import { PostItem } from '~/types/reddit';
 import { Separator } from '~/components/Separator';
 import { CommentIcon } from '~/icons/CommentIcon';
 import { useSettings } from '~/contexts/SettingsContext';
-import { REDDIT_URL } from '~/consts/reddit';
 
 import { Score } from '../Score';
 import styles from './PostHeader.module.scss';
@@ -24,6 +26,16 @@ export const PostHeader = ({ post }: PostHeaderProps) => {
   const { getValue } = useSettings();
   const showAuthor = getValue('setting-show-author') as boolean;
   const showCommentsCount = getValue('setting-show-comments') as boolean;
+  const authorRef = useRef<HTMLDivElement | null>(null);
+  const { isOpen: isPopupOpen, open: openPopup, close: closePopup } = useToggle();
+
+  const handleAuthorClick = (e: MouseEvent<HTMLSpanElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    openPopup();
+
+    console.log('hi');
+  };
 
   return (
     <header className={styles.header}>
@@ -39,15 +51,7 @@ export const PostHeader = ({ post }: PostHeaderProps) => {
       {showAuthor && (
         <>
           <Separator />
-          <span
-            // done to avoid <a> in <a>
-            role="link"
-            // @ts-expect-error TypeScript is not aware of props change when using role
-            href={`${REDDIT_URL}/user/${post.authorName}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.author}
-          >
+          <span ref={authorRef} className={styles.author} onClick={handleAuthorClick}>
             {post.authorName}
           </span>
         </>
@@ -60,6 +64,14 @@ export const PostHeader = ({ post }: PostHeaderProps) => {
           </span>
         </>
       )}
+
+      <PickOmitPopup
+        anchor={authorRef.current}
+        open={isPopupOpen}
+        type="author"
+        text={post.authorName}
+        onClose={closePopup}
+      />
     </header>
   );
 };
