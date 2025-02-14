@@ -5,6 +5,7 @@ import { useIntro } from '~/contexts/IntroContext';
 
 import { hints } from '~/components/EmptyState/EmptyState.const';
 import { IntroKey } from '~/types/intro';
+import { cn } from '~/utils/cn';
 
 export const EmptyStateHints = () => {
   const { mark, isFinished } = useIntro();
@@ -56,7 +57,7 @@ export const EmptyStateHints = () => {
         })}
 
       {isFeedVisible && (
-        <div ref={feedMockRef} className={`${styles.feedMock} ${styles.animate}`}>
+        <div ref={feedMockRef} className={cn(styles.feedMock, styles.animate)}>
           <FeedMock onRefresh={handleRefresh} onFiltersClose={handleFiltersClose} />
         </div>
       )}

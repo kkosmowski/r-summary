@@ -1,6 +1,7 @@
 import { ConnectDragPreview, ConnectDragSource, useDrag, useDrop } from 'react-dnd';
 
 import { FEED_BLOCK_HEIGHT } from '~/components/FeedManagementView/consts/representation';
+import { cn } from '~/utils/cn';
 
 import styles from './FeedBlock.module.scss';
 
@@ -38,7 +39,7 @@ export const FeedBlock = ({ subreddit, onDrop }: FeedBlockProps) => {
     <div ref={drop}>
       <div
         ref={drag}
-        className={`${styles.feedBlock} feed-block`}
+        className={cn(styles.feedBlock, 'feed-block')}
         style={{ height: FEED_BLOCK_HEIGHT + 'px' }}
         {...collected}
       >

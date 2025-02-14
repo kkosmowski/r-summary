@@ -1,4 +1,5 @@
 import { PostItem } from '~/types/reddit';
+import { cn } from '~/utils/cn';
 
 import styles from './Score.module.scss';
 
@@ -18,7 +19,7 @@ export const Score = ({ score }: ScoreProps) => {
     <div className={styles.scoreContainer}>
       <span className={styles.score}>{score.total}</span>
       <span>
-        (<span className={`${styles.score} ${getScoreClassName(score.ups)}`}>{score.ups}%</span>)
+        (<span className={cn(styles.score, getScoreClassName(score.ups))}>{score.ups}%</span>)
       </span>
     </div>
   );

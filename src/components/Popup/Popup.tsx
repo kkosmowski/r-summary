@@ -1,5 +1,6 @@
 import { MouseEventHandler, PropsWithChildren } from 'react';
 import { Backdrop } from '~/components/Backdrop';
+import { cn } from '~/utils/cn';
 
 import styles from './Popup.module.scss';
 
@@ -25,7 +26,7 @@ export const Popup = ({ open, anchor, children, onClick, onClose }: PopupProps) 
 
   return (
     <div className={styles.popupContainer} onClick={onClick}>
-      <aside className={`${styles.popup} popup`} style={positionStyle}>
+      <aside className={cn(styles.popup, 'popup')} style={positionStyle}>
         {children}
       </aside>
       <Backdrop transparent onClose={onClose} />

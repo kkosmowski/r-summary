@@ -3,6 +3,7 @@ import { GroupBase } from 'react-select';
 import RSCreatableSelect, { CreatableProps } from 'react-select/creatable';
 
 import styles from '~/styles/reactSelectStyles.module.scss';
+import { cn } from '~/utils/cn';
 
 type Props<O, IsMulti extends boolean, G extends GroupBase<O>> = CreatableProps<O, IsMulti, G> & {
   label: ReactNode;
@@ -10,8 +11,6 @@ type Props<O, IsMulti extends boolean, G extends GroupBase<O>> = CreatableProps<
 
 export const CreatableSelect = <O, IsMulti extends boolean, G extends GroupBase<O>>(props: Props<O, IsMulti, G>) => {
   const { className, id, label, ...rest } = props;
-
-  const joinedClassName = [className, styles.rsInput].join(' ');
 
   return (
     <div className={styles.inputWrapper}>
@@ -21,7 +20,7 @@ export const CreatableSelect = <O, IsMulti extends boolean, G extends GroupBase<
 
       <RSCreatableSelect
         {...rest}
-        className={joinedClassName}
+        className={cn(className, styles.rsInput)}
         noOptionsMessage={() => 'No options – type custom one'}
         inputId={id}
       />

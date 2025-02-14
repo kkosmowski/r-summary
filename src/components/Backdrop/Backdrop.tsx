@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { cn } from '~/utils/cn';
 import styles from './Backdrop.module.scss';
 
 type BackdropProps = {
@@ -29,7 +30,7 @@ export const Backdrop = ({ hide, transparent, closeOnBackdrop = true, onClose }:
 
   return (
     <div
-      className={`${styles.backdrop} ${transparent ? styles.transparent : ''} ${!closeOnBackdrop ? styles.disabled : ''}`}
+      className={cn(styles.backdrop, transparent && styles.transparent, !closeOnBackdrop && styles.disabled)}
       onClick={() => (closeOnBackdrop ? onClose?.() : undefined)}
     />
   );

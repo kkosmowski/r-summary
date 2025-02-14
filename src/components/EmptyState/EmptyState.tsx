@@ -1,9 +1,10 @@
 import { Button } from '~/components/Button';
 import { StraightIcon } from '~/icons/StraightIcon';
 import { useIntro } from '~/contexts/IntroContext';
+import { cn } from '~/utils/cn';
 
 import styles from './EmptyState.module.scss';
-import { EmptyStateHints } from './components/EmptyStateHints/EmptyStateHints';
+import { EmptyStateHints } from './components/EmptyStateHints';
 
 export const EmptyState = () => {
   const { onlyAddLeft, introCompleted, isFinished, finishAll } = useIntro();
@@ -13,7 +14,7 @@ export const EmptyState = () => {
       <h3 className={styles.title}>There is nothing to display yet.</h3>
 
       {!isFinished('add-feed') && onlyAddLeft && (
-        <div className={`${styles.addFeed} ${styles.hint} ${styles.column} ${styles.animate}`}>
+        <div className={cn(styles.addFeed, styles.hint, styles.column, styles.animate)}>
           <StraightIcon /> Click here to create your first Feed
         </div>
       )}

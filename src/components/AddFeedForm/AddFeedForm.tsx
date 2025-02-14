@@ -8,6 +8,7 @@ import { AddIcon } from '~/icons/AddIcon';
 import { Button } from '~/components/Button';
 import { Tooltip } from '~/components/Tooltip';
 import { RedditInput } from '~/components/RedditInput';
+import { cn } from '~/utils/cn';
 import { throttle } from '~/utils/throttle';
 
 import { useCacheSearch } from './hooks/use-cache-search';
@@ -94,15 +95,15 @@ export const AddFeedForm = ({ additionalButton, inputId, label, labelledBy, onAd
       </Tooltip>
 
       {isBlocked && (
-        <span className={`${styles.text} error`}>
+        <span className={cn(styles.text, 'error')}>
           It seems you are temporarily blocked by reddit, please wait couple of minutes.
         </span>
       )}
 
       {isAlreadyAdded && subreddit && (
-        <span className={`${styles.text} error`}>This subreddit is already in your feeds.</span>
+        <span className={cn(styles.text, 'error')}>This subreddit is already in your feeds.</span>
       )}
-      {isInvalid && <span className={`${styles.text} error`}>This subreddit does not exist or is unavailable.</span>}
+      {isInvalid && <span className={cn(styles.text, 'error')}>This subreddit does not exist or is unavailable.</span>}
     </div>
   );
 };

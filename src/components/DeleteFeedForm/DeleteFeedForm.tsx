@@ -7,6 +7,7 @@ import { Tooltip } from '~/components/Tooltip';
 import { RedditInput } from '~/components/RedditInput';
 import { DeleteIcon } from '~/icons/DeleteIcon';
 import { useSubreddits } from '~/contexts/SubredditsContext';
+import { cn } from '~/utils/cn';
 
 import styles from './DeleteFeedForm.module.scss';
 
@@ -46,14 +47,14 @@ export const DeleteFeedForm = ({ additionalButton, deleteAll, labelledBy, onDele
       {additionalButton}
 
       {isDeleteAll && (
-        <span className={`${styles.text} warning`}>Warning: You are about to delete all of your feeds.</span>
+        <span className={cn(styles.text, 'warning')}>Warning: You are about to delete all of your feeds.</span>
       )}
 
       <Tooltip title={addTooltip}>
         <Button icon={<DeleteIcon />} color="error" disabled={isInvalid || !debouncedReddit} onClick={handleDelete} />
       </Tooltip>
 
-      {isInvalid && <span className={`${styles.text} error`}>This subreddit is not in your feeds.</span>}
+      {isInvalid && <span className={cn(styles.text, 'error')}>This subreddit is not in your feeds.</span>}
     </div>
   );
 };

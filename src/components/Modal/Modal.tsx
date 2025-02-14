@@ -2,6 +2,7 @@ import { PropsWithChildren, ReactNode } from 'react';
 import { Backdrop } from '~/components/Backdrop';
 
 import { CloseIcon } from '~/icons/CloseIcon';
+import { cn } from '~/utils/cn';
 
 import styles from './Modal.module.scss';
 import { Button } from '~/components/Button';
@@ -34,14 +35,14 @@ export const Modal = ({
 
   return (
     <div className={styles.modalContainer}>
-      <aside className={`${styles.modal} ${noMinHeight && styles.noMinHeight} ${wide && styles.wide}`}>
+      <aside className={cn(styles.modal, noMinHeight && styles.noMinHeight, wide && styles.wide)}>
         <header className={styles.header}>
           <h3 className={styles.title}>{title}</h3>
 
           {closeButton && <Button icon={<CloseIcon />} className={styles.closeButton} onClick={() => onClose?.()} />}
         </header>
 
-        <section className={`${styles.content} ${className ?? ''}`}>{children}</section>
+        <section className={cn(styles.content, className)}>{children}</section>
       </aside>
 
       <Backdrop hide={hideBackdrop} closeOnBackdrop={closeOnBackdrop} onClose={onClose} />

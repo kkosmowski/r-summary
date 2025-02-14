@@ -1,6 +1,7 @@
 import { ChangeEvent, KeyboardEvent, forwardRef } from 'react';
 
 import { CheckIcon } from '~/icons/CheckIcon';
+import { cn } from '~/utils/cn';
 
 import styles from './RedditInput.module.scss';
 
@@ -29,7 +30,7 @@ export const RedditInput = forwardRef<HTMLInputElement, RedditInputProps>(
     };
 
     return (
-      <span className={`${styles.redditInput} ${!!isSuccess && styles.ok} ${!!isError && styles.notOk}`}>
+      <span className={cn(styles.redditInput, isSuccess && styles.ok, isError && styles.notOk)}>
         <div className={styles.inputWrapper}>
           {!labelledBy && label && (
             <label htmlFor={id} className="overlay-label">

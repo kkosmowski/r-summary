@@ -5,6 +5,7 @@ import { Button } from '~/components/Button';
 import { Tooltip } from '~/components/Tooltip';
 import { FiltersIcon } from '~/icons/FiltersIcon';
 import { SubredditData } from '~/types/reddit';
+import { cn } from '~/utils/cn';
 
 import { FeedFiltersPopup } from './components/FeedFiltersPopup';
 import { useFeedFilters } from './hooks/use-feed-filters';
@@ -36,7 +37,7 @@ export const FeedFilters = ({ subreddit, onClose }: FeedFiltersProps) => {
             ref={anchor}
             icon={<FiltersIcon />}
             active={open}
-            className={activeFilters ? '--visible' : undefined}
+            className={cn(activeFilters && '--visible')}
             color="primary"
             onClick={handleToggleFilters}
           />
