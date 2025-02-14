@@ -20,5 +20,16 @@
 - [x] Handle Enter when adding subreddits only after it is verified
 - [x] Throttle adding subreddits to avoid duplicates
 - [x] Handle deleted / private / empty subreddits returning unexpected response (e.g. r/f1 or r/webb)
-- [ ] Create className util
+- [x] Create className util
 - [ ] Allow merging multiple subreddits into single Feed
+  - [x] Feed settings modal
+  - [x] Handle more than 1 backdrop opened
+  - [ ] Add new subreddit to existing feed (and select if it is r/X or r/Y)
+  - [ ] Posts from two subreddits in a single feed
+  - [ ] Add option in settings to show subreddit name in the posts in merged feeds
+  - [ ] Merge two existing feeds into one
+  - [ ] Allow changing name of merged feed (to one of subreddits or custom one)
+  - [ ] Allow separating merged feed
+  - [ ] More than 2 subreddits in a feed
+- [ ] Add option to refresh only one of subreddits in a merged feed
+- [ ] Add random tips in top of the app with option to hide them (+ option to show/hide in the settings) 

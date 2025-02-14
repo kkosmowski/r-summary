@@ -1,19 +1,20 @@
 import { ModalProps } from '~/components/Modal';
 import { ConfirmationModal, type ConfirmationModalProps } from '~/components/ConfirmationModal';
+import { useRedditFeed } from '~/contexts/RedditFeedContext';
 import { useSubreddits } from '~/contexts/SubredditsContext';
-import { SubredditData } from '~/types/reddit.ts';
 
 type DeleteFeedModalProps = Pick<ModalProps, 'open' | 'onClose'> & {
-  subreddit: SubredditData;
+  onAfterDelete?: VoidFunction;
 };
 
-export const DeleteFeedModal = ({ subreddit, open, onClose }: DeleteFeedModalProps) => {
+export const DeleteFeedModal = ({ open, onClose, onAfterDelete }: DeleteFeedModalProps) => {
   const { remove } = useSubreddits();
+  const { data } = useRedditFeed();
 
   const title = 'Delete feed?';
   const message = (
     <>
-      Please confirm whether you wish to remove "{subreddit.prefixed}" feed.{' '}
+      Please confirm whether you wish to remove "{data!.subreddit.prefixed}" feed.{' '}
       <span className="warning">This operation cannot be reverted</span>.
     </>
   );
@@ -23,7 +24,8 @@ export const DeleteFeedModal = ({ subreddit, open, onClose }: DeleteFeedModalPro
   };
 
   const handleDelete = () => {
-    remove(subreddit.name);
+    remove(data!.subreddit.name);
+    onAfterDelete?.();
   };
 
   return (

@@ -1,9 +1,9 @@
 import { Card } from '~/components/Card';
 import { PostsList } from '~/components/PostsList';
 import { exampleSubreddit } from '~/consts/mock';
-import { FeedHeaderMock } from '~/components/RedditFeed/components/FeedHeader/components/FeedHeaderMock';
+import { FeedHeaderMock } from '~/components/Feed/components/FeedHeader/components/FeedHeaderMock';
 
-import styles from '../../RedditFeed.module.scss';
+import styles from 'src/components/Feed/Feed.module.scss';
 
 type FeedMockProps = {
   onRefresh: VoidFunction;

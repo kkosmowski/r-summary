@@ -17,6 +17,7 @@
   }
 
   :global(.popup) button,
+  :global(.modal) button,
   &:hover button {
     opacity: 1;
     visibility: visible;

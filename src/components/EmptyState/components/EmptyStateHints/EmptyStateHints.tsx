@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react';
 import styles from '~/components/EmptyState/EmptyState.module.scss';
-import { FeedMock } from '~/components/RedditFeed/components/FeedMock';
+import { FeedMock } from '~/components/Feed/components/FeedMock';
 import { useIntro } from '~/contexts/IntroContext';
 
 import { hints } from '~/components/EmptyState/EmptyState.const';

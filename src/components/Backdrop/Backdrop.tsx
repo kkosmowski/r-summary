@@ -12,19 +12,39 @@ type BackdropProps = {
 export const Backdrop = ({ hide, transparent, closeOnBackdrop = true, onClose }: BackdropProps) => {
   if (hide) return null;
 
-  const disableScroll = () => {
-    document.body.style.overflow = 'hidden';
+  const registerBackdrop = () => {
+    const currentDepth = Number(document.body.dataset.backdropDepth ?? 0);
+
+    if (currentDepth === 0) {
+      document.body.style.overflow = 'hidden';
+    }
+
+    const newDepth = currentDepth + 1;
+    document.body.dataset.backdropDepth = String(newDepth);
   };
 
-  const enableScroll = () => {
-    document.body.style.overflow = '';
+  const unregisterBackdrop = () => {
+    const currentDepth = Number(document.body.dataset.backdropDepth ?? 0);
+
+    if (currentDepth === 0) {
+      console.error('Error: Backdrop is to be unregistered, but depth is 0.');
+    }
+
+    const newDepth = currentDepth - 1;
+
+    if (newDepth === 0) {
+      document.body.style.overflow = '';
+      delete document.body.dataset.backdropDepth;
+    } else {
+      document.body.dataset.backdropDepth = String(newDepth);
+    }
   };
 
   useEffect(() => {
-    disableScroll();
+    registerBackdrop();
 
     return () => {
-      enableScroll();
+      unregisterBackdrop();
     };
   }, []);
 
