@@ -17,7 +17,8 @@
 - [x] Mark new posts – "new" post is the one that was not present before refetch
 - [x] Mark posts as read (read new post should no longer be new) 
 - [x] Click on flair / author opens popup to "block" (filter out) flair / author
-- [ ] Handle Enter when adding subreddits only after it is verified
-- [ ] Handle deleted / private subreddits returning unexpected response (e.g. r/f1)
+- [x] Handle Enter when adding subreddits only after it is verified
+- [x] Throttle adding subreddits to avoid duplicates
+- [x] Handle deleted / private / empty subreddits returning unexpected response (e.g. r/f1 or r/webb)
 - [ ] Create className util
 - [ ] Allow merging multiple subreddits into single Feed

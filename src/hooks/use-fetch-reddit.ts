@@ -79,6 +79,12 @@ export const useFetchReddit = (r: string, options?: Options) => {
   const [isBlocked, setIsBlocked] = useState(false);
   const [isRefetching, setIsRefetching] = useState(false);
 
+  const finishFetch = (refetch?: boolean) => {
+    setIsLoading(false);
+    if (refetch) setIsRefetching(false);
+    setHasFetched(true);
+  };
+
   const fetchRedditData = useCallback(
     async (refetch?: boolean) => {
       setIsLoading(true);
@@ -88,21 +94,27 @@ export const useFetchReddit = (r: string, options?: Options) => {
 
       try {
         const response = await fetch(`${REDDIT_URL}/r/${r}/hot.json?sort=hot`);
-        if (response.ok) {
-          setIsSuccess(true);
+        if (!response.ok) {
+          finishFetch();
+          return;
         }
 
         if (response.status === 429) {
           setIsBlocked(true);
         }
 
-        const newData = await response.json();
-        setData((current) => prepareData(newData, refetchTimeInMin, current));
-      } finally {
-        setIsLoading(false);
-        if (refetch) setIsRefetching(false);
-        setHasFetched(true);
-      }
+        const newData: RawRedditData = await response.json();
+
+        const hasAnyData = newData.data.children.length > 0;
+
+        setIsSuccess(hasAnyData);
+
+        if (hasAnyData) {
+          setData((current) => prepareData(newData, refetchTimeInMin, current));
+        }
+
+        finishFetch(refetch);
+      } catch (error) {}
     },
     [r],
   );

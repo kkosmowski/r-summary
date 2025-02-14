@@ -1,5 +1,6 @@
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useDebounce } from 'use-debounce';
+import { useSubreddits } from '~/contexts/SubredditsContext';
 
 import { useFetchReddit } from '~/hooks/use-fetch-reddit';
 import { INPUT_DEBOUNCE } from '~/consts/common';
@@ -7,6 +8,7 @@ import { AddIcon } from '~/icons/AddIcon';
 import { Button } from '~/components/Button';
 import { Tooltip } from '~/components/Tooltip';
 import { RedditInput } from '~/components/RedditInput';
+import { throttle } from '~/utils/throttle';
 
 import { useCacheSearch } from './hooks/use-cache-search';
 import styles from './AddFeedForm.module.scss';
@@ -31,11 +33,13 @@ export const AddFeedForm = ({ additionalButton, inputId, label, labelledBy, onAd
     isBlocked,
     refetch,
   } = useFetchReddit(debouncedReddit, { limit: 1, enabled: false });
+  const { subreddits } = useSubreddits();
   const isInvalidFetch = debouncedReddit && hasFetched && !isLoading && !isFetchSuccess;
   const isValidFetch = hasFetched && !isLoading && isFetchSuccess;
+  const isAlreadyAdded = subreddits.includes(debouncedReddit);
 
   const isInvalid = isInvalidCache && isInvalidFetch && !isBlocked;
-  const isSuccess = !!debouncedReddit && (isValidCache || isValidFetch);
+  const isSuccess = !!subreddit && !!debouncedReddit && (isValidCache || isValidFetch) && !isAlreadyAdded;
 
   useEffect(() => {
     if (isSuccess) {
@@ -57,16 +61,16 @@ export const AddFeedForm = ({ additionalButton, inputId, label, labelledBy, onAd
     inputRef.current?.focus();
   };
 
-  const handleEnter = () => {
-    if (!debouncedReddit || isLoading || !isSuccess) return;
-    handleAdd();
-  };
-
   const handleAdd = () => {
     onAdd(debouncedReddit);
     setSubreddit('');
     focusInput();
   };
+
+  const handleSubmit = throttle(() => {
+    if (isLoading || !isSuccess) return;
+    handleAdd();
+  }, 300);
 
   return (
     <div className={styles.container}>
@@ -80,13 +84,13 @@ export const AddFeedForm = ({ additionalButton, inputId, label, labelledBy, onAd
         isSuccess={isSuccess}
         isError={!isSuccess}
         onChange={setSubreddit}
-        onEnter={handleEnter}
+        onEnter={handleSubmit}
       />
 
       {additionalButton}
 
       <Tooltip title={addTooltip}>
-        <Button icon={<AddIcon />} color="primary" disabled={isLoading || !isSuccess} onClick={handleAdd} />
+        <Button icon={<AddIcon />} color="primary" disabled={isLoading || !isSuccess} onClick={handleSubmit} />
       </Tooltip>
 
       {isBlocked && (
@@ -94,7 +98,11 @@ export const AddFeedForm = ({ additionalButton, inputId, label, labelledBy, onAd
           It seems you are temporarily blocked by reddit, please wait couple of minutes.
         </span>
       )}
-      {isInvalid && <span className={`${styles.text} error`}>This reddit does not exist or is unavailable.</span>}
+
+      {isAlreadyAdded && subreddit && (
+        <span className={`${styles.text} error`}>This subreddit is already in your feeds.</span>
+      )}
+      {isInvalid && <span className={`${styles.text} error`}>This subreddit does not exist or is unavailable.</span>}
     </div>
   );
 };

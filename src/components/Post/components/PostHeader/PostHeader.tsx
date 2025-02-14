@@ -33,8 +33,6 @@ export const PostHeader = ({ post }: PostHeaderProps) => {
     e.stopPropagation();
     e.preventDefault();
     openPopup();
-
-    console.log('hi');
   };
 
   return (
