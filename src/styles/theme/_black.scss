@@ -39,8 +39,8 @@ body.--black {
   --color-error-500-focus: rgb(202, 74, 63, 0.25);
   --color-error-500-active: rgba(202, 74, 63, 0.09);
   --color-error-500: rgb(202, 74, 63);
-  --color-error-600: rgb(173, 64, 54);
-  --color-error-700: rgb(148, 54, 46);
+  --color-error-600: rgb(168, 59, 49);
+  --color-error-700: rgb(145, 48, 39);
 
   --color-warning-500: rgb(222, 141, 42);
 
@@ -57,6 +57,7 @@ body.--black {
   --color-fg-400: var(--color-light-400);
   --color-fg-500: var(--color-light-500);
   --color-fg-on-primary-bg: var(--color-dark-100);
+  --color-fg-on-error-bg: var(--color-light-25);
 
   --color-bg-focus: var(--color-dark-focus);
   --color-bg-active: var(--color-dark-active);

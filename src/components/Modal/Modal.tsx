@@ -35,7 +35,7 @@ export const Modal = ({
 
   return (
     <div className={styles.modalContainer}>
-      <aside className={cn(styles.modal, noMinHeight && styles.noMinHeight, wide && styles.wide)}>
+      <aside className={cn(styles.modal, 'modal', noMinHeight && styles.noMinHeight, wide && styles.wide)}>
         <header className={styles.header}>
           <h3 className={styles.title}>{title}</h3>
 

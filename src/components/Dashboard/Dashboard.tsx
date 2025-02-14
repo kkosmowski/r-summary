@@ -1,5 +1,5 @@
 import { EmptyState } from '~/components/EmptyState/EmptyState';
-import { RedditFeed } from '~/components/RedditFeed';
+import { Feed } from 'src/components/Feed';
 import { Toolbar } from '~/components/Toolbar';
 import { RedditFeedController } from '~/contexts/RedditFeedContext';
 import { useSettings } from '~/contexts/SettingsContext';
@@ -22,7 +22,7 @@ export const Dashboard = () => {
         <section className={styles.dashboardContainer} style={style}>
           {subreddits.map((subreddit) => (
             <RedditFeedController key={subreddit} r={subreddit}>
-              <RedditFeed />
+              <Feed />
             </RedditFeedController>
           ))}
         </section>

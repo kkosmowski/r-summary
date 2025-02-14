@@ -4,9 +4,9 @@ import { Card } from '~/components/Card';
 
 import { FeedHeader } from './components/FeedHeader';
 import { LoadingOverlay } from './components/LoadingOverlay';
-import styles from './RedditFeed.module.scss';
+import styles from './Feed.module.scss';
 
-export const RedditFeed = () => {
+export const Feed = () => {
   const { isLoading, isSuccess, data, r, filteredItems, refetch, isRefetching } = useRedditFeed();
 
   if (!data && isLoading) {

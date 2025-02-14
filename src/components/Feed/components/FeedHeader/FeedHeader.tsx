@@ -1,8 +1,8 @@
 import { FeedFilters } from '~/components/FeedFilters';
+import { FeedSettingsModal } from '~/components/FeedSettingsModal';
+import { SettingsIcon } from '~/icons/SettingsIcon';
 import { TransformedData } from '~/types/reddit';
-import { DeleteIcon } from '~/icons/DeleteIcon';
 import { useToggle } from '~/hooks/use-toggle';
-import { DeleteFeedModal } from '~/components/DeleteFeedModal';
 import { Button } from '~/components/Button';
 import { RefreshIcon } from '~/icons/RefreshIcon';
 
@@ -14,7 +14,7 @@ type FeedHeaderProps = {
 };
 
 export const FeedHeader = ({ data, onRefresh }: FeedHeaderProps) => {
-  const { open: openDeleteModal, close: closeDeleteModal, isOpen: isDeleteModalOpen } = useToggle();
+  const { open: openSettingsModal, close: closeSettingsModal, isOpen: isSettingsModalOpen } = useToggle();
 
   return (
     <header className={styles.header}>
@@ -30,10 +30,10 @@ export const FeedHeader = ({ data, onRefresh }: FeedHeaderProps) => {
 
       <div className={styles.right}>
         <FeedFilters subreddit={data.subreddit} />
-        <Button icon={<DeleteIcon />} className={styles.deleteButton} color="error" onClick={() => openDeleteModal()} />
+        <Button icon={<SettingsIcon />} className={styles.settingsButton} onClick={() => openSettingsModal()} />
       </div>
 
-      <DeleteFeedModal subreddit={data.subreddit} open={isDeleteModalOpen} onClose={closeDeleteModal} />
+      <FeedSettingsModal open={isSettingsModalOpen} onClose={closeSettingsModal} />
     </header>
   );
 };
