@@ -12,7 +12,7 @@ export const cacheSubreddits = (subreddits: SubredditsObject) => {
 
 export const getSubreddits = () => {
   const data = JSON.parse(localStorage.getItem(subredditsLsKey) ?? 'null');
-  if (!data) return { order: [], items: {} };
+  if (!data) return { order: [], items: {}, merged: {} };
 
   return data as SubredditsObject;
 };

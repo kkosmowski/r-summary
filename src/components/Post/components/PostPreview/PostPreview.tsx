@@ -31,7 +31,7 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
         />
       )}
       {post.type === 'video' && (
-        <video controls width="100%" height="100%" src={post.video} onClick={(e) => e.preventDefault()}>
+        <video controls src={post.video} onClick={(e) => e.preventDefault()}>
           <source src={post.video} type="video/mp4" />
         </video>
       )}

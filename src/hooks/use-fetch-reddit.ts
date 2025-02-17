@@ -1,74 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { RawRedditData, TransformedData } from '~/types/reddit';
-import { cacheData } from '~/utils/cache-data';
-import { PostItem } from '~/types/reddit';
 import { getData } from '~/utils/caching';
 import { useSettings } from '~/contexts/SettingsContext';
-import { CACHE_TIME } from '~/consts/api';
 import { REDDIT_URL } from '~/consts/reddit';
-import { htmlDecode } from '~/utils/html-decode';
 
-const selftext_html_start = 43;
-const selftext_html_end = -33;
-
-const prepareData = (
-  data: RawRedditData,
-  refetchTimeInMin = CACHE_TIME,
-  oldData?: TransformedData | undefined,
-): TransformedData => {
-  const transformed = {
-    subreddit: {
-      name: data.data.children[0].data.subreddit.toLowerCase(),
-      prefixed: data.data.children[0].data.subreddit_name_prefixed.toLowerCase(),
-      url: `${REDDIT_URL}/${data.data.children[0].data.subreddit_name_prefixed.toLowerCase()}`,
-    },
-    items: data.data.children
-      .filter(({ data }) => !data.stickied)
-      .map(
-        ({ data }) =>
-          ({
-            id: data.id,
-            isNew: !oldData?.items.some((post) => post.id === data.id),
-            isRead: !!oldData?.items.filter((post) => post.id === data.id)[0]?.isRead,
-            awards: data.all_awardings,
-            authorName: data.author,
-            createdAt: data.created * 1000,
-            title: htmlDecode(data.title),
-            description: htmlDecode(data.selftext_html?.slice(selftext_html_start, selftext_html_end)),
-            score: {
-              ups: Math.round(data.upvote_ratio * 100),
-              total: data.score,
-            },
-            commentCount: data.num_comments,
-            flair: {
-              text: data.link_flair_text,
-              color: data.link_flair_text_color,
-              backgroundColor: data.link_flair_background_color,
-            },
-            link: REDDIT_URL + data.permalink,
-            thumbnail: {
-              url: data.thumbnail,
-              width: data.thumbnail_width,
-              height: data.thumbnail_height,
-            },
-            video: data.media?.reddit_video?.fallback_url,
-            type: data.post_hint === 'hosted:video' ? 'video' : data.post_hint ? 'image' : 'text',
-            visited: data.visited,
-          }) satisfies PostItem,
-      ),
-  };
-
-  cacheData(transformed, refetchTimeInMin);
-  return transformed;
-};
+import { prepareData } from './use-fetch-reddit.utils';
 
 type Options = {
   limit?: number;
+  feed?: string;
   enabled?: boolean;
 };
 
-export const useFetchReddit = (r: string, options?: Options) => {
+export const useFetchReddit = (subreddits: string | string[], options?: Options) => {
   const enabled = options?.enabled !== false;
   const { getValue } = useSettings();
   const refetchTimeInMin = getValue('setting-data-refresh-frequency') as number;
@@ -85,53 +30,72 @@ export const useFetchReddit = (r: string, options?: Options) => {
     setHasFetched(true);
   };
 
-  const fetchRedditData = useCallback(
+  const fetchSubreddit = useCallback(async (subreddit: string) => {
+    setIsBlocked(false);
+
+    const response = await fetch(`${REDDIT_URL}/r/${subreddit}/hot.json?sort=hot`);
+    if (!response.ok) {
+      return;
+    }
+
+    if (response.status === 429) {
+      setIsBlocked(true);
+    }
+
+    const newData: RawRedditData = await response.json();
+
+    const hasAnyData = newData.data.children.length > 0;
+
+    setIsSuccess(hasAnyData);
+
+    return newData;
+  }, []);
+
+  const fetchData = useCallback(
     async (refetch?: boolean) => {
       setIsLoading(true);
       if (refetch) setIsRefetching(true);
       setIsSuccess(false);
-      setIsBlocked(false);
 
       try {
-        const response = await fetch(`${REDDIT_URL}/r/${r}/hot.json?sort=hot`);
-        if (!response.ok) {
-          finishFetch();
-          return;
+        if (Array.isArray(subreddits)) {
+          const rawData: Record<string, RawRedditData> = {};
+
+          for (const subreddit of subreddits) {
+            const subredditData = await fetchSubreddit(subreddit);
+
+            if (subredditData) rawData[subreddit] = subredditData;
+          }
+
+          setData((current) => prepareData(rawData, refetchTimeInMin, options?.feed, current));
+        } else {
+          const rawData = await fetchSubreddit(subreddits);
+
+          if (rawData) {
+            setData((current) => prepareData({ [subreddits]: rawData }, refetchTimeInMin, undefined, current));
+          }
         }
-
-        if (response.status === 429) {
-          setIsBlocked(true);
-        }
-
-        const newData: RawRedditData = await response.json();
-
-        const hasAnyData = newData.data.children.length > 0;
-
-        setIsSuccess(hasAnyData);
-
-        if (hasAnyData) {
-          setData((current) => prepareData(newData, refetchTimeInMin, current));
-        }
-
-        finishFetch(refetch);
       } catch (error) {}
+
+      finishFetch(refetch);
     },
-    [r],
+    [subreddits, options?.feed],
   );
 
   const refetch = useCallback(() => {
-    void fetchRedditData(true);
-  }, [r, fetchRedditData]);
+    void fetchData(true);
+  }, [subreddits, fetchData]);
 
   useEffect(() => {
+    const r = (options?.feed ?? Array.isArray(subreddits)) ? subreddits[0] : subreddits;
     const cache = getData(r);
 
     if (cache) {
       setData(cache);
     } else if (enabled) {
-      void fetchRedditData();
+      void fetchData();
     }
-  }, [r, fetchRedditData]);
+  }, [options?.feed, subreddits, fetchData]);
 
   return {
     data,

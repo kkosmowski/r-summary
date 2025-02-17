@@ -52,6 +52,14 @@ export const getData = (key: string): TransformedData | null => {
   };
 };
 
+export const invalidateData = (key: string) => {
+  const string = localStorage.getItem(redditLsPrefix + key.toLowerCase());
+
+  if (!string) return;
+
+  localStorage.setItem(redditLsPrefix + key.toLowerCase(), string.replace(/"expires":\d+/g, '"expires":0'));
+};
+
 export const clearData = (key: string) => {
   localStorage.removeItem(redditLsPrefix + key.toLowerCase());
 };

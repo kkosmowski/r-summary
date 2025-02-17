@@ -1,4 +1,5 @@
-import { createContext, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
+import { createContext, PropsWithChildren, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useSubreddits } from '~/contexts/SubredditsContext';
 
 import { useFetchReddit } from '~/hooks/use-fetch-reddit';
 import { useFilterData } from '~/hooks/use-filter-data';
@@ -29,7 +30,11 @@ const RedditFeedContext = createContext<RedditFeedContextValue>({
 });
 
 export const RedditFeedController = ({ r, children }: PropsWithChildren<{ r: string }>) => {
-  const { isLoading, isSuccess, data, refetch, isRefetching } = useFetchReddit(r);
+  const { getMerged } = useSubreddits();
+  const subredditsToFetch = useMemo(() => getMerged(r), [r, getMerged]);
+  const { isLoading, isSuccess, data, refetch, isRefetching } = useFetchReddit(subredditsToFetch, {
+    feed: r,
+  });
   const [localData, setLocalData] = useState<TransformedData | undefined>(data);
   const filteredItems = useFilterData(localData);
 

@@ -4,7 +4,7 @@ import { exampleSubreddit } from '~/consts/mock';
 import { useIntro } from '~/contexts/IntroContext';
 
 import { Filters, FilterOptions } from '~/types/filters';
-import { clearAllData, clearData } from '~/utils/caching';
+import { clearAllData, clearData, invalidateData } from '~/utils/caching';
 import { countActiveFilters } from '~/utils/count-active-filters';
 
 import { SubredditsObject } from './SubredditsContext.types';
@@ -16,6 +16,10 @@ import {
   getCachedFilterOptions,
   cacheDefaultFilters,
 } from './SubredditsContext.utils';
+
+type MergeOptions = {
+  rename?: boolean;
+};
 
 type SubredditsContextValue = {
   subreddits: string[];
@@ -29,8 +33,10 @@ type SubredditsContextValue = {
   removeAll: VoidFunction;
   getFilters: (name: string) => Filters;
   setFilters: (name: string, value: Filters) => void;
+  getMerged: (name: string) => string[];
   move: (name: string, index: number) => void;
   swap: (nameA: string, nameB: string) => void;
+  merge: (subreddit: string, newSubreddit: string, options?: MergeOptions) => void;
   saveDefaultFilters: VoidFunction;
 };
 
@@ -46,8 +52,10 @@ const SubredditsContext = createContext<SubredditsContextValue>({
   removeAll: () => {},
   getFilters: () => defaultFeedFilters,
   setFilters: () => {},
+  getMerged: () => [],
   move: () => {},
   swap: () => {},
+  merge: () => {},
   saveDefaultFilters: () => {},
 });
 
@@ -68,7 +76,11 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
   }, [globalFilters]);
 
   useEffect(() => {
-    cacheSubreddits(subreddits);
+    cacheSubreddits({
+      items: subreddits.items ?? {},
+      order: subreddits.order ?? [],
+      merged: subreddits.merged ?? {},
+    });
 
     if (subreddits.order.length > 0) {
       finishAll();
@@ -117,6 +129,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
 
       setSubreddits((current) => ({
         order: current.order,
+        merged: current.merged,
         items: {
           ...current.items,
           [name]: value,
@@ -124,6 +137,13 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
       }));
     },
     [setSubreddits],
+  );
+
+  const getMerged = useCallback(
+    (name: string) => {
+      return subreddits.merged[name] ?? [name];
+    },
+    [subreddits],
   );
 
   const add = useCallback(
@@ -156,7 +176,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
 
   const removeAll = useCallback(() => {
     clearAllData(subreddits.order);
-    setSubreddits({ items: {}, order: [] });
+    setSubreddits({ items: {}, order: [], merged: {} });
   }, [setSubreddits]);
 
   const move = useCallback(
@@ -197,6 +217,25 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
     [setSubreddits],
   );
 
+  const merge = useCallback(
+    (subreddit: string, newSubreddit: string, options?: MergeOptions) => {
+      setSubreddits((current) => {
+        if (!options) {
+          current.merged[subreddit] = [subreddit, newSubreddit];
+        } else if (options.rename) {
+          current.merged[newSubreddit] = [newSubreddit, subreddit];
+          current.order = current.order.map((name) => (name === subreddit ? newSubreddit : name));
+          current.items[newSubreddit] = current.items[subreddit];
+          invalidateData(newSubreddit);
+          delete current.items[subreddit];
+        }
+
+        return { ...current };
+      });
+    },
+    [setSubreddits],
+  );
+
   return (
     <SubredditsContext.Provider
       value={{
@@ -206,8 +245,10 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
         removeAll,
         getFilters,
         setFilters,
+        getMerged,
         move,
         swap,
+        merge,
         filterOptions,
         addFilterOption,
         globalFilters,
