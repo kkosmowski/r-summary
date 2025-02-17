@@ -1,0 +1,1 @@
+export { MergeNewFeed } from './MergeNewFeed';

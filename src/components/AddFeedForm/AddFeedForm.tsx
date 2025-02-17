@@ -15,14 +15,22 @@ import { useCacheSearch } from './hooks/use-cache-search';
 import styles from './AddFeedForm.module.scss';
 
 type AddFeedFormProps = {
-  additionalButton?: ReactNode;
+  additionalButton?: ReactNode | ((value: string, invalid: boolean, disabled: boolean) => ReactNode);
   inputId?: string;
   label?: string;
   labelledBy?: string;
+  submitTooltip?: string;
   onAdd: (subreddit: string) => void;
 };
 
-export const AddFeedForm = ({ additionalButton, inputId, label, labelledBy, onAdd }: AddFeedFormProps) => {
+export const AddFeedForm = ({
+  additionalButton,
+  inputId,
+  label,
+  labelledBy,
+  submitTooltip,
+  onAdd,
+}: AddFeedFormProps) => {
   const [subreddit, setSubreddit] = useState('');
   const [debouncedReddit] = useDebounce(subreddit, INPUT_DEBOUNCE);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -35,12 +43,13 @@ export const AddFeedForm = ({ additionalButton, inputId, label, labelledBy, onAd
     refetch,
   } = useFetchReddit(debouncedReddit, { limit: 1, enabled: false });
   const { subreddits } = useSubreddits();
-  const isInvalidFetch = debouncedReddit && hasFetched && !isLoading && !isFetchSuccess;
+  const isInvalidFetch = !!debouncedReddit && hasFetched && !isLoading && !isFetchSuccess;
   const isValidFetch = hasFetched && !isLoading && isFetchSuccess;
   const isAlreadyAdded = subreddits.includes(debouncedReddit);
 
   const isInvalid = isInvalidCache && isInvalidFetch && !isBlocked;
   const isSuccess = !!subreddit && !!debouncedReddit && (isValidCache || isValidFetch) && !isAlreadyAdded;
+  const isSubmitDisabled = isLoading || !isSuccess;
 
   useEffect(() => {
     if (isSuccess) {
@@ -56,7 +65,7 @@ export const AddFeedForm = ({ additionalButton, inputId, label, labelledBy, onAd
     }
   }, [debouncedReddit, isValidCache, refetch]);
 
-  const addTooltip = !debouncedReddit ? '' : !isSuccess ? 'Cannot add invalid feed' : '';
+  const addTooltip = !debouncedReddit ? '' : !isSuccess ? 'Cannot add invalid feed' : (submitTooltip ?? '');
 
   const focusInput = () => {
     inputRef.current?.focus();
@@ -88,11 +97,13 @@ export const AddFeedForm = ({ additionalButton, inputId, label, labelledBy, onAd
         onEnter={handleSubmit}
       />
 
-      {additionalButton}
-
       <Tooltip title={addTooltip}>
-        <Button icon={<AddIcon />} color="primary" disabled={isLoading || !isSuccess} onClick={handleSubmit} />
+        <Button icon={<AddIcon />} color="primary" disabled={isSubmitDisabled} onClick={handleSubmit} />
       </Tooltip>
+
+      {typeof additionalButton === 'function'
+        ? additionalButton(subreddit, isInvalid, isSubmitDisabled)
+        : additionalButton}
 
       {isBlocked && (
         <span className={cn(styles.text, 'error')}>
