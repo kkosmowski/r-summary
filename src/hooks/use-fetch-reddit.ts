@@ -6,14 +6,9 @@ import { useSettings } from '~/contexts/SettingsContext';
 import { REDDIT_URL } from '~/consts/reddit';
 
 import { prepareData } from './use-fetch-reddit.utils';
+import { UseFetchRedditOptions } from './use-fetch-reddit.types';
 
-type Options = {
-  limit?: number;
-  feed?: string;
-  enabled?: boolean;
-};
-
-export const useFetchReddit = (subreddits: string | string[], options?: Options) => {
+export const useFetchReddit = (subreddits: string | string[], options?: UseFetchRedditOptions) => {
   const enabled = options?.enabled !== false;
   const { getValue } = useSettings();
   const refetchTimeInMin = getValue('setting-data-refresh-frequency') as number;
@@ -52,10 +47,12 @@ export const useFetchReddit = (subreddits: string | string[], options?: Options)
   }, []);
 
   const fetchData = useCallback(
-    async (refetch?: boolean) => {
+    async (isRefetch?: boolean) => {
       setIsLoading(true);
-      if (refetch) setIsRefetching(true);
+      if (isRefetch) setIsRefetching(true);
       setIsSuccess(false);
+
+      const params = { refetchTimeInMin, isRefetch, options };
 
       try {
         if (Array.isArray(subreddits)) {
@@ -67,17 +64,17 @@ export const useFetchReddit = (subreddits: string | string[], options?: Options)
             if (subredditData) rawData[subreddit] = subredditData;
           }
 
-          setData((current) => prepareData(rawData, refetchTimeInMin, options?.feed, current));
+          setData((current) => prepareData({ rawData, oldData: current, ...params }));
         } else {
           const rawData = await fetchSubreddit(subreddits);
 
           if (rawData) {
-            setData((current) => prepareData({ [subreddits]: rawData }, refetchTimeInMin, undefined, current));
+            setData((current) => prepareData({ rawData: { [subreddits]: rawData }, oldData: current, ...params }));
           }
         }
       } catch (error) {}
 
-      finishFetch(refetch);
+      finishFetch(isRefetch);
     },
     [subreddits, options?.feed],
   );

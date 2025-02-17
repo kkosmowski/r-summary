@@ -4,7 +4,7 @@ import { exampleSubreddit } from '~/consts/mock';
 import { useIntro } from '~/contexts/IntroContext';
 
 import { Filters, FilterOptions } from '~/types/filters';
-import { clearAllData, clearData, invalidateData } from '~/utils/caching';
+import { clearAllData, clearData } from '~/utils/caching';
 import { countActiveFilters } from '~/utils/count-active-filters';
 
 import { SubredditsObject } from './SubredditsContext.types';
@@ -166,6 +166,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
 
       setSubreddits((current) => {
         delete current.items[name];
+        delete current.merged[name];
         current.order = current.order.filter((subreddit) => subreddit !== name);
         return { ...current };
       });
@@ -226,7 +227,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
           current.merged[newSubreddit] = [newSubreddit, subreddit];
           current.order = current.order.map((name) => (name === subreddit ? newSubreddit : name));
           current.items[newSubreddit] = current.items[subreddit];
-          invalidateData(newSubreddit);
+          clearData(subreddit);
           delete current.items[subreddit];
         }
 

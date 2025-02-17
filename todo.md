@@ -25,7 +25,7 @@
   - [x] Feed settings modal
   - [x] Handle more than 1 backdrop opened
   - [x] Add new subreddit to existing feed (and select if it is r/X or r/Y)
-  - [ ] Posts from two subreddits in a single feed
+  - [x] Posts from two subreddits in a single feed
   - [ ] Show all subreddits of a feed
   - [ ] Add option in settings to show subreddit name in the posts in merged feeds
   - [ ] Merge two existing feeds into one
