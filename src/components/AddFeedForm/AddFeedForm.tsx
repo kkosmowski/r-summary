@@ -41,7 +41,7 @@ export const AddFeedForm = ({
     isSuccess: isFetchSuccess,
     isBlocked,
     refetch,
-  } = useFetchReddit(debouncedReddit, { limit: 1, enabled: false });
+  } = useFetchReddit(debouncedReddit, { limit: 1, enabled: false, cache: false });
   const { subreddits } = useSubreddits();
   const isInvalidFetch = !!debouncedReddit && hasFetched && !isLoading && !isFetchSuccess;
   const isValidFetch = hasFetched && !isLoading && isFetchSuccess;

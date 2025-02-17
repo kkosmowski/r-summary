@@ -1,5 +1,6 @@
 import { CACHE_TIME } from '~/consts/api';
 import { REDDIT_URL } from '~/consts/reddit';
+import { UseFetchRedditOptions } from '~/hooks/use-fetch-reddit.types';
 import { PostItem, RawRedditData, TransformedData } from '~/types/reddit';
 import { cacheData } from '~/utils/cache-data';
 import { htmlDecode } from '~/utils/html-decode';
@@ -25,15 +26,24 @@ export const mergeData = (record: Record<string, RawRedditData>): { isMerged: bo
 const selftext_html_start = 43;
 const selftext_html_end = -33;
 
-export const prepareData = (
-  rawData: Record<string, RawRedditData>,
+type PrepareDataProps = {
+  rawData: Record<string, RawRedditData>;
+  refetchTimeInMin: number;
+  oldData?: TransformedData | undefined;
+  isRefetch?: boolean;
+  options?: UseFetchRedditOptions;
+};
+
+export const prepareData = ({
+  rawData,
+  oldData,
   refetchTimeInMin = CACHE_TIME,
-  feed?: string,
-  oldData?: TransformedData | undefined,
-): TransformedData => {
+  isRefetch,
+  options,
+}: PrepareDataProps): TransformedData => {
   const { isMerged, data } = mergeData(rawData);
 
-  if (isMerged && !feed) {
+  if (isMerged && !options?.feed) {
     console.error('Error: Feed is merged but no feed is provided.');
   }
 
@@ -41,8 +51,8 @@ export const prepareData = (
 
   const transformed = {
     subreddit: {
-      name: isMerged ? feed! : basicData.subreddit.toLowerCase(),
-      prefixed: isMerged ? feed! : basicData.subreddit_name_prefixed.toLowerCase(),
+      name: isMerged ? options?.feed! : basicData.subreddit.toLowerCase(),
+      prefixed: isMerged ? options?.feed! : basicData.subreddit_name_prefixed.toLowerCase(),
       url: isMerged ? '' : `${REDDIT_URL}/${basicData.subreddit_name_prefixed.toLowerCase()}`,
     },
     items: data.data.children
@@ -51,7 +61,7 @@ export const prepareData = (
         ({ data }) =>
           ({
             id: data.id,
-            isNew: !oldData || oldData.items.some((post) => post.id === data.id),
+            isNew: !oldData || !isRefetch || !oldData.items.some((post) => post.id === data.id),
             isRead: !!oldData?.items.filter((post) => post.id === data.id)[0]?.isRead,
             awards: data.all_awardings,
             authorName: data.author,
@@ -81,6 +91,9 @@ export const prepareData = (
       ),
   };
 
-  cacheData(transformed, refetchTimeInMin);
+  if (options?.cache !== false) {
+    cacheData(transformed, refetchTimeInMin);
+  }
+
   return transformed;
 };
