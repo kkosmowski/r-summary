@@ -32,14 +32,16 @@ export const updateData = (data: TransformedData) => {
   localStorage.setItem(redditLsPrefix + data.subreddit.name.toLowerCase(), JSON.stringify(cache));
 };
 
-export const getData = (key: string): TransformedData | null => {
+export const getData = (key: string | undefined, force = false): TransformedData | null => {
+  if (!key) return null;
+
   const currentTime = new Date().getTime();
   const result = getDataFromLocalStorage(key);
 
   if (!result) return null;
   const { data, expires } = result;
 
-  if (currentTime > new Date(expires).getTime()) {
+  if (currentTime > new Date(expires).getTime() && !force) {
     return null;
   }
   return {

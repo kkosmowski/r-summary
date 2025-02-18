@@ -29,7 +29,7 @@ const selftext_html_end = -33;
 type PrepareDataProps = {
   rawData: Record<string, RawRedditData>;
   refetchTimeInMin: number;
-  oldData?: TransformedData | undefined;
+  oldData?: TransformedData | null;
   isRefetch?: boolean;
   options?: UseFetchRedditOptions;
 };
@@ -57,38 +57,44 @@ export const prepareData = ({
     },
     items: data.data.children
       .filter(({ data }) => !data.stickied)
-      .map(
-        ({ data }) =>
-          ({
-            id: data.id,
-            isNew: !oldData || !isRefetch || !oldData.items.some((post) => post.id === data.id),
-            isRead: !!oldData?.items.filter((post) => post.id === data.id)[0]?.isRead,
-            awards: data.all_awardings,
-            authorName: data.author,
-            createdAt: data.created * 1000,
-            title: htmlDecode(data.title),
-            description: htmlDecode(data.selftext_html?.slice(selftext_html_start, selftext_html_end)),
-            score: {
-              ups: Math.round(data.upvote_ratio * 100),
-              total: data.score,
-            },
-            commentCount: data.num_comments,
-            flair: {
-              text: data.link_flair_text,
-              color: data.link_flair_text_color,
-              backgroundColor: data.link_flair_background_color,
-            },
-            link: REDDIT_URL + data.permalink,
-            thumbnail: {
-              url: data.thumbnail,
-              width: data.thumbnail_width,
-              height: data.thumbnail_height,
-            },
-            video: data.media?.reddit_video?.fallback_url,
-            type: data.post_hint === 'hosted:video' ? 'video' : data.post_hint ? 'image' : 'text',
-            visited: data.visited,
-          }) satisfies PostItem,
-      ),
+      .map(({ data }) => {
+        const thisPostInOldData = oldData?.items.find((post) => post.id === data.id);
+        const isNew =
+          !oldData ||
+          (isRefetch
+            ? !oldData.items.some((post) => post.id === data.id)
+            : !thisPostInOldData || thisPostInOldData.isNew);
+
+        return {
+          id: data.id,
+          isNew,
+          isRead: !!oldData?.items.find((post) => post.id === data.id)?.isRead,
+          awards: data.all_awardings,
+          authorName: data.author,
+          createdAt: data.created * 1000,
+          title: htmlDecode(data.title),
+          description: htmlDecode(data.selftext_html?.slice(selftext_html_start, selftext_html_end)),
+          score: {
+            ups: Math.round(data.upvote_ratio * 100),
+            total: data.score,
+          },
+          commentCount: data.num_comments,
+          flair: {
+            text: data.link_flair_text,
+            color: data.link_flair_text_color,
+            backgroundColor: data.link_flair_background_color,
+          },
+          link: REDDIT_URL + data.permalink,
+          thumbnail: {
+            url: data.thumbnail,
+            width: data.thumbnail_width,
+            height: data.thumbnail_height,
+          },
+          video: data.media?.reddit_video?.fallback_url,
+          type: data.post_hint === 'hosted:video' ? 'video' : data.post_hint ? 'image' : 'text',
+          visited: data.visited,
+        } satisfies PostItem;
+      }),
   };
 
   if (options?.cache !== false) {
