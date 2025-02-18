@@ -64,12 +64,18 @@ export const useFetchReddit = (subreddits: string | string[], options?: UseFetch
             if (subredditData) rawData[subreddit] = subredditData;
           }
 
-          setData((current) => prepareData({ rawData, oldData: current, ...params }));
+          setData((current) => {
+            const oldData = current ?? getData(options?.feed, true);
+            return prepareData({ rawData, oldData, ...params });
+          });
         } else {
           const rawData = await fetchSubreddit(subreddits);
 
           if (rawData) {
-            setData((current) => prepareData({ rawData: { [subreddits]: rawData }, oldData: current, ...params }));
+            setData((current) => {
+              const oldData = current ?? getData(subreddits, true);
+              return prepareData({ rawData: { [subreddits]: rawData }, oldData, ...params });
+            });
           }
         }
       } catch (error) {}
