@@ -27,8 +27,8 @@
   - [x] Add new subreddit to existing feed (and select if it is r/X or r/Y)
   - [x] Posts from two subreddits in a single feed
   - [x] Mark post as not new only on manual refetch or when viewed
-  - [ ] Show all subreddits of a feed
-  - [ ] Add option in settings to show subreddit name in the posts in merged feeds
+  - [x] Show all subreddits of a feed
+  - [x] Add option in settings to show subreddit name in the posts in merged feeds
   - [ ] Merge two existing feeds into one
   - [ ] Allow changing name of merged feed (to one of subreddits or custom one)
   - [ ] Allow separating merged feed

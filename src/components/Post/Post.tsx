@@ -12,10 +12,11 @@ import styles from './Post.module.scss';
 
 type PostProps = {
   post: PostItem;
+  showSubredditName?: boolean;
   onRead: (postId: PostItem['id']) => void;
 };
 
-export const Post = ({ post, onRead }: PostProps) => {
+export const Post = ({ post, showSubredditName, onRead }: PostProps) => {
   const containerRef = useRef<HTMLElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const { getValue } = useSettings();
@@ -60,6 +61,7 @@ export const Post = ({ post, onRead }: PostProps) => {
     >
       <article ref={containerRef} className={className} onClick={handleClick}>
         <PostMarkers isRead={post.isRead} isNew={post.isNew} />
+        {showSubredditName && <span className={styles.subreddit}>{post.subreddit.prefixed}</span>}
         <div ref={contentRef} className={styles.content}>
           <PostHeader post={post} />
 
