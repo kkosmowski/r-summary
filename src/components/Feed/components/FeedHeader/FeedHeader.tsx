@@ -1,5 +1,7 @@
 import { FeedFilters } from '~/components/FeedFilters';
 import { FeedSettingsModal } from '~/components/FeedSettingsModal';
+import { Tooltip } from '~/components/Tooltip';
+import { MergedIcon } from '~/icons/MergedIcon';
 import { SettingsIcon } from '~/icons/SettingsIcon';
 import { TransformedData } from '~/types/reddit';
 import { useToggle } from '~/hooks/use-toggle';
@@ -20,6 +22,11 @@ export const FeedHeader = ({ data, onRefresh }: FeedHeaderProps) => {
     <header className={styles.header}>
       <div className={styles.left}>
         <h2 className={styles.subreddit}>
+          {data.subreddit.isMerged && (
+            <Tooltip title="This feed includes multiple subreddits">
+              <MergedIcon className={styles.merged} />
+            </Tooltip>
+          )}
           <a href={data!.subreddit.url} className={styles.link}>
             {data!.subreddit.prefixed}
           </a>
