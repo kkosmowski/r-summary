@@ -18,10 +18,14 @@ const clipItem = (item: string, length?: number | null) => {
 
 export const PostsList = ({ items }: RedditFeedProps) => {
   const { getValue } = useSettings();
-  const { readPost } = useRedditFeed();
+  const { data, readPost } = useRedditFeed();
   const postsPerSubreddit = getValue('setting-posts-per-subreddit') as number | null;
   const maxTitleLength = getValue('setting-clip-post-title') as number | null;
   const maxDescriptionLength = getValue('setting-clip-post-description') as number | null;
+  const showSubreddits = !!getValue('setting-show-subreddit');
+
+  const isMerged = !!data?.subreddit.isMerged;
+  const showSubredditName = isMerged && showSubreddits;
 
   const clip = useCallback(
     (post: PostItem, options: { titleLength?: number | null; descriptionLength?: number | null }) => {
@@ -57,6 +61,7 @@ export const PostsList = ({ items }: RedditFeedProps) => {
         <Post
           key={post.id}
           post={clip(post, { descriptionLength: maxDescriptionLength, titleLength: maxTitleLength })}
+          showSubredditName={showSubredditName}
           onRead={handleRead}
         />
       ))}

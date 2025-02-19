@@ -29,11 +29,19 @@ function getColumns(defaultValue: number): number {
 }
 
 export const getAvailableSettings = () => {
-  let settings: AppSettings | null = JSON.parse(localStorage.getItem(settingsLsKey) ?? 'null');
+  let settings = SETTINGS;
+  let savedSettings: AppSettings | null = JSON.parse(localStorage.getItem(settingsLsKey) ?? 'null');
 
-  if (!settings) {
-    settings = SETTINGS;
+  if (!savedSettings) {
     settings['setting-columns'] = { ...settings['setting-columns'], value: getColumns(2) };
+  } else {
+    for (const setting in savedSettings) {
+      const key = setting as keyof typeof settings;
+
+      if (savedSettings[key]) {
+        settings[key].value = savedSettings[key].value;
+      }
+    }
   }
 
   return settings;

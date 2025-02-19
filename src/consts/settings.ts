@@ -116,6 +116,15 @@ const columnsSetting: NumberSetting = {
   max: 12,
 };
 
+const showSubredditSetting: BooleanSetting = {
+  key: 'setting-show-subreddit',
+  label: 'Show subreddits in posts',
+  type: 'boolean',
+  helperText: 'Show subreddit names in posts in a merged feed. This does not change regular feedsasd.',
+  defaultValue: false,
+  value: false,
+};
+
 export const SETTINGS = {
   'setting-theme': themeSetting,
   'setting-condensed-view': condensedViewSetting,
@@ -127,4 +136,5 @@ export const SETTINGS = {
   'setting-show-preview': showPreviewSetting,
   'setting-show-author': showAuthorsSetting,
   'setting-show-comments': showCommentsSetting,
+  'setting-show-subreddit': showSubredditSetting,
 };

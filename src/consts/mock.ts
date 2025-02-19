@@ -11,6 +11,10 @@ export const exampleSubreddit: TransformedData = {
       createdAt: new Date().getTime(),
       title: 'Example title of an example post',
       description: "<p>Some posts will contain a description, but other won't.</p>",
+      subreddit: {
+        name: 'example',
+        prefixed: 'r/example',
+      },
       score: {
         ups: 100,
         total: 4,
@@ -35,6 +39,10 @@ export const exampleSubreddit: TransformedData = {
       createdAt: new Date().getTime(),
       title: 'Another example title',
       description: '',
+      subreddit: {
+        name: 'example',
+        prefixed: 'r/example',
+      },
       score: {
         ups: 100,
         total: 4,

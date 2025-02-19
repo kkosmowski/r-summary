@@ -68,6 +68,10 @@ export const prepareData = ({
 
         return {
           id: data.id,
+          subreddit: {
+            name: data.subreddit.toLowerCase(),
+            prefixed: data.subreddit_name_prefixed.toLowerCase(),
+          },
           isNew,
           isRead: !!oldData?.items.find((post) => post.id === data.id)?.isRead,
           awards: data.all_awardings,

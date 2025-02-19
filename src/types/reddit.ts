@@ -44,6 +44,10 @@ export type PostItem = {
     ups: number;
     total: number;
   };
+  subreddit: {
+    name: string;
+    prefixed: string;
+  };
   commentCount: number;
   flair: {
     text: string;
