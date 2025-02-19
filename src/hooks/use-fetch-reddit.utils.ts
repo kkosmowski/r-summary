@@ -51,6 +51,7 @@ export const prepareData = ({
 
   const transformed = {
     subreddit: {
+      isMerged,
       name: isMerged ? options?.feed! : basicData.subreddit.toLowerCase(),
       prefixed: isMerged ? options?.feed! : basicData.subreddit_name_prefixed.toLowerCase(),
       url: isMerged ? '' : `${REDDIT_URL}/${basicData.subreddit_name_prefixed.toLowerCase()}`,

@@ -6,6 +6,7 @@ import { useRedditFeed } from '~/contexts/RedditFeedContext';
 import { useToggle } from '~/hooks/use-toggle';
 import { DeleteIcon } from '~/icons/DeleteIcon';
 
+import { MergedSubreddits } from './components/MergedSubreddits';
 import styles from './FeedSettingsModal.module.scss';
 
 export type FeedSettingsModalProps = Pick<ModalProps, 'open' | 'onClose'>;
@@ -24,8 +25,10 @@ export const FeedSettingsModal = (props: FeedSettingsModalProps) => {
     <Modal open={open} title="Feed settings" onClose={onClose}>
       <section className={styles.content}>
         <p>
-          Settings for <strong>{data!.subreddit.prefixed}</strong> feed:
+          <strong>{data!.subreddit.prefixed}</strong> feed settings
         </p>
+
+        <MergedSubreddits />
 
         <MergeNewFeed subreddit={r} />
 

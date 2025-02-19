@@ -64,6 +64,7 @@ export type PostItem = {
 };
 
 export type SubredditData = {
+  isMerged?: boolean;
   name: string;
   prefixed: string;
   url: string;

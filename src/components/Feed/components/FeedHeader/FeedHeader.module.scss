@@ -35,7 +35,13 @@
 }
 
 .subreddit {
+  display: inline-flex;
+  align-items: center;
   font-size: 20px;
+}
+
+.merged {
+  color: var(--color-fg-300);
 }
 
 .link {
