@@ -59,7 +59,7 @@ export const Post = ({ post, showSubredditName, onRead }: PostProps) => {
       className={styles.postLink}
       onResize={changeContentDirectionIfNecessary}
     >
-      <article ref={containerRef} className={className} onClick={handleClick}>
+      <article ref={containerRef} className={className} onClick={handleClick} onAuxClick={handleClick}>
         <PostMarkers isRead={post.isRead} isNew={post.isNew} />
         {showSubredditName && <span className={styles.subreddit}>{post.subreddit.prefixed}</span>}
         <div ref={contentRef} className={styles.content}>

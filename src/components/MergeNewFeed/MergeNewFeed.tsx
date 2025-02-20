@@ -18,7 +18,7 @@ export const MergeNewFeed = ({ subreddit }: MergeNewFeedProps) => {
   };
 
   const handleMergeIntoNew = (newSubreddit: string) => {
-    merge(subreddit, newSubreddit, { rename: true });
+    merge(subreddit, newSubreddit, { switch: true });
   };
 
   return (

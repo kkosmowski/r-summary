@@ -2,7 +2,10 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  margin-top: 14px; // font-size of overlay label
+
+  &.withLabel {
+    margin-top: 14px; // font-size of overlay label
+  }
 }
 
 .rsInput {
@@ -34,8 +37,12 @@
       border-color: var(--color-primary-500);
     }
 
-    > div { // color of placeholder & chevron
-      color: var(--color-fg-500);
+    > div { // color of text, placeholder & chevron
+      color: var(--color-fg-50);
+
+      > :global(.css-1jqq78o-placeholder) {
+        color: var(--color-fg-500);
+      }
       > div {
         color: inherit;
       }

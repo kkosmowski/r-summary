@@ -15,10 +15,12 @@ import {
   cacheFilterOptions,
   getCachedFilterOptions,
   cacheDefaultFilters,
+  removeSubredditHelperFn,
 } from './SubredditsContext.utils';
 
 type MergeOptions = {
-  rename?: boolean;
+  switch?: boolean;
+  name?: string;
 };
 
 type SubredditsContextValue = {
@@ -164,12 +166,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
         return;
       }
 
-      setSubreddits((current) => {
-        delete current.items[name];
-        delete current.merged[name];
-        current.order = current.order.filter((subreddit) => subreddit !== name);
-        return { ...current };
-      });
+      setSubreddits((current) => removeSubredditHelperFn(current, name));
       clearData(name);
     },
     [setSubreddits],
@@ -219,16 +216,37 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
   );
 
   const merge = useCallback(
-    (subreddit: string, newSubreddit: string, options?: MergeOptions) => {
+    (subredditA: string, subredditB: string, options?: MergeOptions) => {
       setSubreddits((current) => {
         if (!options) {
-          current.merged[subreddit] = [subreddit, newSubreddit];
-        } else if (options.rename) {
-          current.merged[newSubreddit] = [newSubreddit, subreddit];
-          current.order = current.order.map((name) => (name === subreddit ? newSubreddit : name));
-          current.items[newSubreddit] = current.items[subreddit];
-          clearData(subreddit);
-          delete current.items[subreddit];
+          // feed A will now contain A & B
+          current.merged[subredditA] = [subredditA, subredditB];
+          // clear A data to refetch it
+          clearData(subredditA);
+
+          // if feed B existed, remove it
+          if (current.items[subredditB]) {
+            current = removeSubredditHelperFn(current, subredditB);
+            clearData(subredditB);
+          }
+        } else if (options.name) {
+          // renamed feed A to new name
+          current.merged[options.name] = [subredditA, subredditB];
+          current.order = current.order.map((name) => (name === subredditA ? options.name! : name));
+          current.items[options.name] = current.items[subredditA];
+          // remove feed B and clear A & B data
+          current = removeSubredditHelperFn(current, subredditB);
+          clearData(subredditA);
+          clearData(subredditB);
+        } else if (options.switch) {
+          // feed B will now contain A & B
+          current.merged[subredditB] = [subredditB, subredditA];
+          current.order = current.order.map((name) => (name === subredditA ? subredditB : name));
+          current.items[subredditB] = current.items[subredditA];
+          // remove feed A and clear A data
+          delete current.items[subredditA];
+          delete current.merged[subredditA];
+          clearData(subredditA);
         }
 
         return { ...current };

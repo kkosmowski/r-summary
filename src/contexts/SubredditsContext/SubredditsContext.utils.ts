@@ -32,3 +32,10 @@ export const getCachedFilterOptions = () => {
 export const cacheFilterOptions = (options: FilterOptions) => {
   localStorage.setItem(filterOptionsLsKey, JSON.stringify(options));
 };
+
+export const removeSubredditHelperFn = (current: SubredditsObject, name: string) => {
+  delete current.items[name];
+  delete current.merged[name];
+  current.order = current.order.filter((subreddit) => subreddit !== name);
+  return { ...current };
+};

@@ -29,9 +29,10 @@
   - [x] Mark post as not new only on manual refetch or when viewed
   - [x] Show all subreddits of a feed
   - [x] Add option in settings to show subreddit name in the posts in merged feeds
-  - [ ] Merge two existing feeds into one
+  - [x] Merge two existing feeds into one
   - [ ] Allow changing name of merged feed (to one of subreddits or custom one)
   - [ ] Allow separating merged feed
   - [ ] More than 2 subreddits in a feed
+- [ ] Handle portals
 - [ ] Add option to refresh only one of subreddits in a merged feed
 - [ ] Add random tips in top of the app with option to hide them (+ option to show/hide in the settings) 
