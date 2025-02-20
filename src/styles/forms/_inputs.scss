@@ -18,6 +18,11 @@ input, select {
     border-color: var(--color-primary-500);
   }
 
+  &:disabled {
+    color: var(--color-fg-400);
+    border-color: var(--color-border);
+  }
+
   &[type=checkbox] {
     appearance: none;
     padding: 0;
@@ -41,7 +46,9 @@ input, select {
   }
 
   &[type=text], &[type=number] {
-    padding: 4px 12px;
+    padding: 9px 16px;
+    height: inherit;
+    background-color: transparent;
     font-size: 14px;
 
     &::placeholder {
@@ -80,5 +87,9 @@ label {
     transform: translateY(-60%);
     background-color: var(--color-bg-50);
     z-index: 1;
+
+    &:has(+ input:disabled) {
+      color: var(--color-fg-500);
+    }
   }
 }

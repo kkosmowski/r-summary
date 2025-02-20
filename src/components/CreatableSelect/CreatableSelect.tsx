@@ -13,7 +13,7 @@ export const CreatableSelect = <O, IsMulti extends boolean, G extends GroupBase<
   const { className, id, label, ...rest } = props;
 
   return (
-    <div className={styles.inputWrapper}>
+    <div className={cn(styles.inputWrapper, styles.withLabel)}>
       <label htmlFor={id} className="overlay-label">
         {label}
       </label>

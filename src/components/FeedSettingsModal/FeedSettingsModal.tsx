@@ -1,6 +1,7 @@
 import { Button } from '~/components/Button';
 import { DeleteFeedModal } from '~/components/DeleteFeedModal';
 import { MergeNewFeed } from '~/components/MergeNewFeed';
+import { MergeWithExistingFeed } from '~/components/MergeWithExistingFeed';
 import { Modal, ModalProps } from '~/components/Modal';
 import { useRedditFeed } from '~/contexts/RedditFeedContext';
 import { useToggle } from '~/hooks/use-toggle';
@@ -31,6 +32,8 @@ export const FeedSettingsModal = (props: FeedSettingsModalProps) => {
         <MergedSubreddits />
 
         <MergeNewFeed subreddit={r} />
+
+        <MergeWithExistingFeed subreddit={r} />
 
         <Button
           withIcon={<DeleteIcon />}
