@@ -16,6 +16,7 @@ import {
   getCachedFilterOptions,
   cacheDefaultFilters,
   removeSubredditHelperFn,
+  renameSubredditHelperFn,
 } from './SubredditsContext.utils';
 
 type MergeOptions = {
@@ -39,6 +40,7 @@ type SubredditsContextValue = {
   move: (name: string, index: number) => void;
   swap: (nameA: string, nameB: string) => void;
   merge: (subreddit: string, newSubreddit: string, options?: MergeOptions) => void;
+  update: (oldName: string, newName: string) => void;
   saveDefaultFilters: VoidFunction;
 };
 
@@ -58,6 +60,7 @@ const SubredditsContext = createContext<SubredditsContextValue>({
   move: () => {},
   swap: () => {},
   merge: () => {},
+  update: () => {},
   saveDefaultFilters: () => {},
 });
 
@@ -81,7 +84,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
     cacheSubreddits({
       items: subreddits.items ?? {},
       order: subreddits.order ?? [],
-      merged: subreddits.merged ?? {},
+      details: subreddits.details ?? {},
     });
 
     if (subreddits.order.length > 0) {
@@ -131,7 +134,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
 
       setSubreddits((current) => ({
         order: current.order,
-        merged: current.merged,
+        details: current.details,
         items: {
           ...current.items,
           [name]: value,
@@ -143,7 +146,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
 
   const getMerged = useCallback(
     (name: string) => {
-      return subreddits.merged[name] ?? [name];
+      return subreddits.details[name] ?? [name];
     },
     [subreddits],
   );
@@ -174,7 +177,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
 
   const removeAll = useCallback(() => {
     clearAllData(subreddits.order);
-    setSubreddits({ items: {}, order: [], merged: {} });
+    setSubreddits({ items: {}, order: [], details: {} });
   }, [setSubreddits]);
 
   const move = useCallback(
@@ -220,7 +223,9 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
       setSubreddits((current) => {
         if (!options) {
           // feed A will now contain A & B
-          current.merged[subredditA] = [subredditA, subredditB];
+          current.details[subredditA] = current.details[subredditA]
+            ? [...current.details[subredditA], subredditB]
+            : [subredditA, subredditB];
           // clear A data to refetch it
           clearData(subredditA);
 
@@ -231,24 +236,45 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
           }
         } else if (options.name) {
           // renamed feed A to new name
-          current.merged[options.name] = [subredditA, subredditB];
-          current.order = current.order.map((name) => (name === subredditA ? options.name! : name));
-          current.items[options.name] = current.items[subredditA];
+          renameSubredditHelperFn(current, subredditA, options.name);
+          current.details[options.name] = current.details[subredditA]
+            ? [...current.details[subredditA], subredditB]
+            : current.details[options.name]
+              ? [...current.details[options.name], subredditB]
+              : [subredditA, subredditB];
           // remove feed B and clear A & B data
           current = removeSubredditHelperFn(current, subredditB);
+          delete current.items[subredditA];
+          delete current.details[subredditA];
+          delete current.items[subredditB];
+          delete current.details[subredditB];
           clearData(subredditA);
           clearData(subredditB);
         } else if (options.switch) {
           // feed B will now contain A & B
-          current.merged[subredditB] = [subredditB, subredditA];
-          current.order = current.order.map((name) => (name === subredditA ? subredditB : name));
-          current.items[subredditB] = current.items[subredditA];
+          renameSubredditHelperFn(current, subredditA, subredditB);
+          current.details[subredditB] = current.details[subredditB]
+            ? [...current.details[subredditB], subredditA]
+            : [subredditB, subredditA];
           // remove feed A and clear A data
           delete current.items[subredditA];
-          delete current.merged[subredditA];
+          delete current.details[subredditA];
           clearData(subredditA);
         }
 
+        return { ...current };
+      });
+    },
+    [setSubreddits],
+  );
+
+  const update = useCallback(
+    (oldName: string, newName: string) => {
+      setSubreddits((current) => {
+        renameSubredditHelperFn(current, oldName, newName, true);
+        delete current.items[oldName];
+        delete current.details[oldName];
+        clearData(oldName);
         return { ...current };
       });
     },
@@ -268,6 +294,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
         move,
         swap,
         merge,
+        update,
         filterOptions,
         addFilterOption,
         globalFilters,

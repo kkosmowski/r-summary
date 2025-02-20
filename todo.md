@@ -30,8 +30,9 @@
   - [x] Show all subreddits of a feed
   - [x] Add option in settings to show subreddit name in the posts in merged feeds
   - [x] Merge two existing feeds into one
-  - [ ] Allow changing name of merged feed (to one of subreddits or custom one)
+  - [x] Allow changing name of feeds (to one of merged subreddits or custom one)
   - [ ] Allow separating merged feed
+  - [ ] Merge feed filters when merging feeds
   - [ ] More than 2 subreddits in a feed
 - [ ] Handle portals
 - [ ] Add option to refresh only one of subreddits in a merged feed
