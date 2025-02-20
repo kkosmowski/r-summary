@@ -54,6 +54,18 @@ export const getData = (key: string | undefined, force = false): TransformedData
   };
 };
 
+export const renameData = (oldName: string, newName: string) => {
+  const raw = localStorage.getItem(redditLsPrefix + oldName);
+  if (!raw) return;
+
+  const data: { data: TransformedData; expires: number } = JSON.parse(raw);
+
+  data.data.subreddit.custom = newName;
+
+  localStorage.setItem(redditLsPrefix + newName, JSON.stringify(data));
+  clearData(oldName);
+};
+
 export const invalidateData = (key: string) => {
   const string = localStorage.getItem(redditLsPrefix + key.toLowerCase());
 

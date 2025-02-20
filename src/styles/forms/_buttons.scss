@@ -5,7 +5,7 @@ button {
   gap: 4px;
   border-radius: 0;
   border: 1px solid transparent;
-  padding: 8px 16px;
+  padding: 9px 16px;
   font-size: 14px;
   letter-spacing: 0.04ch;
   white-space: nowrap;
@@ -31,7 +31,7 @@ button {
   }
 
   &.--icon {
-    padding: 6px;
+    padding: 8px;
     border: 0;
 
     &.--small {
@@ -42,6 +42,10 @@ button {
         height: 16px;
       }
     }
+  }
+
+  &:not(.--small,.--large,.--icon) {
+    height: px;
   }
 
   &:hover {

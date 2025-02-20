@@ -1,0 +1,1 @@
+export { RenameFeed } from './RenameFeed';

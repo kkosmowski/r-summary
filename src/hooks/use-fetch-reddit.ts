@@ -55,7 +55,7 @@ export const useFetchReddit = (subreddits: string | string[], options?: UseFetch
       const params = { refetchTimeInMin, isRefetch, options };
 
       try {
-        if (Array.isArray(subreddits)) {
+        if (Array.isArray(subreddits) && subreddits.length > 1) {
           const rawData: Record<string, RawRedditData> = {};
 
           for (const subreddit of subreddits) {
@@ -69,12 +69,13 @@ export const useFetchReddit = (subreddits: string | string[], options?: UseFetch
             return prepareData({ rawData, oldData, ...params });
           });
         } else {
-          const rawData = await fetchSubreddit(subreddits);
+          const subreddit = Array.isArray(subreddits) ? subreddits[0] : subreddits;
+          const rawData = await fetchSubreddit(subreddit);
 
           if (rawData) {
             setData((current) => {
-              const oldData = current ?? getData(subreddits, true);
-              return prepareData({ rawData: { [subreddits]: rawData }, oldData, ...params });
+              const oldData = current ?? getData(subreddit, true);
+              return prepareData({ rawData: { [subreddit]: rawData }, oldData, ...params });
             });
           }
         }
@@ -90,7 +91,7 @@ export const useFetchReddit = (subreddits: string | string[], options?: UseFetch
   }, [subreddits, fetchData]);
 
   useEffect(() => {
-    const r = (options?.feed ?? Array.isArray(subreddits)) ? subreddits[0] : subreddits;
+    const r = options?.feed ?? (Array.isArray(subreddits) ? subreddits[0] : subreddits);
     const cache = getData(r);
 
     if (cache) {

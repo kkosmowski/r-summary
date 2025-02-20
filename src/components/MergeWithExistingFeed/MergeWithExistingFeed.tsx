@@ -22,8 +22,6 @@ export const MergeWithExistingFeed = ({ subreddit }: MergeWithExistingFeedProps)
     [subreddit, subreddits],
   );
 
-  console.log(selectedFeed);
-
   const handleMerge = () => {
     merge(subreddit, selectedFeed!, { name });
   };
@@ -46,11 +44,17 @@ export const MergeWithExistingFeed = ({ subreddit }: MergeWithExistingFeedProps)
           label="Select feed"
         />
 
-        <TextField label="Feed name" placeholder="Enter new feed name" value={name} onChange={setName} disabled />
+        <TextField
+          label="Feed name"
+          placeholder="Enter new feed name"
+          value={name}
+          onChange={setName}
+          disabled={!selectedFeed}
+        />
       </section>
 
       <footer className={styles.row}>
-        <Button size="small" onClick={() => setName(subreddit)}>
+        <Button size="small" onClick={() => setName(subreddit)} disabled={!selectedFeed}>
           Keep current name
         </Button>
 
@@ -59,7 +63,7 @@ export const MergeWithExistingFeed = ({ subreddit }: MergeWithExistingFeedProps)
         </Button>
       </footer>
 
-      <Button variant="filled" onClick={handleMerge}>
+      <Button variant="filled" onClick={handleMerge} disabled={!selectedFeed}>
         Confirm merge
       </Button>
     </section>
