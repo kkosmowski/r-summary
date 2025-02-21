@@ -17,7 +17,7 @@ export const RenameFeed = () => {
 
   const canUpdate = name.trim() !== feed;
   const originalName = prefix(subreddits[0]);
-  const canReset = feed !== originalName;
+  const canReset = prefix(feed) !== originalName;
 
   return (
     <section className={styles.container}>
