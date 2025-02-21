@@ -1,4 +1,5 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
+
 import { defaultFeedFilters } from '~/consts/filters';
 import { useSubreddits } from '~/contexts/SubredditsContext';
 import { Filters } from '~/types/filters';
@@ -7,7 +8,7 @@ import { countActiveFilters } from '~/utils/count-active-filters';
 export const useFeedFilters = (subredditName: string) => {
   const { getFilters, filterOptions, setFilters: setFeedFilters, addFilterOption } = useSubreddits();
   const filters = getFilters(subredditName);
-  const activeFilters = useMemo(() => countActiveFilters(filters, defaultFeedFilters), [filters]);
+  const activeFilters = countActiveFilters(filters, defaultFeedFilters);
 
   const setFilters = useCallback(
     (newFilters: Filters) => {

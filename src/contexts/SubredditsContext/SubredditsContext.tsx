@@ -17,6 +17,7 @@ import {
   cacheDefaultFilters,
   removeSubredditHelperFn,
   renameSubredditHelperFn,
+  mergeFilters,
 } from './SubredditsContext.utils';
 
 type MergeOptions = {
@@ -241,10 +242,12 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
 
           // if feed B existed, remove it
           if (current.items[subredditB]) {
+            current.items = mergeFilters(current.items, subredditA, subredditB);
             current = removeSubredditHelperFn(current, subredditB);
             clearData(subredditB);
           }
         } else if (options.name) {
+          current.items = mergeFilters(current.items, subredditA, subredditB);
           // renamed feed A to new name
           renameSubredditHelperFn(current, subredditA, options.name);
 
@@ -269,6 +272,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
           clearData(subredditA);
           clearData(subredditB);
         } else if (options.switch) {
+          current.items = mergeFilters(current.items, subredditB, subredditA);
           // feed B will now contain A & B
           renameSubredditHelperFn(current, subredditA, subredditB);
 

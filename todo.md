@@ -32,8 +32,10 @@
   - [x] Merge two existing feeds into one
   - [x] Allow changing name of feeds (to one of merged subreddits or custom one)
   - [x] Allow separating merged feed
-  - [ ] Merge feed filters when merging feeds
+  - [x] Merge feed filters when merging feeds
   - [ ] More than 2 subreddits in a feed
+- [ ] Fix popups showing outside the window
+- [ ] Fix omitting/picking authors and flairs not adding new options in local storage 
 - [ ] Handle portals
 - [ ] Improved loading view
 - [ ] Add random tips in top of the app with option to hide them (+ option to show/hide in the settings) 

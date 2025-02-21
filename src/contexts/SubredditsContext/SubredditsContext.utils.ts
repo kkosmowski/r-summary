@@ -56,3 +56,37 @@ export const renameSubredditHelperFn = (
     renameData(oldName, newName, reset);
   }
 };
+
+export const mergeFilters = (items: SubredditsObject['items'], subredditA: string, subredditB: string) => {
+  for (const itemKey in items[subredditA]) {
+    const key = itemKey as keyof (typeof items)[string];
+    const valueA = items[subredditA][key];
+    const valueB = items[subredditB][key];
+
+    // no filters in A or B -> no changes
+    if (valueA === undefined && valueB === undefined) {
+      continue;
+    }
+
+    // filters in B -> take B value
+    if (valueA === undefined && valueB !== undefined) {
+      // @ts-expect-error type mismatch
+      items[subredditA][key] = valueB;
+    }
+
+    // filters in A and B -> merge arrays, choose lower number
+    if (valueA !== undefined && valueB !== undefined) {
+      if (Array.isArray(valueA) && Array.isArray(valueB)) {
+        // @ts-expect-error type mismatch
+        items[subredditA][key] = [...new Set([...valueA, ...valueB])];
+      } else if (typeof valueA === 'number' && typeof valueB === 'number') {
+        // @ts-expect-error type mismatch
+        items[subredditA][key] = Math.min(valueA, valueB);
+      } else {
+        console.warn('Unknown Feed Filter value type');
+      }
+    }
+  }
+
+  return items;
+};
