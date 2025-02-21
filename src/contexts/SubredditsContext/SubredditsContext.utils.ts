@@ -46,12 +46,13 @@ export const renameSubredditHelperFn = (
   oldName: string,
   newName: string,
   renameLsToo = false,
+  reset = false,
 ) => {
   current.details[newName] = current.details[oldName] ?? [oldName];
   current.order = current.order.map((name) => (name === oldName ? newName : name));
   current.items[newName] = current.items[oldName];
 
   if (renameLsToo) {
-    renameData(oldName, newName);
+    renameData(oldName, newName, reset);
   }
 };

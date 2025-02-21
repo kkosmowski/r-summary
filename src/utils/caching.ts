@@ -1,6 +1,7 @@
 import { redditLsPrefix } from '~/consts/reddit.ts';
 import { TransformedData } from '~/types/reddit';
 import { htmlDecode } from '~/utils/html-decode';
+import { prefix } from '~/utils/prefix';
 
 export const setData = (key: string, data: any, expireIn: number) => {
   const cache = {
@@ -54,13 +55,19 @@ export const getData = (key: string | undefined, force = false): TransformedData
   };
 };
 
-export const renameData = (oldName: string, newName: string) => {
+export const renameData = (oldName: string, newName: string, reset = false) => {
   const raw = localStorage.getItem(redditLsPrefix + oldName);
   if (!raw) return;
 
   const data: { data: TransformedData; expires: number } = JSON.parse(raw);
 
-  data.data.subreddit.custom = newName;
+  if (reset) {
+    data.data.subreddit.name = data.data.subreddit.original;
+    data.data.subreddit.prefixed = prefix(data.data.subreddit.original);
+  } else {
+    data.data.subreddit.name = newName;
+    data.data.subreddit.prefixed = newName;
+  }
 
   localStorage.setItem(redditLsPrefix + newName, JSON.stringify(data));
   clearData(oldName);

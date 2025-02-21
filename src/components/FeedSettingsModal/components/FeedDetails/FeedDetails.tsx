@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Button } from '~/components/Button';
+import { DeleteSubredditModal } from '~/components/DeleteSubredditModal';
 import { Tooltip } from '~/components/Tooltip';
 import { useRedditFeed } from '~/contexts/RedditFeedContext';
 import { useSubreddits } from '~/contexts/SubredditsContext';
@@ -11,12 +12,13 @@ import { linkReddit } from '~/utils/link-reddit';
 import styles from './FeedDetails.module.scss';
 
 export const FeedDetails = () => {
-  const { r } = useRedditFeed();
-  const { getMerged } = useSubreddits();
-  const mergedSubreddits = useMemo(() => getMerged(r), [r, getMerged]);
+  const { feed } = useRedditFeed();
+  const { getDetails, splitFromMerged } = useSubreddits();
+  const mergedSubreddits = useMemo(() => getDetails(feed), [feed, getDetails]);
+  const [subredditToDelete, setSubredditToDelete] = useState('');
 
   if (mergedSubreddits.length === 1) {
-    if (r !== mergedSubreddits[0]) {
+    if (feed !== mergedSubreddits[0]) {
       return (
         <span>
           Feed contains posts from{' '}
@@ -30,6 +32,10 @@ export const FeedDetails = () => {
     return null;
   }
 
+  const closeDeleteModal = () => {
+    setSubredditToDelete('');
+  };
+
   return (
     <section>
       <span>Merged subreddits:</span>
@@ -41,17 +47,29 @@ export const FeedDetails = () => {
                 r/{subreddit}
               </a>
               <span className={styles.actions}>
-                <Tooltip title={false && 'Split subreddit into separate feed'}>
-                  <Button icon={<SplitIcon />} size="small" color="primary" disabled />
+                <Tooltip title="Split subreddit into separate feed">
+                  <Button
+                    icon={<SplitIcon />}
+                    size="small"
+                    color="primary"
+                    onClick={() => splitFromMerged(feed, subreddit)}
+                  />
                 </Tooltip>
-                <Tooltip title={false && 'Delete subreddit from this feed'}>
-                  <Button icon={<CloseIcon />} size="small" color="error" disabled />
+                <Tooltip title="Delete subreddit from this feed">
+                  <Button
+                    icon={<CloseIcon />}
+                    size="small"
+                    color="error"
+                    onClick={() => setSubredditToDelete(subreddit)}
+                  />
                 </Tooltip>
               </span>
             </span>
           </li>
         ))}
       </ul>
+
+      <DeleteSubredditModal name={subredditToDelete} open={!!subredditToDelete} onClose={closeDeleteModal} />
     </section>
   );
 };

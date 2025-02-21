@@ -20,8 +20,8 @@ export const Dashboard = () => {
 
       {subreddits.length ? (
         <section className={styles.dashboardContainer} style={style}>
-          {subreddits.map((subreddit) => (
-            <RedditFeedController key={subreddit} r={subreddit}>
+          {subreddits.map((feed) => (
+            <RedditFeedController key={feed} feed={feed}>
               <Feed />
             </RedditFeedController>
           ))}

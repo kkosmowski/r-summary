@@ -15,7 +15,7 @@ export type FeedSettingsModalProps = Pick<ModalProps, 'open' | 'onClose'>;
 
 export const FeedSettingsModal = (props: FeedSettingsModalProps) => {
   const { open, onClose } = props;
-  const { r, data } = useRedditFeed();
+  const { feed, data } = useRedditFeed();
   const { open: openDeleteModal, close: closeDeleteModal, isOpen: isDeleteModalOpen } = useToggle();
 
   const handleDelete = () => {
@@ -34,9 +34,9 @@ export const FeedSettingsModal = (props: FeedSettingsModalProps) => {
 
         <FeedDetails />
 
-        <MergeNewFeed subreddit={r} />
+        <MergeNewFeed subreddit={feed} />
 
-        <MergeWithExistingFeed subreddit={r} />
+        <MergeWithExistingFeed subreddit={feed} />
 
         <Button
           withIcon={<DeleteIcon />}

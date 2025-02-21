@@ -32,6 +32,10 @@
   position: absolute;
   z-index: 1;
   right: 8px;
+
+  &.iconWithMargin {
+    margin-top: 14px;
+  }
 }
 
 .errorText {

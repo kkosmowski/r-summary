@@ -43,7 +43,7 @@ export const FeedBlock = ({ subreddit, onDrop }: FeedBlockProps) => {
         style={{ height: FEED_BLOCK_HEIGHT + 'px' }}
         {...collected}
       >
-        r/{subreddit}
+        {subreddit}
       </div>
     </div>
   );

@@ -1,0 +1,1 @@
+export { DeleteSubredditModal } from './DeleteSubredditModal';

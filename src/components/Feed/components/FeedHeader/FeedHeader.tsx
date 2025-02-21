@@ -28,7 +28,7 @@ export const FeedHeader = ({ data, onRefresh }: FeedHeaderProps) => {
             </Tooltip>
           )}
           <a href={data!.subreddit.url} className={styles.link}>
-            {data!.subreddit.custom ?? data!.subreddit.prefixed}
+            {data!.subreddit.prefixed}
           </a>
         </h2>
 
