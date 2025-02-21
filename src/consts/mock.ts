@@ -63,5 +63,5 @@ export const exampleSubreddit: TransformedData = {
       visited: false,
     },
   ],
-  subreddit: { name: 'example', prefixed: 'r/example', url: '' },
+  subreddit: { name: 'example', original: 'example', prefixed: 'r/example', url: '' },
 };

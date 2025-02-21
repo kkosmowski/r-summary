@@ -24,6 +24,11 @@ type MergeOptions = {
   name?: string;
 };
 
+type UpdateOptions = {
+  newName?: string;
+  reset?: boolean;
+};
+
 type SubredditsContextValue = {
   subreddits: string[];
   globalFilters: Filters;
@@ -36,11 +41,13 @@ type SubredditsContextValue = {
   removeAll: VoidFunction;
   getFilters: (name: string) => Filters;
   setFilters: (name: string, value: Filters) => void;
-  getMerged: (name: string) => string[];
+  getDetails: (name: string) => string[];
   move: (name: string, index: number) => void;
   swap: (nameA: string, nameB: string) => void;
   merge: (subreddit: string, newSubreddit: string, options?: MergeOptions) => void;
-  update: (oldName: string, newName: string) => void;
+  update: (oldName: string, options: UpdateOptions) => void;
+  removeFromMerged: (feed: string, subreddit: string) => void;
+  splitFromMerged: (feed: string, subreddit: string) => void;
   saveDefaultFilters: VoidFunction;
 };
 
@@ -56,11 +63,13 @@ const SubredditsContext = createContext<SubredditsContextValue>({
   removeAll: () => {},
   getFilters: () => defaultFeedFilters,
   setFilters: () => {},
-  getMerged: () => [],
+  getDetails: () => [],
   move: () => {},
   swap: () => {},
   merge: () => {},
   update: () => {},
+  removeFromMerged: () => {},
+  splitFromMerged: () => {},
   saveDefaultFilters: () => {},
 });
 
@@ -144,7 +153,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
     [setSubreddits],
   );
 
-  const getMerged = useCallback(
+  const getDetails = useCallback(
     (name: string) => {
       return subreddits.details[name] ?? [name];
     },
@@ -226,6 +235,7 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
           current.details[subredditA] = current.details[subredditA]
             ? [...current.details[subredditA], subredditB]
             : [subredditA, subredditB];
+
           // clear A data to refetch it
           clearData(subredditA);
 
@@ -237,25 +247,35 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
         } else if (options.name) {
           // renamed feed A to new name
           renameSubredditHelperFn(current, subredditA, options.name);
+
           current.details[options.name] = current.details[subredditA]
             ? [...current.details[subredditA], subredditB]
             : current.details[options.name]
               ? [...current.details[options.name], subredditB]
               : [subredditA, subredditB];
+
           // remove feed B and clear A & B data
           current = removeSubredditHelperFn(current, subredditB);
-          delete current.items[subredditA];
-          delete current.details[subredditA];
-          delete current.items[subredditB];
-          delete current.details[subredditB];
+
+          if (subredditA !== options.name) {
+            delete current.items[subredditA];
+            delete current.details[subredditA];
+          }
+          if (subredditB !== options.name) {
+            delete current.items[subredditB];
+            delete current.details[subredditB];
+          }
+
           clearData(subredditA);
           clearData(subredditB);
         } else if (options.switch) {
           // feed B will now contain A & B
           renameSubredditHelperFn(current, subredditA, subredditB);
+
           current.details[subredditB] = current.details[subredditB]
             ? [...current.details[subredditB], subredditA]
             : [subredditB, subredditA];
+
           // remove feed A and clear A data
           delete current.items[subredditA];
           delete current.details[subredditA];
@@ -269,12 +289,42 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
   );
 
   const update = useCallback(
-    (oldName: string, newName: string) => {
+    (oldName: string, options: UpdateOptions) => {
       setSubreddits((current) => {
-        renameSubredditHelperFn(current, oldName, newName, true);
+        if (options.newName) {
+          renameSubredditHelperFn(current, oldName, options.newName, true, false);
+        } else if (options.reset) {
+          const originalName = current.details[oldName][0];
+          renameSubredditHelperFn(current, oldName, originalName, true, true);
+        }
+
         delete current.items[oldName];
         delete current.details[oldName];
         clearData(oldName);
+        return { ...current };
+      });
+    },
+    [setSubreddits],
+  );
+
+  const removeFromMerged = useCallback(
+    (feed: string, subreddit: string) => {
+      setSubreddits((current) => {
+        current.details[feed] = current.details[feed].filter((item) => item !== subreddit);
+        clearData(feed);
+        return { ...current };
+      });
+    },
+    [setSubreddits],
+  );
+
+  const splitFromMerged = useCallback(
+    (feed: string, subreddit: string) => {
+      setSubreddits((current) => {
+        current.details[feed] = current.details[feed].filter((item) => item !== subreddit);
+        current.order = current.order.flatMap((item) => (item === feed ? [feed, subreddit] : item));
+        current.items[subreddit] = defaultFeedFilters;
+        clearData(feed);
         return { ...current };
       });
     },
@@ -290,11 +340,13 @@ export const SubredditsController = ({ children }: PropsWithChildren) => {
         removeAll,
         getFilters,
         setFilters,
-        getMerged,
+        getDetails,
         move,
         swap,
         merge,
         update,
+        removeFromMerged,
+        splitFromMerged,
         filterOptions,
         addFilterOption,
         globalFilters,

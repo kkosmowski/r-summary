@@ -13,15 +13,15 @@ export type PickOmitPopupProps = PopupProps & {
 };
 
 export const PickOmitPopup = ({ type, text, anchor, open, onClose }: PickOmitPopupProps) => {
-  const { r } = useRedditFeed();
+  const { feed } = useRedditFeed();
   const { pick, omit } = usePickOmit();
 
   const handlePick = () => {
-    pick(text, type, r);
+    pick(text, type, feed);
   };
 
   const handleOmit = () => {
-    omit(text, type, r);
+    omit(text, type, feed);
   };
 
   return (

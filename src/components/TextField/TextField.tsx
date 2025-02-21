@@ -49,7 +49,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             {...inputProps}
           />
         </div>
-        {isSuccess && <CheckIcon color="success" className={styles.icon} />}
+        {isSuccess && <CheckIcon color="success" className={cn(styles.icon, label && styles.iconWithMargin)} />}
       </span>
     );
   },

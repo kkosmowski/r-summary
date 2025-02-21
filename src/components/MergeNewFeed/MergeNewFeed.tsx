@@ -27,7 +27,7 @@ export const MergeNewFeed = ({ subreddit }: MergeNewFeedProps) => {
       <AddFeedForm
         label="New feed"
         onAdd={handleMergeIntoExisting}
-        submitTooltip={'Merge into "frontend"'}
+        submitTooltip={`Merge into "${subreddit}"`}
         additionalButton={(value, invalid, disabled) => (
           <Tooltip title={value && !invalid ? `Merge into "${value}"` : ''}>
             <Button icon={<AddIcon />} color="primary" disabled={disabled} onClick={() => handleMergeIntoNew(value)} />

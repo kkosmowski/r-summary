@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Button } from '~/components/Button';
 
 import { Select } from '~/components/Select';
@@ -13,6 +13,8 @@ type MergeWithExistingFeedProps = {
   subreddit: string;
 };
 
+const emptyOption = { value: undefined, label: undefined };
+
 export const MergeWithExistingFeed = ({ subreddit }: MergeWithExistingFeedProps) => {
   const [selectedFeed, setSelectedFeed] = useState<string | undefined>(undefined);
   const [name, setName] = useState(subreddit);
@@ -22,9 +24,10 @@ export const MergeWithExistingFeed = ({ subreddit }: MergeWithExistingFeedProps)
     [subreddit, subreddits],
   );
 
-  const handleMerge = () => {
+  const handleMerge = useCallback(() => {
+    setSelectedFeed(undefined);
     merge(subreddit, selectedFeed!, { name });
-  };
+  }, [subreddit, selectedFeed, name, setSelectedFeed]);
 
   const handleFeedChange = (value: string) => {
     setSelectedFeed(value);
@@ -38,7 +41,7 @@ export const MergeWithExistingFeed = ({ subreddit }: MergeWithExistingFeedProps)
         <Select
           className={styles.select}
           placeholder="Choose a feed"
-          value={selectedFeed ? stringToOption(selectedFeed) : undefined}
+          value={selectedFeed ? stringToOption(selectedFeed) : emptyOption}
           options={remainingFeeds}
           onChange={(value) => handleFeedChange((value as Option).value)}
           label="Select feed"

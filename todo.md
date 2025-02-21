@@ -31,9 +31,9 @@
   - [x] Add option in settings to show subreddit name in the posts in merged feeds
   - [x] Merge two existing feeds into one
   - [x] Allow changing name of feeds (to one of merged subreddits or custom one)
-  - [ ] Allow separating merged feed
+  - [x] Allow separating merged feed
   - [ ] Merge feed filters when merging feeds
   - [ ] More than 2 subreddits in a feed
 - [ ] Handle portals
-- [ ] Add option to refresh only one of subreddits in a merged feed
+- [ ] Improved loading view
 - [ ] Add random tips in top of the app with option to hide them (+ option to show/hide in the settings) 

@@ -48,12 +48,14 @@ export const prepareData = ({
   }
 
   const basicData = data.data.children[0].data;
+  const isCustomName = options?.feed !== basicData.subreddit.toLowerCase();
 
   const transformed = {
     subreddit: {
       isMerged,
-      name: options?.feed ?? basicData.subreddit.toLowerCase(),
-      prefixed: options?.feed ?? basicData.subreddit_name_prefixed.toLowerCase(),
+      original: basicData.subreddit.toLowerCase(),
+      name: isCustomName ? options?.feed! : basicData.subreddit.toLowerCase(),
+      prefixed: isCustomName ? options?.feed! : basicData.subreddit_name_prefixed.toLowerCase(),
       url: isMerged ? '' : `${REDDIT_URL}/${basicData.subreddit_name_prefixed.toLowerCase()}`,
     },
     items: data.data.children

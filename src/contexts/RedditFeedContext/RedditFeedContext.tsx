@@ -8,7 +8,7 @@ import { PostItem, TransformedData } from '~/types/reddit';
 import { markPostAsRead } from './RedditFeedContext.utils';
 
 type RedditFeedContextValue = {
-  r: string;
+  feed: string;
   data: TransformedData | undefined;
   filteredItems: PostItem[] | undefined;
   isLoading: boolean;
@@ -20,7 +20,7 @@ type RedditFeedContextValue = {
 
 const RedditFeedContext = createContext<RedditFeedContextValue>({
   data: undefined,
-  r: '',
+  feed: '',
   filteredItems: undefined,
   isLoading: true,
   isSuccess: false,
@@ -29,11 +29,11 @@ const RedditFeedContext = createContext<RedditFeedContextValue>({
   readPost: () => {},
 });
 
-export const RedditFeedController = ({ r, children }: PropsWithChildren<{ r: string }>) => {
-  const { getMerged } = useSubreddits();
-  const subredditsToFetch = useMemo(() => getMerged(r), [r, getMerged]);
+export const RedditFeedController = ({ feed, children }: PropsWithChildren<{ feed: string }>) => {
+  const { getDetails } = useSubreddits();
+  const subredditsToFetch = useMemo(() => getDetails(feed), [feed, getDetails]);
   const { isLoading, isSuccess, data, refetch, isRefetching } = useFetchReddit(subredditsToFetch, {
-    feed: r,
+    feed,
   });
   const [localData, setLocalData] = useState<TransformedData | undefined>(data);
   const filteredItems = useFilterData(localData);
@@ -49,7 +49,7 @@ export const RedditFeedController = ({ r, children }: PropsWithChildren<{ r: str
   return (
     <RedditFeedContext.Provider
       value={{
-        r,
+        feed,
         data: localData,
         filteredItems,
         isLoading,
